@@ -13,7 +13,7 @@ void Mesh::Load()
 {
 	GLuint index_buffer;
 	GLuint vertex_buffer;
-	GLuint uv_buffer;
+
 
 	// Create and populate the buffer objects using separate buffers
 	//Create and set-up the vertex array object
@@ -34,7 +34,7 @@ void Mesh::Load()
 	gl::VertexAttribPointer(locl, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
 	gl::EnableVertexAttribArray(locl);  //Enables the array for vertex
 
-										//Indices
+	//Indices
 	gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, index_buffer);//activates the buffer for the indicies //Putting the data into the buffer
 	gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), &m_indices[0], gl::STATIC_DRAW);//finds how big the buffer needs to be
 }
@@ -46,40 +46,6 @@ void Mesh::Draw()
 	gl::BindVertexArray(0);
 }
 
-void Mesh::transformCube(const glm::vec3 t, const glm::vec3 s, const glm::vec3 r, const float a)
-{
-	float angle = a;
-	glm::vec3 rotate = r;
-	glm::vec3 scale = s;
-	glm::vec3 translate = t;
-
-	m_model = glm::rotate(glm::radians(angle), rotate)  * glm::scale(glm::vec3(scale)) * glm::translate(glm::vec3(translate));
-	//m_model = glm::translate(glm::vec3(translate)) * glm::scale(glm::vec3(scale)) * glm::rotate(glm::radians(angle), rotate);
-}
-
-void Mesh::translate(const glm::vec3 t)
-{
-	glm::vec3 translate = t;
-	m_model *= glm::translate(glm::vec3(translate));
-}
-
-void Mesh::scale(const glm::vec3 s)
-{
-	glm::vec3 scale = s;
-	m_model *= glm::scale(glm::vec3(scale));
-}
-
-void Mesh::rotate(const float a, const glm::vec3 r)
-{
-	m_model *= glm::rotate(glm::radians(a), r); 
-}
-
-
-
-glm::mat4 Mesh::getModelMatrix()
-{
-	return m_model;
-}
 
 void Mesh::cubeMap(std::string s, const GLchar s2) {
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
@@ -112,4 +78,13 @@ void Mesh::cubeMap(std::string s, const GLchar s2) {
 	
 	GLuint loc2 = gl::GetUniformLocation(programHandleID, &s2);
 	gl::Uniform1i(loc2, 0);
+}
+void Mesh::setVertrices(std::vector<glm::vec3> v)
+{
+	m_vertices = v;
+}
+
+void Mesh::setIndices(std::vector<int> i)
+{
+	m_indices = i;
 }

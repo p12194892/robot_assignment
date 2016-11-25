@@ -131,6 +131,7 @@
     <ClInclude Include="include\cube.h" />
     <ClInclude Include="include\CubeMapScene.h" />
     <ClInclude Include="include\defines.h" />
+    <ClInclude Include="include\FileReader.h" />
     <ClInclude Include="include\gl_core_4_3.hpp" />
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\QuatCamera.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="source\Bitmap.cpp" />
     <ClCompile Include="source\cube.cpp" />
     <ClCompile Include="source\CubeMapScene.cpp" />
+    <ClCompile Include="source\FileReader.cpp" />
     <ClCompile Include="source\gl_core_4_3.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Mesh.cpp" />

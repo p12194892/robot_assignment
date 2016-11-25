@@ -12,6 +12,5 @@ class cube : public Mesh
 		cube();
 		cube(GLuint programID);
 
-
 		//void cubeMap(std::string s);
 };

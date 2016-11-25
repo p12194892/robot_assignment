@@ -46,21 +46,21 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 	if (key == GLFW_KEY_DOWN && action == GLFW_RELEASE) {
 		scene->keyPress(false, 'W');
 	}
-	//if (key == GLFW_KEY_RIGHT == GLFW_PRESS) {
-	//	scene->keyPress(true, 'R');
-	//}
+	if (key == GLFW_KEY_P == GLFW_PRESS) {
+		scene->keyPress(true, 'P');
+	}
 
-	//if (key == GLFW_KEY_RIGHT && action == GLFW_RELEASE) {
-	//	scene->keyPress(false, 'R');
-	//}
+	if (key == GLFW_KEY_P && action == GLFW_RELEASE) {
+		scene->keyPress(false, 'p');
+	}
 
-	//if (key == GLFW_KEY_LEFT == GLFW_PRESS) {
-	//	scene->keyPress(true, 'L');
-	//}
+	if (key == GLFW_KEY_O == GLFW_PRESS) {
+		scene->keyPress(true, 'O');
+	}
 
-	//if (key == GLFW_KEY_LEFT && action == GLFW_RELEASE) {
-	//	scene->keyPress(false, 'L');
-	//}
+	if (key == GLFW_KEY_O && action == GLFW_RELEASE) {
+		scene->keyPress(false, 'O');
+	}
 
 	//Turn the robot around 
 	if (key == GLFW_KEY_D == GLFW_PRESS) {

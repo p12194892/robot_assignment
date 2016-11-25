@@ -7,16 +7,7 @@ cube::cube()
 
 cube::cube(GLuint programID)
 {
-	//m_vertices.push_back(glm::vec3(-10.0f, -10.0, 10.0f));//0 V1
-	//m_vertices.push_back(glm::vec3(10.0f, -10.0f, 10.0f));//1 V2
-	//m_vertices.push_back(glm::vec3(10.0f, 10.0f, 10.0f));//2 V3
-	//m_vertices.push_back(glm::vec3(-10.0f, 10.0f, 10.0f));//3 V4
-	//m_vertices.push_back(glm::vec3(-10.0f, -10.0f, -10.0f));//4 V5
-	//m_vertices.push_back(glm::vec3(10.0f, -10.0f, -10.0f));//5 V6
-	//m_vertices.push_back(glm::vec3(10.0f, 10.0, -10.0f));//6 V7
-	//m_vertices.push_back(glm::vec3(-10.0f, 10.0f, -10.0f));//7 V8
-
-
+	//1*1*1 Generic cube
 	m_vertices.push_back(glm::vec3(-1.0f, -1.0, 1.0f));//0 V1
 	m_vertices.push_back(glm::vec3(1.0f, -1.0f, 1.0f));//1 V2
 	m_vertices.push_back(glm::vec3(1.0f, 1.0f, 1.0f));//2 V3
