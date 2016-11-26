@@ -33,6 +33,7 @@ private:
 	float m_fRobotAngle;//!< The angle of the robot 
 	void linkMe(GLint vertShader, GLint fragShader); //!< Links the shader
 	Mesh* cube1;
+	glm::mat4 m_ModelMatrix2; //!< Model view matrix of the READ IN CUBE
 	float m_fSpeed;
 	float m_fAngle;
 

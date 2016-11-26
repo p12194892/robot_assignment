@@ -130,14 +130,10 @@ void CubeMapScene::initScene(QuatCamera camera)
     linkMe(vertShader, fragShader);
 
     /////////////////// Create the VBO //////////////////
-	
-	/*m_Box = new cube(programHandle);
-	m_Box->cubeMap("resources/rmap", GLchar("cube_texture2"));
-	m_Box->transformCube(glm::vec3(15, 0, 0), glm::vec3(0.25, 0.25, 0.25), glm::vec3(0.0, 0.0, 0.0), 0);*/
 
 	//Create the room
-	m_Room = new cube(m_ProgramHandle);
-//	m_ModelMatrix = glm::scale(glm::vec3(30));
+	  m_Room = new cube(m_ProgramHandle);
+	 m_ModelMatrix = glm::scale(glm::vec3(30));
 
 	m_Room->cubeMap("resources/cubemap", GLchar("cube_texture"));
 	
@@ -152,14 +148,14 @@ void CubeMapScene::initScene(QuatCamera camera)
 	gl::Enable(gl::DEPTH_TEST);
 
 
-	//Reading in a cube with a file reader
+//////EXAMPLE OF CUBE BEING READ IN BY OBJ READER AND BEING RENDERED///
 	cube1 = new Mesh;
 	m_Read = new FileReader();
-	std::string s = "resources/obj/cube.obj";
-	m_Read->ReadFile(s);
+	m_Read->ReadFile("resources/obj/cube.obj");
 	cube1->setVertrices(m_Read->getVertexPoints());
 	cube1->setIndices(m_Read->getIndices());
-	cube1->Load();
+	cube1->Load(m_ProgramHandle);
+	m_ModelMatrix2 = glm::translate(glm::vec3(10.0, -29.0, 0.0));
 
 }
 
@@ -220,20 +216,18 @@ void CubeMapScene::render(QuatCamera camera)
     gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
 	//Draw robot
-	//gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), true);
-	//gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), 2);
-	//m_Robot->DrawRobot(camera, m_ProgramHandle, m_StartPosition, m_fRobotAngle);
+	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), true);
+	m_Robot->DrawRobot(camera, m_ProgramHandle, m_StartPosition, m_fRobotAngle);
 	
 	//Read in cube
-	//Not drawing out :(
-	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
-	UpdateModelMatrix(camera, m_ModelMatrix);
+	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), 0);
+	UpdateModelMatrix(camera, m_ModelMatrix2);
 	cube1->Draw();
 
 	//Room
-	//gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
-	//UpdateModelMatrix(camera, m_ModelMatrix);
-	//m_Room->Draw();
+	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
+	UpdateModelMatrix(camera, m_ModelMatrix);
+	m_Room->Draw();
 
 	
 }

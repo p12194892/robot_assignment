@@ -15,9 +15,9 @@ FileReader::FileReader()
 
 }
 
-void FileReader::ReadFile(std::string fileName)
+void FileReader::ReadFile(const char  * filename)
 {	
-		FILE * file = fopen("resources/obj/cube2.obj", "r");
+		FILE * file = fopen(filename, "r");
 		if (file == NULL) {
 			printf("Impossible to open the file !\n");
 		}
@@ -59,7 +59,7 @@ void FileReader::ReadFile(std::string fileName)
 			else if (strcmp(lineHeader, "f") == 0) {
 				std::string vertex1, vertex2, vertex3;
 				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+				int matches = fscanf(file, " %d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
 					printf("File can't be read by our simple parser : ( Try exporting with other options\n");
 					break;
@@ -76,7 +76,12 @@ void FileReader::ReadFile(std::string fileName)
 			}
 
 	}
-		cout << "Loaded mesh from: " << fileName << endl;
+		
+		for (unsigned int i = 0; i < m_VertexIndices.size(); i++) {
+			unsigned int vertexIndex = m_VertexIndices[i];
+			out_vertices.push_back(vertexIndex - 1);
+		}
+		cout << "Loaded mesh from: " << filename << endl;
 }
 
 
@@ -97,5 +102,5 @@ vector <glm::vec2> FileReader::getTexPoints()
 
 vector<int> FileReader::getIndices()
 {
-	return m_VertexIndices;
+	return out_vertices;
 }

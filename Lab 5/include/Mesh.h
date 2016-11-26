@@ -13,11 +13,12 @@ class Mesh
 		GLuint vaoHandle;
 		GLuint programHandleID;
 
+
 	public:
 		Mesh();
 		void Draw();
 		void cubeMap(std::string s, const GLchar s2);
 		void setVertrices(std::vector<glm::vec3> v);
 		void setIndices(std::vector< int> i);
-		void Load();
+		void Load(GLuint programID);
 };

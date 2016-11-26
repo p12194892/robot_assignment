@@ -34,6 +34,6 @@ cube::cube(GLuint programID)
 
 
 	programHandleID = programID;
-	Load();
+	Load(programHandleID);
 }
 

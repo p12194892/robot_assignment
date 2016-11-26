@@ -9,8 +9,9 @@ Mesh::Mesh() {
 
 }
 
-void Mesh::Load()
+void Mesh::Load(GLuint programID)
 {
+	programHandleID = programID;
 	GLuint index_buffer;
 	GLuint vertex_buffer;
 

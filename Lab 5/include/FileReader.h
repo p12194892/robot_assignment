@@ -17,11 +17,11 @@ private:
 	vector <int> m_VertexIndices;
 	vector <int> m_uvIndices;
 	vector <int> m_normalIndices;
-
+	vector <int> out_vertices;
 
 public:
 	FileReader();
-	void ReadFile(std::string fileName);
+	void ReadFile(const char * filename);
 	vector <glm::vec3> getVertexPoints();
 	vector <glm::vec3> getNormals();
 	vector <glm::vec2> getTexPoints();
