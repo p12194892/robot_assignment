@@ -4,6 +4,17 @@
 #include "CubeMapScene.h"
 #include "QuatCamera.h"
 #include <string>
+
+//MAC Includes & Linux //Cannot test due to the emulator not working on my laptop
+#ifdef __APPLE__
+#include <GLFW/glfw3.h>
+#else
+#ifdef _WIN32
+#include <windows.h>
+#include <GLFW/glfw3.h>
+#endif
+#endif
+
 using std::string;
 
 #define MOVE_VELOCITY 0.01f

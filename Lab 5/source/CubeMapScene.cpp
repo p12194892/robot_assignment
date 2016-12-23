@@ -17,7 +17,28 @@ using std::ifstream;
 #include <glm/gtx/transform.hpp>
 using std::string;
 
-
+//MAC Includes & Linux //Cannot test due to the emulator not working on my laptop
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#else
+#ifdef _WIN32
+#include <windows.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#endif
+#include <GL/gl.h>
+#include <GL/glu.h>
+#endif
 //#define SINGLE_BUFFER
 
 CubeMapScene::CubeMapScene() {}

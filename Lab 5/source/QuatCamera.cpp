@@ -131,9 +131,9 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 /////////////////////////////////////////////////////////////////////////////////////////////
 	void QuatCamera::rotate(const float yaw, const float pitch)
 	{
-		_orientation = glm::normalize(fromAxisAngle(_xaxis, pitch)*_orientation);
+		_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*_orientation);
 	
-		_orientation = glm::normalize(_orientation * fromAxisAngle(_yaxis, yaw));
+		_orientation = glm::normalize(_orientation * fromAxisAngle(WORLDY, yaw));
 		
 	/*	_orientation = glm::normalize(_orientation*fromAxisAngle(_xaxis, pitch));
 
@@ -215,7 +215,7 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 /////////////////////////////////////////////////////////////////////////////////////////////
 	void QuatCamera::roll(const float z)
 	{
-		_orientation = glm::normalize(fromAxisAngle(_zaxis, z) *_orientation);
+		_orientation = glm::normalize(fromAxisAngle(WORLDZ, z) *_orientation);
 		updateView();
 		/* TO DO */
 		/* The middle mouse button is set up to call this method
