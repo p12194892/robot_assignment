@@ -39,6 +39,7 @@ private:
 	Mesh* m_LeftFoot; //!< The mesh of the left foot
 	Mesh* m_RightFoot; //!< The mesh of the right foot
 	glm::mat4 m_ModelMatrix; //!< Model matrix of the entire robot
+	glm::mat4 MVP;
 public:
 	Robot(); //!< Default constructor
 	Robot(GLuint programID/*!The main program handle*/); //!< Constructor 

@@ -6,6 +6,8 @@
 #include <glm\glm.hpp>
 #include <iostream>
 #include <fstream>
+#include <SFML/Graphics.hpp> 
+
 using std::ifstream;
 #include <sstream>
 #include <glm\gtc\type_ptr.hpp>
@@ -16,6 +18,8 @@ using std::ifstream;
 #include <glm\gtc\type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 using std::string;
+
+
 
 //MAC Includes & Linux //Cannot test due to the emulator not working on my laptop
 #ifdef __APPLE__
@@ -45,6 +49,10 @@ CubeMapScene::CubeMapScene() {}
 
 void CubeMapScene::initScene(QuatCamera camera)
 {
+	////////////////////////NEED A FUNCTION TO DISABLE THE CAMERA WHEN IT IS GAME STATE 0///////////////////////////
+	//Game States
+	m_cGameState = 0; //Game state, 0 = Splash Screen
+
 	m_bKeyPress = false;
     //////////////////////////////////////////////////////
     /////////// Vertex shader //////////////////////////
@@ -152,32 +160,59 @@ void CubeMapScene::initScene(QuatCamera camera)
 
     /////////////////// Create the VBO //////////////////
 
-	//Create the room
-	  m_Room = new cube(m_ProgramHandle);
-	 m_ModelMatrix = glm::scale(glm::vec3(30));
+	if (m_cGameState == 0)
+	{
+		//Making the splash screen -  WILL BE CREATED INTO A FUNCTION SOON
+		m_ss = new SplashScreen(m_ProgramHandle);
+		gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "bSplashScreenState"), true);
+		m_ModelMatrix3 = glm::translate(glm::vec3(-2.0, -27.0, 18.0));
+		m_ModelMatrix3 *= glm::scale(glm::vec3(13));
 
-	m_Room->cubeMap("resources/cubemap", GLchar("cube_texture"));
-	
-	//Create Robot
-	m_Robot = new Robot(m_ProgramHandle);
-
-	//Set start position
-	m_StartPosition = { 0.0,-14.0,0.0 };
-	m_fRobotAngle = 0;
-
-	//Make a class for mesh data
-	gl::Enable(gl::DEPTH_TEST);
+	}
 
 
-//////EXAMPLE OF CUBE BEING READ IN BY OBJ READER AND BEING RENDERED///
-	cube1 = new Mesh;
-	m_Read = new FileReader();
-	m_Read->ReadFile("resources/obj/cube.obj");
-	cube1->setVertrices(m_Read->getVertexPoints());
-	cube1->setIndices(m_Read->getIndices());
-	cube1->Load(m_ProgramHandle);
-	m_ModelMatrix2 = glm::translate(glm::vec3(10.0, -29.0, 0.0));
+//	if (m_cGameState == 1)
+//	{
+		//Create the room
+		m_Room = new cube(m_ProgramHandle);
+		m_ModelMatrix = glm::scale(glm::vec3(40));
 
+		m_Room->cubeMap("resources/cubemap", GLchar("cube_texture"));
+
+		//new lighting
+		//compileAndLinkShader();
+
+		//Set up the lighting
+		//setLightParams(camera);
+
+		//Create Robot
+		m_Robot = new Robot(m_ProgramHandle);
+
+		//Walking
+		m_fSpeed = 0.001f;
+		m_fAngle = 0.2f;
+
+		//Set start position
+		m_StartPosition = { 0.0,-24.0,0.0 };
+		m_fRobotAngle = 0.0;
+
+		//Make a class for mesh data
+		gl::Enable(gl::DEPTH_TEST);
+
+		
+		//////EXAMPLE OF CUBE BEING READ IN BY OBJ READER AND BEING RENDERED///
+		m_StartPositioncube = { 20.0, -39.0, 0.0 };
+
+		cube1 = new Mesh;
+		m_Read = new FileReader();
+		m_Read->ReadFile("resources/obj/cube.obj");
+		cube1->setVertrices(m_Read->getVertexPoints());
+		cube1->setIndices(m_Read->getIndices());
+		cube1->setNormals(m_Read->getNormals());
+
+		cube1->Load(m_ProgramHandle);
+		m_ModelMatrix2 = glm::translate(m_StartPositioncube);
+	//}
 }
 
 void CubeMapScene::linkMe(GLint vertShader, GLint fragShader)
@@ -227,28 +262,92 @@ void CubeMapScene::linkMe(GLint vertShader, GLint fragShader)
 
 void CubeMapScene::update(float t, QuatCamera camera)
 {
-	float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
 
-	m_Robot->Prepare(m_fAngle, m_fSpeed, fTime, m_bKeyPress);
+	switch (m_cGameState)
+	{
+		case 0:
+		//Any code for getting the splash screen button
+
+
+
+		break;
+
+		case 1:
+			float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
+			m_Robot->Prepare(m_fAngle, m_fSpeed, fTime, m_bKeyPress);
+
+			vec3 distance;
+			distance.x = m_StartPositioncube.x - m_StartPosition.x;
+			distance.z = m_StartPositioncube.z - m_StartPosition.z;
+
+
+			float d = sqrt(dot(distance, distance));
+			std::cout << d << endl << endl;
+
+			if (d < 2)
+			{
+				cube1->setDrawable(false);
+			}
+			break;
+	}
+
+
+
+	
 }
 
 void CubeMapScene::render(QuatCamera camera)
 {
-    gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+   gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
-	//Draw robot
-	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), true);
-	m_Robot->DrawRobot(camera, m_ProgramHandle, m_StartPosition, m_fRobotAngle);
+	switch (m_cGameState)
+	{
+		//Splash screen state
+		case 0:
 	
-	//Read in cube
-	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), 0);
-	UpdateModelMatrix(camera, m_ModelMatrix2);
-	cube1->Draw();
+			UpdateModelMatrix(camera, m_ModelMatrix3);
+			m_ss->Draw();
+			
+		break;
 
-	//Room
-	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
-	UpdateModelMatrix(camera, m_ModelMatrix);
-	m_Room->Draw();
+		//Simulation game state
+		case 1:
+			//Tells the shader not to render the splash screen
+			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "bSplashScreenState"), false);
+
+			//Draw robot
+			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), true);
+			m_Robot->DrawRobot(camera, m_ProgramHandle, m_StartPosition, m_fRobotAngle);
+
+			if (cube1->isDrawable())
+			{
+				//Read in cube
+				gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), 0);
+
+				UpdateModelMatrix(camera, m_ModelMatrix2);
+
+				//Setting material properties for the cube
+				prog.setUniform("Kd", 0.0f, 1.0f, 0.0f);
+				prog.setUniform("Ld", 0.0f, 1.0f, 0.0f);
+
+				prog.setUniform("Ka", 0.0f, 1.0f, 0.0f);
+				prog.setUniform("La", 0.0f, 0.1f, 0.0f);
+
+				prog.setUniform("Ks", 1.0f, 1.0f, 1.0f);
+				prog.setUniform("Ls", 0.2f, 0.2f, 0.2f);
+
+				cube1->Draw();
+			}
+
+			//Room
+			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
+			UpdateModelMatrix(camera, m_ModelMatrix);
+			//Draw the room
+			m_Room->Draw();
+		break;
+	}
+
+
 
 	
 }
@@ -261,9 +360,23 @@ void CubeMapScene::resize(QuatCamera camera,int w, int h)
 
 void CubeMapScene::UpdateModelMatrix(QuatCamera camera, glm::mat4 model)
 {
-
 	m_MVP = camera.projection() * (camera.view() * model);
 	gl::UniformMatrix4fv(gl::GetUniformLocation(m_ProgramHandle, "MVP"), 1, gl::FALSE_, &m_MVP[0][0]);
+
+	//Lighting stuff - See if this works?
+	mat4 mv = camera.view() * model;
+//	prog.setUniform("ModelViewMatrix", mv);
+	prog.setUniform("NormalMatrix",
+		mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
+//	prog.setUniform("MVP", camera.projection() * mv);
+	// the correct matrix to transform the normal is the transpose of the inverse of the M matrix
+	//mat3 normMat = glm::transpose(glm::inverse(mat3(model)));
+	prog.setUniform("M", model);
+	//prog.setUniform("NormalMatrix", normMat);
+	prog.setUniform("V", camera.view());
+	//prog.setUniform("P", camera.projection());
+
+
 }
 
 void CubeMapScene::keyPress(bool b, char c)
@@ -273,11 +386,13 @@ void CubeMapScene::keyPress(bool b, char c)
 
 	if (c == 'D')
 	{
+		//Rotating the robot
 		m_fRobotAngle -= 0.1f;
 	}
 
 	else if (c == 'S')
 	{
+
 		m_fRobotAngle += 0.1f;
 	}
 
@@ -285,22 +400,15 @@ void CubeMapScene::keyPress(bool b, char c)
 	{
 		m_StartPosition.x += -sin(m_fRobotAngle) * 0.3f;
 		m_StartPosition.z += -cos(m_fRobotAngle) * 0.3f;
-
-		//Walking
-		m_fSpeed = 0.01f;
-		m_fAngle = 0.1f;
 	}
 
 	else if (c == 'W')
 	{
 		m_StartPosition.x -= -sin(m_fRobotAngle) * 0.3f;
 		m_StartPosition.z -= -cos(m_fRobotAngle) * 0.3f;
-		//Walking
-		m_fSpeed = 0.01f;
-		m_fAngle = 0.1f;
 	}
 
-	else if (c == 'P')
+/*	else if (c == 'P')
 	{
 		//Running Key
 		m_StartPosition.x += -sin(m_fRobotAngle) * 1.0f;
@@ -319,6 +427,51 @@ void CubeMapScene::keyPress(bool b, char c)
 		m_fSpeed = 0.1f;
 		m_fAngle = 0.5f;
 	}
+	*/
+
+}
+
+void CubeMapScene::setLightParams(QuatCamera camera)
+{
+	vec3 worldLight = vec3(-5.0f, -5.0f, 5.0f);
+
+	//  prog.setUniform("Ld", 1.0f, 1.0f, 1.0f);
+	//  prog.setUniform("LightPosition", camera.view() * vec4(worldLight,1.0) );
+	prog.setUniform("LightPosition", worldLight);
+}
+
+void CubeMapScene::compileAndLinkShader()
+{
+	try {
+		prog.compileShader("resources/shader/basic.vert");
+		prog.compileShader("resources/shader/basic.frag");
+		prog.link();
+		prog.validate();
+		prog.use();
+	}
+	catch (GLSLProgramException & e) {
+		cerr << e.what() << endl;
+		exit(EXIT_FAILURE);
+	}
+}
+
+char CubeMapScene::getGameState()
+{
+	return m_cGameState;
+}
+
+void CubeMapScene::buttonPress(float x, float y)
+{
+	if (m_cGameState == 0) //If the game state is splash screen
+	{
+		//A way to find out if the splash screen has been clicked
 
 
+
+	}
+}
+
+void CubeMapScene::changeGameState(int i)
+{
+	m_cGameState = i;
 }

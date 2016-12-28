@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,33 +123,41 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="controller.h" />
     <ClInclude Include="include\Bitmap.h" />
+    <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\cube.h" />
     <ClInclude Include="include\CubeMapScene.h" />
     <ClInclude Include="include\defines.h" />
     <ClInclude Include="include\FileReader.h" />
+    <ClInclude Include="include\glslprogram.h" />
     <ClInclude Include="include\gl_core_4_3.hpp" />
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\QuatCamera.h" />
     <ClInclude Include="include\Robot.h" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\sceneTexture.h" />
+    <ClInclude Include="include\splashScreen.h" />
     <ClInclude Include="include\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="controller.cpp" />
     <ClCompile Include="source\Bitmap.cpp" />
+    <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\cube.cpp" />
     <ClCompile Include="source\CubeMapScene.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
+    <ClCompile Include="source\glslprogram.cpp" />
     <ClCompile Include="source\gl_core_4_3.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\QuatCamera.cpp" />
     <ClCompile Include="source\Robot.cpp" />
+    <ClCompile Include="source\splashScreen.cpp" />
     <ClCompile Include="source\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -163,12 +171,7 @@
     <Image Include="resources\cubemap_left.png" />
     <Image Include="resources\cubemap_right.png" />
     <Image Include="resources\cubemap_up.png" />
-    <Image Include="resources\rmap_back.png" />
-    <Image Include="resources\rmap_down.png" />
-    <Image Include="resources\rmap_front.png" />
-    <Image Include="resources\rmap_left.png" />
-    <Image Include="resources\rmap_right.png" />
-    <Image Include="resources\rmap_up.png" />
+    <Image Include="resources\shader\sign.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

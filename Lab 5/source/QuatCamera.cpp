@@ -109,11 +109,6 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 
 	glm::quat fromAxisAngle(glm::vec3 axis, float angle)
 	{
-			/*TO DO */
-		/*Need to return a Quaternion which will be used to change the camera orientation
-		  It will represent a rotation by 'angle' radians around the vector 'axis'
-		*/
-		
 		//conversion from axis-angle
 		//GLM must have an angle in degress so convert it
 		//Created a quaternion
@@ -133,31 +128,9 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 	{
 		_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*_orientation);
 	
-		_orientation = glm::normalize(_orientation * fromAxisAngle(WORLDY, yaw));
-		
-	/*	_orientation = glm::normalize(_orientation*fromAxisAngle(_xaxis, pitch));
-
-		_orientation = glm::normalize(fromAxisAngle(_yaxis, yaw)*_orientation );*/
-
-	
+		_orientation = glm::normalize(_orientation * fromAxisAngle(WORLDY, yaw));	
 		//Now call updateView()
 		updateView();
-
-
-
-
-		/* TODO */
-		/* Use method fromAxisAngle(...) to obtain a 'rotation' quaternion to rotate pitch around WORLDX
-		   then update camera orientation by multiplying rotation * _orientation.
-		   normalize the result.
-
-		   Then use method fromAxisAngle(...) to obtain a 'rotation' quaternion to rotate yaw around WORLDY
-		   then again update camera orientation by multiplying _orientation * rotation.
-		   Note the order of multiplication
-
-		   Lastly call updateView() to update the View matrix.
-	    */
-
 	}
 
 	
@@ -217,13 +190,6 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 	{
 		_orientation = glm::normalize(fromAxisAngle(WORLDZ, z) *_orientation);
 		updateView();
-		/* TO DO */
-		/* The middle mouse button is set up to call this method
-		   in order to roll the camera around its z-axis
-		   This requires similar processing to the rotate(...) method above
-		   but, of course, should update the camera 'orientation' with
-		   a roll
-		*/
 	}
 
 
@@ -238,7 +204,7 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 		_zaxis = WORLDZ;
 
 		//Initialise camera position 
-		_position= glm::vec3(0.0f,2.0f,20.0f);
+		_position= glm::vec3(-2.0f,-27.0f,20.0f);
 
 		//Initialise the orientation
 		_orientation = glm::quat(1.0,0.0,0.0,0.0);

@@ -6,6 +6,7 @@
 #include "Bitmap.h"
 
 Mesh::Mesh() {
+	m_bDrawable = true;
 
 }
 
@@ -14,8 +15,8 @@ void Mesh::Load(GLuint programID)
 	programHandleID = programID;
 	GLuint index_buffer;
 	GLuint vertex_buffer;
-
-
+	GLuint normal_buffer;
+	GLuint uv_buffer;
 	// Create and populate the buffer objects using separate buffers
 	//Create and set-up the vertex array object
 	//Holds the vbos
@@ -27,6 +28,12 @@ void Mesh::Load(GLuint programID)
 	//vertex buffer
 	gl::GenBuffers(1, &vertex_buffer);
 
+	//Normal buffer
+	gl::GenBuffers(1, &normal_buffer);
+
+	//uv buffer
+	gl::GenBuffers(1, &uv_buffer);
+
 	gl::BindVertexArray(vaoHandle);
 	//Positions
 	gl::BindBuffer(gl::ARRAY_BUFFER, vertex_buffer);
@@ -35,9 +42,78 @@ void Mesh::Load(GLuint programID)
 	gl::VertexAttribPointer(locl, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
 	gl::EnableVertexAttribArray(locl);  //Enables the array for vertex
 
+	if (m_normals.size() != 0)
+	{
+		//Normals
+		gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
+		gl::BufferData(gl::ARRAY_BUFFER, m_normals.size() * sizeof(glm::vec3), &m_normals[0], gl::STATIC_DRAW);
+		GLuint locl2 = gl::GetAttribLocation(programHandleID, "VertexNormal");
+		gl::VertexAttribPointer(locl2, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
+		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex
+	}
+	if (m_uvData.size() != 0)
+	{
+		//Texture
+		gl::BindBuffer(gl::ARRAY_BUFFER, uv_buffer);
+		gl::BufferData(gl::ARRAY_BUFFER, m_uvData.size() * sizeof(glm::vec2), &m_uvData[0], gl::STATIC_DRAW);
+		GLuint loc3 = gl::GetAttribLocation(programHandleID, "fragTexCoord");
+		gl::VertexAttribPointer(loc3, 2, gl::FLOAT, FALSE, sizeof(glm::vec2), (GLubyte *)NULL);
+		gl::EnableVertexAttribArray(loc3);	
+	}
+
 	//Indices
 	gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, index_buffer);//activates the buffer for the indicies //Putting the data into the buffer
 	gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), &m_indices[0], gl::STATIC_DRAW);//finds how big the buffer needs to be
+	
+	if (m_uvData.size() != 0)
+	{																											  
+		//Load the texture
+	/*	Bitmap bmp = Bitmap::bitmapFromFile(m_sTexName);
+		bmp.flipVertically();
+		m_gTexture = new Texture(bmp);
+
+		//Set texture
+		gl::ActiveTexture(gl::TEXTURE0);
+		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
+		GLint loc = gl::GetUniformLocation(programHandleID, "tex");
+		gl::Uniform1f(loc, 0);
+
+		gl::ActiveTexture(gl::TEXTURE1);
+		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
+		GLint l = gl::GetUniformLocation(programHandleID, "but");
+		gl::Uniform1f(l, 1);
+		//gl::Uniform1f(loc, 1);*/
+		loadTexture();
+	}
+}
+
+void Mesh::loadTexture()
+{
+	//Load the texture
+	Bitmap bmp = Bitmap::bitmapFromFile(m_sTexName);
+	bmp.flipVertically();
+	m_gTexture = new Texture(bmp);
+
+	//Set texture
+	if (m_iTexUnit == 1)
+	{
+		gl::ActiveTexture(gl::TEXTURE1);
+		gl::Uniform1i(gl::GetUniformLocation(programHandleID, "tex2"), m_iTexUnit);
+		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
+	}
+
+	else
+	{
+		gl::ActiveTexture(gl::TEXTURE0);
+		gl::Uniform1i(gl::GetUniformLocation(programHandleID, "tex"), m_iTexUnit);
+		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
+	}
+	
+
+	
+	//GLint loc = gl::GetUniformLocation(programHandleID, &m_TexType);
+	//gl::Uniform1f(loc, 0);
+
 }
 
 void Mesh::Draw()
@@ -46,7 +122,6 @@ void Mesh::Draw()
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
 	gl::BindVertexArray(0);
 }
-
 
 void Mesh::cubeMap(std::string s, const GLchar s2) {
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
@@ -80,6 +155,7 @@ void Mesh::cubeMap(std::string s, const GLchar s2) {
 	GLuint loc2 = gl::GetUniformLocation(programHandleID, &s2);
 	gl::Uniform1i(loc2, 0);
 }
+
 void Mesh::setVertrices(std::vector<glm::vec3> v)
 {
 	m_vertices = v;
@@ -88,4 +164,19 @@ void Mesh::setVertrices(std::vector<glm::vec3> v)
 void Mesh::setIndices(std::vector<int> i)
 {
 	m_indices = i;
+}
+
+void Mesh::setNormals(std::vector<glm::vec3> n)
+{
+	m_normals = n;
+}
+
+void Mesh::setDrawable(bool b)
+{
+	m_bDrawable = b;
+}
+
+bool Mesh::isDrawable()
+{
+	return m_bDrawable;
 }

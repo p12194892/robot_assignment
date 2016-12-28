@@ -51,6 +51,18 @@
     <ClInclude Include="include\FileReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\glslprogram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\splashScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
@@ -83,6 +95,18 @@
     <ClCompile Include="source\FileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\glslprogram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\splashScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shader\basic.frag">
@@ -111,22 +135,7 @@
     <Image Include="resources\cubemap_down.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="resources\rmap_back.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\rmap_down.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\rmap_front.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\rmap_left.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\rmap_right.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\rmap_up.png">
+    <Image Include="resources\shader\sign.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

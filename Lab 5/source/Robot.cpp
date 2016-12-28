@@ -65,7 +65,7 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//m_Head
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::scale(glm::vec3(1.0, 1.0, 1.0)) * glm::translate(glm::vec3(-2.0, -2.0, 0.0));
+	m_ModelMatrix *= glm::scale(glm::vec3(1.0, 1.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_Head->Draw();
 
@@ -73,7 +73,7 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//m_Torso
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::scale(glm::vec3(2.0, 3.0, 1.0)) * glm::translate(glm::vec3(-1.0, -2.0, 0.0));
+	m_ModelMatrix *= glm::scale(glm::vec3(2.0, 3.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_Torso->Draw();
 
@@ -82,14 +82,14 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//Left Arm
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fArmAngles[LEFT], glm::vec3(1.0,0.0,0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(-9.0, -3.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fArmAngles[LEFT], glm::vec3(1.0,0.0,0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(-5.0, -3.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_LeftArm->Draw();
 
 	//Right Arm
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fArmAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(1.0, -3.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fArmAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(5.0, -3.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_RightArm->Draw();
 
@@ -98,7 +98,7 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//right Leg
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-1.0, -4.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(1.5, -4.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_RightLeg->Draw();
 
@@ -106,7 +106,7 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//left Leg
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-4.0, -4.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-1.5, -4.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_LeftLeg->Draw();
 
@@ -115,14 +115,14 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 	//Left foot
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8,0.5, 1.2)) * glm::translate(glm::vec3(-4.0, -31.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8,0.5, 1.2)) * glm::translate(glm::vec3(-1.5, -31.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_LeftFoot->Draw();
 	
 	//Right foot
 	m_ModelMatrix = glm::translate(startPos);
 	m_ModelMatrix *= glm::rotate(angle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 0.5, 1.2)) * glm::translate(glm::vec3(-1.0, -31.0, 0.0));
+	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 0.5, 1.2)) * glm::translate(glm::vec3(1.5, -31.0, 0.0));
 	UpdateModelMatrix(c, programID);
 	m_RightFoot->Draw();
 
@@ -132,7 +132,7 @@ void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main p
 void Robot::UpdateModelMatrix(QuatCamera camera/*!The camera*/, GLuint programID/*!The main program handle*/)
 {
 
-	glm::mat4 MVP = camera.projection() * (camera.view() * m_ModelMatrix);
+ MVP = camera.projection() * (camera.view() * m_ModelMatrix);
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programID, "MVP"), 1, gl::FALSE_, &MVP[0][0]);
 }
 

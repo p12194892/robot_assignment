@@ -13,11 +13,16 @@
 #include "gl_core_4_3.hpp"
 #include "Robot.h"
 #include "FileReader.h"
-
+#include "glslprogram.h"
+#include "Button.h"
+#include "splashScreen.h"
 /*! \class CubeMapScene
 \brief The control of rendering the environment 
 */
 
+
+//WILL MAKE THIS BETTER ONCE EVERYTHING IS WORKING
+//MAY CHANGE TO THE CONTROLLER CLASS EVENTUALLY
 class CubeMapScene : public Scene
 {
 private:
@@ -33,13 +38,18 @@ private:
 	float m_fRobotAngle;//!< The angle of the robot 
 	void linkMe(GLint vertShader, GLint fragShader); //!< Links the shader
 	Mesh* cube1;
+	glm::vec3 m_StartPositioncube; //!< The starting position of the robot
 	glm::mat4 m_ModelMatrix2; //!< Model view matrix of the READ IN CUBE
 	float m_fSpeed;
 	float m_fAngle;
 
-
+	GLSLProgram prog;
 	FileReader* m_Read;
+	SplashScreen* m_ss;
+	Button* m_startButton;
 
+	char m_cGameState;
+	glm::mat4 m_ModelMatrix3;
 public:
 	CubeMapScene(); //!< Default constructor	
 	void initScene(QuatCamera camera); //!< Initialise the scene 
@@ -48,5 +58,13 @@ public:
 	void resize(QuatCamera camera, int, int); //!< Resizing the view port
  	void keyPress(bool b, char c); //!< Detects when a key is press
 	void UpdateModelMatrix(QuatCamera camera, glm::mat4 model); //!< Update the model matrix
+//NEW LIGHTING STUFF
+//WILL MAKE IT'S OWN CLASS WHEN WORKING
+	void setLightParams(QuatCamera camera);
+	void compileAndLinkShader();
+	char getGameState();
+	void buttonPress(float x, float y);
+	void changeGameState(int i);
+
 };
 #endif  
