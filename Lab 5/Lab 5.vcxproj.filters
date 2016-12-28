@@ -13,99 +13,123 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{6bbf6f5f-0e2c-4776-9dab-dee3a0c9842c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{8aab53ca-9d6a-48f8-9986-3179935e4d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Logic">
+      <UniqueIdentifier>{457affcf-34db-4446-b276-d8bfef8a8729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Objects">
+      <UniqueIdentifier>{959ad200-bde6-4ba5-9321-916e5aa0a372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data Driven">
+      <UniqueIdentifier>{cce58bf2-077e-40fd-b45b-e5bfcb786e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{1968517f-0566-44b0-9168-01d7fbbb6151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data Driven">
+      <UniqueIdentifier>{ecbad061-72f1-436d-877a-276b11eae753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Objects">
+      <UniqueIdentifier>{8b1a9b59-2f57-4cad-a86d-e83c2439c8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Logic">
+      <UniqueIdentifier>{e03d4620-e994-48cc-bf0f-4e2d88fc7a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Program Entry">
+      <UniqueIdentifier>{3e92c5bf-e463-4075-a007-e46431ad053c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{9b84cecf-8b0e-4820-ae15-f13a461f3b48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\gl_core_4_3.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Bitmap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CubeMapScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\scene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sceneTexture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\QuatCamera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\defines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Robot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FileReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\glslprogram.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\splashScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
     <ClInclude Include="include\Button.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cube.h">
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gl_core_4_3.hpp">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sceneTexture.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scene.h">
+      <Filter>Header Files\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glslprogram.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Robot.h">
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh.h">
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FileReader.h">
+      <Filter>Header Files\Data Driven</Filter>
+    </ClInclude>
+    <ClInclude Include="include\splashScreen.h">
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameLogic.h">
+      <Filter>Header Files\Game Logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CubeMapScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\gl_core_4_3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\QuatCamera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Robot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FileReader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\glslprogram.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\splashScreen.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\FileReader.cpp">
+      <Filter>Source Files\Data Driven</Filter>
     </ClCompile>
     <ClCompile Include="source\Button.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\cube.cpp">
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\gl_core_4_3.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files\Program Entry</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Mesh.cpp">
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\QuatCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Robot.cpp">
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\splashScreen.cpp">
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameLogic.cpp">
+      <Filter>Source Files\Game Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

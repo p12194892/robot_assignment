@@ -8,6 +8,7 @@
 
 class QuatCamera 
 {
+
 public:
 
 	QuatCamera();  //Constructor
@@ -34,15 +35,18 @@ public:
 
 	void updateView();  //Update the camera
 
-	void reset(void); //Reset the camera
+	void reset(glm::vec3 pos, glm::vec3 ori); //Reset the camera
 
 	glm::mat4 view(); //Get the View matrix
 
 	glm::mat4 projection(); //Get the Projection matrix
-	
+	 
+	void updateMVP(glm::mat4 model);
+	glm::mat4 getMVP();
+
+	//void setLowCamera();
 
 private:
-
 	float _fieldOfView;
 	float _nearPlane;
 	float _farPlane;
@@ -59,6 +63,5 @@ private:
 
 	glm::mat4 _view;
 	glm::mat4 _projection;
-
-
+	glm::mat4 m_MVP;
 };

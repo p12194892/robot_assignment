@@ -1,7 +1,7 @@
 #include "gl_core_4_3.hpp"
 #include <GLFW/glfw3.h>
 #include "scene.h"
-#include "CubeMapScene.h"
+#include "GameLogic.h"
 #include "QuatCamera.h"
 #include "splashScreen.h"
 #include <string>
@@ -22,7 +22,7 @@ using std::string;
 #define ROTATE_VELOCITY 0.00001f
 
 //The Scene
-CubeMapScene *scene;
+GameLogic *scene;
 
 //The GLFW Window
 GLFWwindow *window;
@@ -47,7 +47,7 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 			scene->animate(!(scene->animating()));
 	//Resets the camera
 	if (key == 'R' && action == GLFW_RELEASE)
-		camera.reset();
+		camera.reset(glm::vec3(-2.0f, -27.0f,20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 
 	//Start button for use of the splash screen
 	if (scene->getGameState() == 0)
@@ -110,9 +110,21 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 			scene->keyPress(false, 'S');
 		}
 
-		//Second fixed camera that follows the robot around
-		if (key == GLFW_KEY_F && action == GLFW_RELEASE) {
+		//Sets the camera to a low position
+		if (key == GLFW_KEY_1 && action == GLFW_RELEASE) {
+			//make the numbers set numbers within the camera!
+			camera.reset(glm::vec3(-20.0f, -38.0f, 31.0f), glm::vec3(-0.0147318f, -0.323816f, -0.00558566f));
+		}
 
+		//Sets the camera to have a top down view
+		if (key == GLFW_KEY_2 && action == GLFW_RELEASE) {
+			//make the numbers set numbers within the camera!
+			camera.reset(glm::vec3(2.22959f, -38.30103f, -0.91515f), glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
+		}
+
+		//Sets the camera to have a low view
+		if (key == GLFW_KEY_3 && action == GLFW_RELEASE) {
+		
 		}
 
 	}
@@ -139,7 +151,7 @@ void initializeGL() {
 	cursorPositionY = 0.0;
 
 	//Creates the scene
-	scene = new CubeMapScene();
+	scene = new GameLogic();
 
 	//Creates the camera
 	scene->initScene(camera);
@@ -152,7 +164,6 @@ void initializeGL() {
 /////////////////////////////////////////////////////////////////////////////////////////////
 void update(float t)
 {
-
 	//Get the current cursor position
 	glfwGetCursorPos(window, &cursorPositionX, &cursorPositionY);
 
@@ -193,6 +204,10 @@ void update(float t)
 			camera.roll(deltaX*ROTATE_VELOCITY);
 
 		}
+
+		//Scroll callback
+		glfwSetScrollCallback(window, scroll_callback);//Set callback
+
 
 		//Store the current cursor position
 		lastCursorPositionX = cursorPositionX;
@@ -268,18 +283,12 @@ int main(int argc, char *argv[])
 	//Key control
 	glfwSetKeyCallback(window, key_callback);
 
+
+
 	// Enter the main loop for the program
 	mainLoop();
 
 
-
-	//Disable camera
-	if (scene->getGameState() == 1)
-	{
-		//Scroll callback
-		glfwSetScrollCallback(window, scroll_callback);//Set callback}
-
-	}
 
 	// Close window and terminate GLFW
 	glfwTerminate();

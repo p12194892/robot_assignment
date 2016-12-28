@@ -19,7 +19,7 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 /////////////////////////////////////////////////////////////////////////////////////////////
 	QuatCamera::QuatCamera() 
 	{
-		reset();
+		reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,7 +129,9 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 		_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*_orientation);
 	
 		_orientation = glm::normalize(_orientation * fromAxisAngle(WORLDY, yaw));	
-		//Now call updateView()
+		std::cout << "orientation x: " << _orientation.x << std::endl << std::endl;
+		std::cout << "orientation y: "<< _orientation.y << std::endl << std::endl;
+		std::cout << "orientation z: " << _orientation.z << std::endl << std::endl;
 		updateView();
 	}
 
@@ -142,7 +144,8 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 		
 		_position += _xaxis * x;
 		_position += _yaxis * -y;
-		
+		std::cout << "Position x: " << _position.x << std::endl << std::endl;
+		std::cout << "Position y: " << _position.y << std::endl << std::endl;
 		//Now call update()
 		updateView();
 	}
@@ -154,7 +157,8 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 	{
 
 		_position += _zaxis * z;
-			
+		std::cout << "Position z: " << _position.z << std::endl << std::endl;
+
 		//Now call updateView()
 		updateView();
 
@@ -196,7 +200,7 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Reset the camera
 /////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::reset(void)
+	void QuatCamera::reset(glm::vec3 pos, glm::vec3 ori)
 	{
 		//Initialise camera axes
 		_xaxis = WORLDX;
@@ -204,10 +208,13 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 		_zaxis = WORLDZ;
 
 		//Initialise camera position 
-		_position= glm::vec3(-2.0f,-27.0f,20.0f);
+		_position = pos;
 
 		//Initialise the orientation
 		_orientation = glm::quat(1.0,0.0,0.0,0.0);
+		_orientation.x = ori.x;
+		_orientation.y = ori.y;
+		_orientation.z = ori.z;
 
 		//Initialise camera perspective parameters
 		_fieldOfView = glm::radians(50.0f);
@@ -235,9 +242,15 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 /////////////////////////////////////////////////////////////////////////////////////////////
 	glm::mat4 QuatCamera::projection() 
 	{
-
-		return _projection;
-		
+		return _projection;		
 	}
 
+	void QuatCamera::updateMVP(glm::mat4 model)
+	{
+		m_MVP = _projection * (_view * model);
+	}
 	
+	glm::mat4 QuatCamera::getMVP()
+	{
+		return m_MVP;
+	}

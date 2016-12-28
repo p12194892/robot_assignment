@@ -12,18 +12,20 @@ class Mesh
 		std::vector<glm::vec3> m_normals;
 		std::vector< int> m_indices;
 		std::vector<glm::vec2> m_uvData;
-		GLuint vaoHandle;
-		GLuint programHandleID;
+		GLuint m_vaoHandle;
+		GLuint m_programHandleID;
 		bool m_bDrawable;
 		Texture *m_gTexture;
 		std::string m_sTexName;
-		 GLchar m_TexType;
-		 int m_iTexUnit;
+		//GLchar m_TexType;
+	    int m_iTexUnit;
+		glm::mat4 m_ModelMatrix;
+		glm::vec3 m_startPosition;
 
 	public:
 		Mesh();
 		void Draw();
-		void cubeMap(std::string s, const GLchar s2);
+		void cubeMap(std::string s, std::string s2);
 		void setVertrices(std::vector<glm::vec3> v);
 		void setIndices(std::vector< int> i);
 		void setNormals(std::vector<glm::vec3> n);
@@ -31,5 +33,10 @@ class Mesh
 		void setDrawable(bool b);
 		bool isDrawable();
 		void loadTexture();
-
+		glm::mat4 getModelMat();
+		void translateModelMat(glm::vec3 t);
+		void scaleModelMat(glm::vec3 s);
+		void rotateModelMat(glm::vec3 r);
+		glm::vec3 getStartPos();
+		void setStartPos(glm::vec3 s);
 };

@@ -40,13 +40,29 @@ private:
 	Mesh* m_RightFoot; //!< The mesh of the right foot
 	glm::mat4 m_ModelMatrix; //!< Model matrix of the entire robot
 	glm::mat4 MVP;
+	float m_fSpeed;
+	float m_fAngle;
+	glm::vec3 m_initPos;
+	float m_fvariableAngle;
+
 public:
 	Robot(); //!< Default constructor
 	Robot(GLuint programID/*!The main program handle*/); //!< Constructor 
 	virtual ~Robot(); //!< Destructor 
-	void DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/, glm::vec3 startPos/*!The start position offset*/, float angle/*!The angle of rotation*/); //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
+	void DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
 	void UpdateModelMatrix(QuatCamera camera/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Updates the model matrix based on translation, scale and rotation
-	void Prepare(float speed, float angle, float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/); //!< Animations of the leg and arm movements
+	void Prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/); //!< Animations of the leg and arm movements
+	
+	void setSpeed(float s);
+	void setAngle(float a);
+	float getSpeed();
+	float getAngle();
+	void setInitPos(glm::vec3 s);
+	void setVariableWalkAngle(float a);
+	glm::vec3 getInitPos();
+	float getVariableWalkAngle();
+	void changeDirection(char c);
+
 };
 
 #endif

@@ -7,12 +7,11 @@
 
 Mesh::Mesh() {
 	m_bDrawable = true;
-
 }
 
 void Mesh::Load(GLuint programID)
 {
-	programHandleID = programID;
+	m_programHandleID = programID;
 	GLuint index_buffer;
 	GLuint vertex_buffer;
 	GLuint normal_buffer;
@@ -20,7 +19,7 @@ void Mesh::Load(GLuint programID)
 	// Create and populate the buffer objects using separate buffers
 	//Create and set-up the vertex array object
 	//Holds the vbos
-	gl::GenVertexArrays(1, &vaoHandle);
+	gl::GenVertexArrays(1, &m_vaoHandle);
 
 	//index buffer
 	gl::GenBuffers(1, &index_buffer);
@@ -34,11 +33,11 @@ void Mesh::Load(GLuint programID)
 	//uv buffer
 	gl::GenBuffers(1, &uv_buffer);
 
-	gl::BindVertexArray(vaoHandle);
+	gl::BindVertexArray(m_vaoHandle);
 	//Positions
 	gl::BindBuffer(gl::ARRAY_BUFFER, vertex_buffer);
 	gl::BufferData(gl::ARRAY_BUFFER, m_vertices.size() * sizeof(glm::vec3), &m_vertices[0], gl::STATIC_DRAW);
-	GLuint locl = gl::GetAttribLocation(programHandleID, "vertPosition");
+	GLuint locl = gl::GetAttribLocation(m_programHandleID, "vertPosition");
 	gl::VertexAttribPointer(locl, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
 	gl::EnableVertexAttribArray(locl);  //Enables the array for vertex
 
@@ -47,7 +46,7 @@ void Mesh::Load(GLuint programID)
 		//Normals
 		gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
 		gl::BufferData(gl::ARRAY_BUFFER, m_normals.size() * sizeof(glm::vec3), &m_normals[0], gl::STATIC_DRAW);
-		GLuint locl2 = gl::GetAttribLocation(programHandleID, "VertexNormal");
+		GLuint locl2 = gl::GetAttribLocation(m_programHandleID, "VertexNormal");
 		gl::VertexAttribPointer(locl2, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
 		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex
 	}
@@ -56,7 +55,7 @@ void Mesh::Load(GLuint programID)
 		//Texture
 		gl::BindBuffer(gl::ARRAY_BUFFER, uv_buffer);
 		gl::BufferData(gl::ARRAY_BUFFER, m_uvData.size() * sizeof(glm::vec2), &m_uvData[0], gl::STATIC_DRAW);
-		GLuint loc3 = gl::GetAttribLocation(programHandleID, "fragTexCoord");
+		GLuint loc3 = gl::GetAttribLocation(m_programHandleID, "fragTexCoord");
 		gl::VertexAttribPointer(loc3, 2, gl::FLOAT, FALSE, sizeof(glm::vec2), (GLubyte *)NULL);
 		gl::EnableVertexAttribArray(loc3);	
 	}
@@ -98,14 +97,14 @@ void Mesh::loadTexture()
 	if (m_iTexUnit == 1)
 	{
 		gl::ActiveTexture(gl::TEXTURE1);
-		gl::Uniform1i(gl::GetUniformLocation(programHandleID, "tex2"), m_iTexUnit);
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandleID, "tex2"), m_iTexUnit);
 		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
 	}
 
 	else
 	{
 		gl::ActiveTexture(gl::TEXTURE0);
-		gl::Uniform1i(gl::GetUniformLocation(programHandleID, "tex"), m_iTexUnit);
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandleID, "tex"), m_iTexUnit);
 		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
 	}
 	
@@ -118,12 +117,12 @@ void Mesh::loadTexture()
 
 void Mesh::Draw()
 {
-	gl::BindVertexArray(vaoHandle);
+	gl::BindVertexArray(m_vaoHandle);
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
 	gl::BindVertexArray(0);
 }
 
-void Mesh::cubeMap(std::string s, const GLchar s2) {
+void Mesh::cubeMap(std::string s, std::string s2) {
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
 	GLuint target[6];
 	target[0] = gl::TEXTURE_CUBE_MAP_POSITIVE_X; //Right
@@ -152,7 +151,7 @@ void Mesh::cubeMap(std::string s, const GLchar s2) {
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_S, gl::CLAMP_TO_EDGE);
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_T, gl::CLAMP_TO_EDGE);
 	
-	GLuint loc2 = gl::GetUniformLocation(programHandleID, &s2);
+	GLuint loc2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
 	gl::Uniform1i(loc2, 0);
 }
 
@@ -179,4 +178,34 @@ void Mesh::setDrawable(bool b)
 bool Mesh::isDrawable()
 {
 	return m_bDrawable;
+}
+
+glm::mat4 Mesh::getModelMat()
+{
+	return m_ModelMatrix;
+}
+
+void Mesh::translateModelMat(glm::vec3 t)
+{
+	m_ModelMatrix *= glm::translate(t);
+}
+
+void Mesh::scaleModelMat(glm::vec3 s)
+{
+	m_ModelMatrix *= glm::scale(s);
+}
+
+void Mesh::rotateModelMat(glm::vec3 r)
+{
+	//To be done
+}
+
+glm::vec3 Mesh::getStartPos()
+{
+	return m_startPosition;
+}
+
+void Mesh::setStartPos(glm::vec3 s)
+{
+	m_startPosition = s;
 }

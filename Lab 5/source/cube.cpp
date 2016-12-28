@@ -33,7 +33,7 @@ cube::cube(GLuint programID)
 	};
 
 
-	programHandleID = programID;
-	Load(programHandleID);
+	m_programHandleID = programID;
+	Load(m_programHandleID);
 }
 
