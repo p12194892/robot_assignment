@@ -5,16 +5,19 @@
 #include <glm/gtx/transform.hpp>
 #include "Bitmap.h"
 
+//!< Default Constructor 
 Mesh::Mesh() {
 	m_bDrawable = true;
 }
 
+//!< Constructor 
 Mesh::Mesh(std::string name)
 {
 	m_bDrawable = true;
 	m_sMeshObjectID = name;
 }
 
+//!< Loads the buffers
 void Mesh::Load(GLuint programID)
 {
 	m_programHandleID = programID;
@@ -92,6 +95,7 @@ void Mesh::Load(GLuint programID)
 	}
 }
 
+//!< Loads the texture
 void Mesh::loadTexture()
 {
 	//Load the texture
@@ -121,13 +125,15 @@ void Mesh::loadTexture()
 
 }
 
-void Mesh::Draw()
+//!< Draws the mesh
+void Mesh::draw()
 {
 	gl::BindVertexArray(m_vaoHandle);
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
 	gl::BindVertexArray(0);
 }
 
+//!< Cube Maps the texture (May move to cube)
 void Mesh::cubeMap(std::string s, std::string s2) {
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
 	GLuint target[6];
@@ -161,57 +167,88 @@ void Mesh::cubeMap(std::string s, std::string s2) {
 	gl::Uniform1i(loc2, 0);
 }
 
+//!< Sets vertex data
 void Mesh::setVertrices(std::vector<glm::vec3> v)
 {
 	m_vertices = v;
 }
 
+//!< Sets index data
 void Mesh::setIndices(std::vector<int> i)
 {
 	m_indices = i;
 }
 
+//!< Sets normal data
 void Mesh::setNormals(std::vector<glm::vec3> n)
 {
 	m_normals = n;
 }
 
+//!< Set if the mesh is drawable
 void Mesh::setDrawable(bool b)
 {
 	m_bDrawable = b;
 }
 
+//!< If the mesh is drawable
 bool Mesh::isDrawable()
 {
 	return m_bDrawable;
 }
 
+//!< Gets the model matrix
 glm::mat4 Mesh::getModelMat()
 {
-	return m_ModelMatrix;
+	return m_modelMatrix;
 }
 
+//!< Translates the mesh
 void Mesh::translateModelMat(glm::vec3 t)
 {
-	m_ModelMatrix *= glm::translate(t);
+	m_modelMatrix *= glm::translate(t);
 }
 
+//!< Scales the mesh
 void Mesh::scaleModelMat(glm::vec3 s)
 {
-	m_ModelMatrix *= glm::scale(s);
+	m_modelMatrix *= glm::scale(s);
 }
 
+//!<  Rotates the mesh
 void Mesh::rotateModelMat(glm::vec3 r)
 {
 	//To be done
 }
 
+//!< Gets the starting position of the mesh
 glm::vec3 Mesh::getStartPos()
 {
 	return m_startPosition;
 }
 
+//!< Sets the starting position of the mesh
 void Mesh::setStartPos(glm::vec3 s)
 {
 	m_startPosition = s;
+}
+
+//!< Updates the model matrix
+void Mesh::updateModelMatrix(QuatCamera camera, GLuint programHandle)
+{
+	camera.updateMVP(m_modelMatrix);
+	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "MVP"), 1, gl::FALSE_, &camera.getMVP()[0][0]);
+
+	//Lighting stuff - See if this works?
+	/*	mat4 mv = camera.view() * model;
+	//	prog.setUniform("ModelViewMatrix", mv);
+	prog.setUniform("NormalMatrix",
+	mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
+	//	prog.setUniform("MVP", camera.projection() * mv);
+	// the correct matrix to transform the normal is the transpose of the inverse of the M matrix
+	//mat3 normMat = glm::transpose(glm::inverse(mat3(model)));
+	prog.setUniform("M", model);
+	//prog.setUniform("NormalMatrix", normMat);
+	prog.setUniform("V", camera.view());
+	//prog.setUniform("P", camera.projection());*/
 }

@@ -1,7 +1,0 @@
-Controls:
-Up Key = forward
-Down key = backward
-p Key = Run backwards
-o key = run forwards
-D = clockwise rotation
-s = anti clockwise

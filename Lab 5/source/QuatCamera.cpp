@@ -14,10 +14,8 @@ const glm::vec3 WORLDY = glm::vec3(0,1,0);
 const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Constructor
-/////////////////////////////////////////////////////////////////////////////////////////////
-	QuatCamera::QuatCamera() 
+//!< Default constructor
+QuatCamera::QuatCamera() 
 	{
 		reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
 		//Positions of various cameras
@@ -32,245 +30,194 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Get the position
-/////////////////////////////////////////////////////////////////////////////////////////////
-	const glm::vec3& QuatCamera::position() const
+//!< Position getter method
+const glm::vec3& QuatCamera::position() const
 	{
-		return _position;
+		return m_position;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Set the position
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::setPosition(const glm::vec3& position)
+//!< Position setter method
+void QuatCamera::setPosition(const glm::vec3& position)
 	{
-		_position = position;
+		m_position = position;
 	}
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Get the fieldOfView
-/////////////////////////////////////////////////////////////////////////////////////////////
-	float QuatCamera::fieldOfView() const
+//!< FieldOfView getter method
+float QuatCamera::fieldOfView() const
 	{
-		return _fieldOfView;
+		return m_fFieldOfView;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Set the fieldOfView
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::setFieldOfView(float fieldOfView)
+//!< FieldOfView setter method
+void QuatCamera::setFieldOfView(float fieldOfView)
 	{
 		assert(fieldOfView>0.0f && fieldOfView <180.0f);
-		_fieldOfView = fieldOfView;
+		m_fFieldOfView = fieldOfView;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Get the aspectRatio
-/////////////////////////////////////////////////////////////////////////////////////////////
-	float QuatCamera::aspectRatio() const
+//!< AspectRatio getter method
+float QuatCamera::aspectRatio() const
 	{
-		return _aspectRatio;
+		return m_fAspectRatio;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Set the aspectRatio
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::setAspectRatio(float aspectRatio)
+//!< AspectRatio setter method
+void QuatCamera::setAspectRatio(float aspectRatio)
 	{
 		assert(aspectRatio >0.0f);
-		_aspectRatio = aspectRatio;
+		m_fAspectRatio = aspectRatio;
 	}
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Get the nearPlane
-/////////////////////////////////////////////////////////////////////////////////////////////
-	float QuatCamera::nearPlane() const
+//!< NearPlane getter method
+float QuatCamera::nearPlane() const
 	{
-		return _nearPlane;
+		return m_fNearPlane;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Get the far Plane
-/////////////////////////////////////////////////////////////////////////////////////////////
+//!< FarPlane getter method
 	float QuatCamera::farPlane() const
 	{
-		return _farPlane;
+		return m_fFarPlane;
 	}
 
-	
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Set the nearPlane and the farPlane
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::setNearAndFarPlanes(float nearPlane, float farPlane)
+//!< NearPlane and farPLane setter method
+void QuatCamera::setNearAndFarPlanes(float nearPlane, float farPlane)
 	{
 		assert(nearPlane > 0.0f);
 		assert(farPlane > nearPlane);
-		_nearPlane = nearPlane;
-		_farPlane = farPlane;
+		m_fNearPlane = nearPlane;
+		m_fFarPlane = farPlane;
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Generate a quaternion from axis and rotation angle in radians
-//This is to construct the rotation quaternion
-////////////////////////////////////////////////////////////////////////////////////////////
-
-	glm::quat fromAxisAngle(glm::vec3 axis, float angle)
+//!< Converts rotation in quaternion
+	glm::quat QuatCamera::fromAxisAngle(glm::vec3 axis, float angle)
 	{
 		//conversion from axis-angle
 		//GLM must have an angle in degress so convert it
 		//Created a quaternion
 		glm::quat rotation;
 		rotation = glm::angleAxis(glm::degrees(angle), axis);
-	
-
 		return rotation;
-
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-//Rotate the camera
-//Orient according to required pitch and yaw
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::rotate(const float yaw, const float pitch)
+//!< Rotate camera
+void QuatCamera::rotate(const float yaw, const float pitch)
 	{
-		_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*_orientation);
+		m_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*m_orientation);
 	
-		_orientation = glm::normalize(_orientation * fromAxisAngle(WORLDY, yaw));	
-		std::cout << "orientation x: " << _orientation.x << std::endl << std::endl;
-		std::cout << "orientation y: "<< _orientation.y << std::endl << std::endl;
-		std::cout << "orientation z: " << _orientation.z << std::endl << std::endl;
+		m_orientation = glm::normalize(m_orientation * fromAxisAngle(WORLDY, yaw));	
+		std::cout << "orientation x: " << m_orientation.x << std::endl << std::endl;
+		std::cout << "orientation y: "<< m_orientation.y << std::endl << std::endl;
+		std::cout << "orientation z: " << m_orientation.z << std::endl << std::endl;
 		updateView();
 	}
 
-	
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Pan the camera
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::pan(const float x, const float y)
+//!< Pan camera
+void QuatCamera::pan(const float x, const float y)
 	{
 		
-		_position += _xaxis * x;
-		_position += _yaxis * -y;
-		std::cout << "Position x: " << _position.x << std::endl << std::endl;
-		std::cout << "Position y: " << _position.y << std::endl << std::endl;
-		//Now call update()
+		m_position += m_xaxis * x;
+		m_position += m_yaxis * -y;
+		std::cout << "Position x: " << m_position.x << std::endl << std::endl;
+		std::cout << "Position y: " << m_position.y << std::endl << std::endl;
 		updateView();
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Zoom the camera
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::zoom(const float z)
+//!< Zoom camera
+void QuatCamera::zoom(const float z)
 	{
 
-		_position += _zaxis * z;
-		std::cout << "Position z: " << _position.z << std::endl << std::endl;
-
-		//Now call updateView()
+		m_position += m_zaxis * z;
+		std::cout << "Position z: " << m_position.z << std::endl << std::endl;
 		updateView();
-
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Update the camera view
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::updateView()
+//!< Update the camera
+void QuatCamera::updateView()
 	{
 		//Construct the view matrix from orientation quaternion and position vector
 
 		//First get the matrix from the 'orientaation' Quaternion
 		//This deals with the rotation and scale part of the view matrix
-		_view = glm::mat4_cast(_orientation); // Rotation and Scale
+		m_view = glm::mat4_cast(m_orientation); // Rotation and Scale
 
 		//Extract the camera coordinate axes from this matrix
-		_xaxis = glm::vec3(_view[0][0],_view[0][1],_view[0][2]);
-		_yaxis = glm::vec3(_view[1][0],_view[1][1],_view[1][2]);
-		_zaxis = glm::vec3(_view[2][0],_view[2][1],_view[2][2]);
+		m_xaxis = glm::vec3(m_view[0][0],m_view[0][1],m_view[0][2]);
+		m_yaxis = glm::vec3(m_view[1][0],m_view[1][1],m_view[1][2]);
+		m_zaxis = glm::vec3(m_view[2][0],m_view[2][1],m_view[2][2]);
 
 		//And use this and current camera position to set the translate part of the view matrix
-		_view[3][0] = -glm::dot(_xaxis,_position); //Translation x
-		_view[3][1] = -glm::dot(_yaxis,_position); //Translation y
-		_view[3][2] = -glm::dot(_zaxis,_position); //Translation z
+		m_view[3][0] = -glm::dot(m_xaxis,m_position); //Translation x
+		m_view[3][1] = -glm::dot(m_yaxis,m_position); //Translation y
+		m_view[3][2] = -glm::dot(m_zaxis,m_position); //Translation z
 	
 	}
-
-	/////////////////////////////////////////////////////////////////////////////////////////////
-// Reset the Up
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::roll(const float z)
+//!< Roll camera
+void QuatCamera::roll(const float z)
 	{
-		_orientation = glm::normalize(fromAxisAngle(WORLDZ, z) *_orientation);
+		m_orientation = glm::normalize(fromAxisAngle(WORLDZ, z) *m_orientation);
 		updateView();
 	}
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Reset the camera
-/////////////////////////////////////////////////////////////////////////////////////////////
-	void QuatCamera::reset(glm::vec3 pos, glm::vec3 ori)
+//!< Reset the camera
+void QuatCamera::reset(glm::vec3 pos, glm::vec3 ori)
 	{
 		//Initialise camera axes
-		_xaxis = WORLDX;
-		_yaxis = WORLDY;
-		_zaxis = WORLDZ;
+		m_xaxis = WORLDX;
+		m_yaxis = WORLDY;
+		m_zaxis = WORLDZ;
 
 		//Initialise camera position 
-		_position = pos;
+		m_position = pos;
 
 		//Initialise the orientation
-		_orientation = glm::quat(1.0,0.0,0.0,0.0);
-		_orientation.x = ori.x;
-		_orientation.y = ori.y;
-		_orientation.z = ori.z;
+		m_orientation = glm::quat(1.0,0.0,0.0,0.0);
+		m_orientation.x = ori.x;
+		m_orientation.y = ori.y;
+		m_orientation.z = ori.z;
 
 		//Initialise camera perspective parameters
-		_fieldOfView = glm::radians(50.0f);
-		_nearPlane = 0.01f;
-		_farPlane = 100.0f;
-		_aspectRatio = 4.0f/3.0f;
+		m_fFieldOfView = glm::radians(50.0f);
+		m_fNearPlane = 0.01f;
+		m_fFarPlane = 100.0f;
+		m_fAspectRatio = 4.0f/3.0f;
 
-		_projection = glm::perspective(_fieldOfView,_aspectRatio,_nearPlane,_farPlane);
+		m_projection = glm::perspective(m_fFieldOfView,m_fAspectRatio,m_fNearPlane, m_fFarPlane);
 
 		updateView();
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Return the camera View matrix
-/////////////////////////////////////////////////////////////////////////////////////////////
-	glm::mat4 QuatCamera::view() 
+//!< Get the View matrix
+glm::mat4 QuatCamera::view() 
 	{
 	
 		this->updateView();
-		return _view;
+		return m_view;
 	}
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Return the camera Projection matrix
-/////////////////////////////////////////////////////////////////////////////////////////////
-	glm::mat4 QuatCamera::projection() 
+//!< Get the Projection matrix	
+glm::mat4 QuatCamera::projection() 
 	{
-		return _projection;		
+		return m_projection;		
 	}
-
-	void QuatCamera::updateMVP(glm::mat4 model)
+//!< Updates the mvp matrix 
+void QuatCamera::updateMVP(glm::mat4 model)
 	{
-		m_MVP = _projection * (_view * model);
+		m_MVP = m_projection * (m_view * model);
 	}
 	
-	glm::mat4 QuatCamera::getMVP()
+//!< gets the MVP matrix
+glm::mat4 QuatCamera::getMVP()
 	{
 		return m_MVP;
 	}
-
-	std::vector<glm::vec3> QuatCamera::getCameraPositions()
+//!< Gets the camera positions
+std::vector<glm::vec3> QuatCamera::getCameraPositions()
 	{
 		return m_cameraPositions;
 	}
-
-	std::vector<glm::vec3> QuatCamera::getCameraOrientations()
+//!< gets the camera orientations
+std::vector<glm::vec3> QuatCamera::getCameraOrientations()
 	{
 		return m_cameraOrientations;
 	}

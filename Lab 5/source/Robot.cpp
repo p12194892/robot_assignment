@@ -8,43 +8,43 @@
 Robot::Robot(GLuint programID)
 {
 	//Angles of arms and legs
-	m_fArmAngles[LEFT] = 0.0;
-	m_fArmAngles[RIGHT] = 0.0;
-	m_fLegAngles[LEFT] = 0.0;
-	m_fLegAngles[RIGHT] = 0.0;
+	m_farmAngles[LEFT] = 0.0;
+	m_farmAngles[RIGHT] = 0.0;
+	m_flegAngles[LEFT] = 0.0;
+	m_flegAngles[RIGHT] = 0.0;
 
 	//States
-	m_cArmStates[LEFT] = FORWARD_STATE;
-	m_cArmStates[RIGHT] = BACKWARD_STATE;
+	m_carmStates[LEFT] = FORWARD_STATE;
+	m_carmStates[RIGHT] = BACKWARD_STATE;
 
-	m_cLegStates[LEFT] = FORWARD_STATE;
-	m_cLegStates[RIGHT] = BACKWARD_STATE;
+	m_clegStates[LEFT] = FORWARD_STATE;
+	m_clegStates[RIGHT] = BACKWARD_STATE;
 
 	//Creating the cube objects to form the robot
 
 	//m_LeftFoot
-	m_LeftFoot = new cube(programID);	
+	m_leftFoot = new Cube(programID);	
 
 	//right foot
-	m_RightFoot = new cube(programID);	
+	m_rightFoot = new Cube(programID);	
 
 	//m_Head
-	m_Head = new cube(programID);
+	m_head = new Cube(programID);
 
 	//m_Torso
-	m_Torso = new cube(programID);
+	m_torso = new Cube(programID);
 		
 	//Left Arm
-	m_LeftArm = new cube(programID);
+	m_leftArm = new Cube(programID);
 
 	//Right Arm
-	m_RightArm = new cube(programID);
+	m_rightArm = new Cube(programID);
 
 	//m_LeftLeg
-	m_LeftLeg = new cube(programID);
+	m_leftLeg = new Cube(programID);
 
 	//right leg
-	m_RightLeg = new cube(programID);
+	m_rightLeg = new Cube(programID);
 }
 
 //!< Default constructor
@@ -59,85 +59,77 @@ Robot::~Robot()
 }
 
 //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
-void Robot::DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/)
+void Robot::drawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/)
 {
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 2);
-	//m_Head
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::scale(glm::vec3(1.0, 1.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_Head->Draw();
+
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::scale(glm::vec3(1.0, 1.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_head->draw();
 
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 0);
 	//m_Torso
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::scale(glm::vec3(2.0, 3.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_Torso->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::scale(glm::vec3(2.0, 3.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_torso->draw();
 
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 3);
 
 	//Left Arm
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fArmAngles[LEFT], glm::vec3(1.0,0.0,0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(-5.0, -3.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_LeftArm->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_farmAngles[LEFT], glm::vec3(1.0,0.0,0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(-5.0, -3.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_leftArm->draw();
 
 	//Right Arm
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fArmAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(5.0, -3.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_RightArm->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_farmAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.5, 2.0, 0.5)) * glm::translate(glm::vec3(5.0, -3.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_rightArm->draw();
 
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 1);
 
 	//right Leg
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(1.5, -4.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_RightLeg->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_flegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(1.5, -4.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_rightLeg->draw();
 
 
 	//left Leg
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-1.5, -4.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_LeftLeg->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_flegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-1.5, -4.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_leftLeg->draw();
 
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 2);
 
 	//Left foot
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8,0.5, 1.2)) * glm::translate(glm::vec3(-1.5, -31.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_LeftFoot->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_flegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8,0.5, 1.2)) * glm::translate(glm::vec3(-1.5, -31.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_leftFoot->draw();
 	
 	//Right foot
-	m_ModelMatrix = glm::translate(m_initPos);
-	m_ModelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
-	m_ModelMatrix *= glm::rotate(m_fLegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 0.5, 1.2)) * glm::translate(glm::vec3(1.5, -31.0, 0.0));
-	UpdateModelMatrix(c, programID);
-	m_RightFoot->Draw();
+	m_modelMatrix = glm::translate(m_startPosition);
+	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
+	m_modelMatrix *= glm::rotate(m_flegAngles[RIGHT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 0.5, 1.2)) * glm::translate(glm::vec3(1.5, -31.0, 0.0));
+	updateModelMatrix(c, programID);
+	m_rightFoot->draw();
 
-}
-
-//!< Updates the model matrix based on translation, scale and rotation
-void Robot::UpdateModelMatrix(QuatCamera camera/*!The camera*/, GLuint programID/*!The main program handle*/)
-{
-
- MVP = camera.projection() * (camera.view() * m_ModelMatrix);
-	gl::UniformMatrix4fv(gl::GetUniformLocation(programID, "MVP"), 1, gl::FALSE_, &MVP[0][0]);
 }
 
 //!< Animations of the leg and arm movements
-void Robot::Prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/)
+void Robot::prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/)
 {
 	if (b == true)
 	{
@@ -147,85 +139,82 @@ void Robot::Prepare(float seconds/*!seconds of time*/, bool b/*if the key has be
 			//0.1 angle for walk
 		
 			// arms
-			if (m_cArmStates[side] == FORWARD_STATE)
-				m_fArmAngles[side] += (float)m_fSpeed;
+			if (m_carmStates[side] == FORWARD_STATE)
+				m_farmAngles[side] += (float)m_fspeed;
 			else
-				m_fArmAngles[side] -= (float)m_fSpeed;
+				m_farmAngles[side] -= (float)m_fspeed;
 
 			// change state if exceeding angles
-			if (m_fArmAngles[side] >= m_fAngle)
-				m_cArmStates[side] = BACKWARD_STATE;
-			else if (m_fArmAngles[side] <= -m_fAngle)
-				m_cArmStates[side] = FORWARD_STATE;
+			if (m_farmAngles[side] >= m_fanimationAngle)
+				m_carmStates[side] = BACKWARD_STATE;
+			else if (m_farmAngles[side] <= -m_fanimationAngle)
+				m_carmStates[side] = FORWARD_STATE;
 
 			// legs
-			if (m_cLegStates[side] == FORWARD_STATE)
-				m_fLegAngles[side] += m_fSpeed;
+			if (m_clegStates[side] == FORWARD_STATE)
+				m_flegAngles[side] += m_fspeed;
 			else
-				m_fLegAngles[side] -= m_fSpeed;
+				m_flegAngles[side] -= m_fspeed;
 			//legs
 		//	 change state if exceeding angles
-			if (m_fLegAngles[side] >= m_fAngle)
-				m_cLegStates[side] = BACKWARD_STATE;
-			else if (m_fLegAngles[side] <= -m_fAngle)
-				m_cLegStates[side] = FORWARD_STATE;
+			if (m_flegAngles[side] >= m_fanimationAngle)
+				m_clegStates[side] = BACKWARD_STATE;
+			else if (m_flegAngles[side] <= -m_fanimationAngle)
+				m_clegStates[side] = FORWARD_STATE;
 		}
 	}
 
 }
 
+//!< Sets the speed of the animation 
 void Robot::setSpeed(float s)
 {
-	m_fSpeed = s;
+	m_fspeed = s;
 }
 
-void Robot::setAngle(float a)
+//!< Sets the angle of arm and leg animation
+void Robot::setAnimationAngle(float a)
 {
-	m_fAngle = a;
+	m_fanimationAngle = a;
 }
 
+//!< Gets the speed of the animation
 float Robot::getSpeed()
 {
-	return m_fSpeed;
+	return m_fspeed;
 }
 
-float Robot::getAngle()
+//!< Gets the angle of arm and leg animation
+float Robot::getAnimationAngle()
 {
-	return m_fAngle;
+	return m_fanimationAngle;
 }
 
-void Robot::setInitPos(glm::vec3 s)
-{
-	m_initPos = s;
-}
-
+//!< Sets the angle of rotating the robot with key press
 void Robot::setVariableWalkAngle(float f)
 {
 	m_fvariableAngle = f;
 }
 
-glm::vec3 Robot::getInitPos()
-{
-	return m_initPos;
-}
-
+//!< Gets the angle of rotating the robot with key press
 float Robot::getVariableWalkAngle()
 {
 	return m_fvariableAngle;
 }
 
+//!< Changes the direction of the robot
 void Robot::changeDirection(char c)
 {
 	switch (c)
 	{
 		case 'U':
-			m_initPos.x += -sin(m_fvariableAngle) * 0.3f;
-			m_initPos.z += -cos(m_fvariableAngle) * 0.3f;
+			m_startPosition.x += -sin(m_fvariableAngle) * 0.3f;
+			m_startPosition.z += -cos(m_fvariableAngle) * 0.3f;
 			break;
 
 		case 'W':
-			m_initPos.x -= -sin(m_fvariableAngle) * 0.3f;
-			m_initPos.z -= -cos(m_fvariableAngle) * 0.3f;
+			m_startPosition.x -= -sin(m_fvariableAngle) * 0.3f;
+			m_startPosition.z -= -cos(m_fvariableAngle) * 0.3f;
 			break;
 
 		case 'D':

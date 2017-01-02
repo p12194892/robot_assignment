@@ -1,11 +1,13 @@
 #include "cube.h"
 
-cube::cube()
+//!< Default Constructor 
+Cube::Cube()
 {
 
 }
 
-cube::cube(GLuint programID)
+//!< Constructor
+Cube::Cube(GLuint programID)
 {
 	//1*1*1 Generic cube
 	m_vertices.push_back(glm::vec3(-1.0f, -1.0, 1.0f));//0 V1
@@ -32,8 +34,10 @@ cube::cube(GLuint programID)
 		6,7,3
 	};
 
-
+	//make sure the program handle is the main handle
 	m_programHandleID = programID;
+
+	//Load the mesh data into the buffers
 	Load(m_programHandleID);
 }
 

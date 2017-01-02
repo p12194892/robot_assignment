@@ -23,46 +23,38 @@ const char FORWARD_STATE = 1;
 const char LEFT = 0;
 const char RIGHT = 1;
 
-class Robot
+class Robot : public Mesh
 {
 private:
-	char m_cLegStates[2]; //!< The leg state
-	char m_cArmStates[2]; //!< The arm state
-	float m_fLegAngles[2];//!< The leg angle
-	float m_fArmAngles[2];//!< The arm angle
-	Mesh* m_Head; //!< The mesh of the robot head
-	Mesh* m_Torso; //!< The mesh of the robot torso
-	Mesh* m_RightArm; //!< The mesh of the right arm
-	Mesh* m_LeftArm; //!< The mesh of the left arm
-	Mesh* m_RightLeg; //!< The mesh of the right leg
-	Mesh* m_LeftLeg; //!< The mesh of the left leg
-	Mesh* m_LeftFoot; //!< The mesh of the left foot
-	Mesh* m_RightFoot; //!< The mesh of the right foot
-	glm::mat4 m_ModelMatrix; //!< Model matrix of the entire robot
-	glm::mat4 MVP;
-	float m_fSpeed;
-	float m_fAngle;
-	glm::vec3 m_initPos;
-	float m_fvariableAngle;
+	char m_clegStates[2]; //!< The leg state
+	char m_carmStates[2]; //!< The arm state
+	float m_flegAngles[2];//!< The leg angle
+	float m_farmAngles[2];//!< The arm angle
+	Mesh* m_head; //!< The mesh of the robot head
+	Mesh* m_torso; //!< The mesh of the robot torso
+	Mesh* m_rightArm; //!< The mesh of the right arm
+	Mesh* m_leftArm; //!< The mesh of the left arm
+	Mesh* m_rightLeg; //!< The mesh of the right leg
+	Mesh* m_leftLeg; //!< The mesh of the left leg
+	Mesh* m_leftFoot; //!< The mesh of the left foot
+	Mesh* m_rightFoot; //!< The mesh of the right foot
+	float m_fspeed; //!< The speed of the robot
+	float m_fanimationAngle; //!< The angle of arm and leg animation
+	float m_fvariableAngle; //!< The angle of rotating the robot with key press
 
 public:
 	Robot(); //!< Default constructor
 	Robot(GLuint programID/*!The main program handle*/); //!< Constructor 
 	virtual ~Robot(); //!< Destructor 
-	void DrawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
-	void UpdateModelMatrix(QuatCamera camera/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Updates the model matrix based on translation, scale and rotation
-	void Prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/); //!< Animations of the leg and arm movements
-	
-	void setSpeed(float s);
-	void setAngle(float a);
-	float getSpeed();
-	float getAngle();
-	void setInitPos(glm::vec3 s);
-	void setVariableWalkAngle(float a);
-	glm::vec3 getInitPos();
-	float getVariableWalkAngle();
-	void changeDirection(char c);
-
+	void drawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
+	void prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/); //!< Animations of the leg and arm movements
+	void setSpeed(float s); //!< Sets the speed of the animation 
+	void setAnimationAngle(float a); //!< Sets the angle of arm and leg animation
+	float getSpeed(); //!< Gets the speed of the animation
+	float getAnimationAngle(); //!< Gets the angle of arm and leg animation
+	void setVariableWalkAngle(float a); //!< Sets the angle of rotating the robot with key press
+	float getVariableWalkAngle(); //!< Gets the angle of rotating the robot with key press
+	void changeDirection(char c); //!< Changes the direction of the robot
 };
 
 #endif

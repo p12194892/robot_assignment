@@ -1,16 +1,20 @@
 #pragma once
+/*!
+* @file Cube.h
+* Header file creating generic cube object
+*/
 
 #include "Mesh.h"
 #include "string"
 
+/*! \class Cube
+\brief Generates a cube object
+*/
 
-class cube : public Mesh
+//!< Inherits from Mesh as a cube object is a mesh
+class Cube : public Mesh
 {
-	private:
-
 	public:
-		cube();
-		cube(GLuint programID);
-
-		//void cubeMap(std::string s);
+		Cube(); //!< Default Constructor 
+		Cube(GLuint programID); //!< Constructor
 };

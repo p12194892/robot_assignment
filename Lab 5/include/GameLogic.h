@@ -29,44 +29,38 @@ class GameLogic : public Scene
 {
 private:
 	//Game objects that make the scene
-	Mesh* m_Room; //!< The room 
-	Robot* m_Robot; //!< The robot mesh	
-
-	std::vector<Mesh*> m_Objects;
-	Mesh* m_Box2;
-	Mesh* m_Box; //!< Read in box
-	Mesh* m_Man;
-	Mesh* m_Garlicpress;
-	Mesh* m_Mouse;
-	Mesh* m_Cone;
-	Mesh* m_Character;
-	SoundLoader* m_SounderLoader;  //! Sound loader object
-	Collision* m_Collision;
-
-	GLuint m_ProgramHandle; //!< The main program handle
+	Mesh* m_room; //!< The room 
+	Robot* m_robot; //!< The robot mesh	
+	std::vector<Mesh*> m_objects;
+	Mesh* m_box2; //!< The Box Object
+	Mesh* m_box; //!< The Box Object
+	Mesh* m_man; //!< The Man Object
+	Mesh* m_garlicpress; //!< The Garlic Press Object
+	Mesh* m_mouse; //!< The Mickey Mouse Object
+	Mesh* m_cone; //!< The Cone Object
+	Mesh* m_character; //!< BB8 Object
+	SoundLoader* m_sounderLoader;  //!< Sound loader object
+	Collision* m_collision; //!< Collision detection 
+	GLuint m_programHandle; //!< The main program handle
 	bool m_bKeyPress; //!< If a key has been pressed
-	GLSLProgram prog;
-	FileReader* m_Read;
-	SplashScreen* m_ss;	
-	char m_cGameState;
-	char m_cCam2;
-	//Button* m_startButton;
-
+	GLSLProgram prog; //!< Program to run the simulation
+	FileReader* m_read; //!< File Reader
+	SplashScreen* m_ss;	//!< Splash Screen
+	char m_cGameState; //!< Game State
+	
 public:
 	GameLogic(); //!< Default constructor	
-	void initScene(QuatCamera camera); //!< Initialise the scene 
-	void update( float t, QuatCamera camera); //!< Update the scene with animations
+	void initScene(QuatCamera& camera); //!< Initialise the scene 
+	void update( float t, QuatCamera& camera); //!< Update the scene with animations
 	void render(QuatCamera camera); //!< Render mesh objects
 	void resize(QuatCamera camera, int, int); //!< Resizing the view port
  	void keyPress(bool b, char c); //!< Detects when a key is press
-	void UpdateModelMatrix(QuatCamera camera, glm::mat4 model); //!< Update the model matrix
-	char getGameState();
-	void changeGameState(int i);
+	char getGameState(); //!< Obtains the current game state
+	void changeGameState(int i); //!< Changes the game state
 	void linkMe(GLint vertShader, GLint fragShader); //!< Links the shader
-	void createShaders();
-	void createObjects();
+	void createShaders(); //!< Creates the fragment and vertex shaders
+	void createObjects(); //!< Creates objects to be used in the simulation
 
- //	void buttonPress(float x, float y);
  //void setLightParams(QuatCamera camera);
  //void compileAndLinkShader();
 };

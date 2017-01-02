@@ -132,9 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h" />
-    <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\cube.h" />
+    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\GameLogic.h" />
     <ClInclude Include="include\FileReader.h" />
     <ClInclude Include="include\glslprogram.h" />
@@ -147,12 +147,13 @@
     <ClInclude Include="include\SoundLoader.h" />
     <ClInclude Include="include\splashScreen.h" />
     <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp" />
-    <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\Collision.cpp" />
     <ClCompile Include="source\cube.cpp" />
+    <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\GameLogic.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
     <ClCompile Include="source\glslprogram.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="source\SoundLoader.cpp" />
     <ClCompile Include="source\splashScreen.cpp" />
     <ClCompile Include="source\Texture.cpp" />
+    <ClCompile Include="source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shader\basic.frag" />

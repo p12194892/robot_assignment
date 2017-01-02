@@ -1,15 +1,14 @@
 #include "splashScreen.h"
 
-//Change to inherit from a rectangle entity
-//same as button!
+//!< Default Constructor 
 SplashScreen::SplashScreen()
 {
 
 }
 
+//!<  Constructor 
 SplashScreen::SplashScreen(GLuint programID)
 {
-	m_programID = programID;
 	//Loading a 2d rectangle to texture 
 	m_vertices.push_back(glm::vec3(-0.1f, 0.1f, 0.0f));//0 V1
 	m_vertices.push_back(glm::vec3(0.1f, 0.1f, 0.0f));//1 V2
@@ -29,7 +28,7 @@ SplashScreen::SplashScreen(GLuint programID)
 	m_sTexName = "resources/shader/sign.png";
 	//m_TexType = GLchar("T");
 	m_iTexUnit = 0;
-	Load(m_programID);
+	Load(programID);
 
 }
 

@@ -7,18 +7,14 @@
 #include <glm\glm.hpp>
 #include "gl_core_4_3.hpp"
 
-
-
-
-using namespace std;
-
-
+//!< Default Constructor 
 FileReader::FileReader()
 {
 
 }
 
-void FileReader::ReadFile(const char  * filename)
+//!< Reads in the obj file and puts data in the specified vectors
+void FileReader::ReadFile(const char * filename)
 {	
 		FILE * file = fopen(filename, "r");
 
@@ -29,10 +25,10 @@ void FileReader::ReadFile(const char  * filename)
 			printf("Impossible to open the file !\n");
 		}
 
-		vector <glm::vec3> points;
-		vector <glm::vec3> normals;
-		vector <glm::vec2> texCoords;
-		vector <int> faces;
+		std::vector <glm::vec3> points;
+		std::vector <glm::vec3> normals;
+		std::vector <glm::vec2> texCoords;
+		std::vector <int> faces;
 
 		while (1) {
 
@@ -53,7 +49,7 @@ void FileReader::ReadFile(const char  * filename)
 			if (strcmp(lineHeader, "v") == 0) {
 				glm::vec3 vertex;
 				fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);	
-				m_points.push_back(vertex);	
+				m_vertexPoints.push_back(vertex);
 			}
 
 			//Textures
@@ -103,9 +99,9 @@ void FileReader::ReadFile(const char  * filename)
 					if (matches == 9)
 					{
 
-						m_VertexIndices.push_back(vertexIndex[0]);
-						m_VertexIndices.push_back(vertexIndex[1]);
-						m_VertexIndices.push_back(vertexIndex[2]);
+						m_vertexIndices.push_back(vertexIndex[0]);
+						m_vertexIndices.push_back(vertexIndex[1]);
+						m_vertexIndices.push_back(vertexIndex[2]);
 						m_uvIndices.push_back(uvIndex[0]);
 						m_uvIndices.push_back(uvIndex[1]);
 						m_uvIndices.push_back(uvIndex[2]);
@@ -123,13 +119,13 @@ void FileReader::ReadFile(const char  * filename)
 					if (matches == 12)
 					{
 						//4 Indices! need to change to read in 3 for triangles..
-						m_VertexIndices.push_back(vertexIndex[0]);
-						m_VertexIndices.push_back(vertexIndex[1]);
-						m_VertexIndices.push_back(vertexIndex[2]);
+						m_vertexIndices.push_back(vertexIndex[0]);
+						m_vertexIndices.push_back(vertexIndex[1]);
+						m_vertexIndices.push_back(vertexIndex[2]);
 
-						m_VertexIndices.push_back(vertexIndex[0]);
-						m_VertexIndices.push_back(vertexIndex[2]);
-						m_VertexIndices.push_back(vertexIndex[3]);
+						m_vertexIndices.push_back(vertexIndex[0]);
+						m_vertexIndices.push_back(vertexIndex[2]);
+						m_vertexIndices.push_back(vertexIndex[3]);
 
 						m_uvIndices.push_back(uvIndex[0]);
 						m_uvIndices.push_back(uvIndex[1]);
@@ -151,41 +147,43 @@ void FileReader::ReadFile(const char  * filename)
 		//	}
 	}
 		
-		for (unsigned int i = 0; i < m_VertexIndices.size(); i++) {
-			unsigned int vertexIndex = m_VertexIndices[i];
-			out_vertices.push_back(vertexIndex - 1);
+		for (unsigned int i = 0; i < m_vertexIndices.size(); i++) {
+			unsigned int vertexIndex = m_vertexIndices[i];
+			m_completeVertex.push_back(vertexIndex - 1);
 		}
-		cout << "Loaded mesh from: " << filename << endl;
+		std::cout << "Loaded mesh from: " << filename << std::endl;
 }
 
-
-vector <glm::vec3> FileReader::getVertexPoints()
+//!< Gets vertex coordinates
+std::vector <glm::vec3> FileReader::getVertexPoints()
 {
-	return m_points;
+	return m_vertexPoints;
 }
 
-vector <glm::vec3> FileReader::getNormals()
+//!< Gets Normal coordinates
+std::vector <glm::vec3> FileReader::getNormals()
 {
 	return m_normals;
 }
-
-vector <glm::vec2> FileReader::getTexPoints()
+//!< Gets Texture coordinates 
+std::vector <glm::vec2> FileReader::getTexPoints()
 {
 	return m_texCoords;
 }
 
-vector<int> FileReader::getIndices()
+//!< Gets the Index coordinates
+std::vector<int> FileReader::getIndices()
 {
-	return out_vertices;
+	return m_completeVertex;
 }
-
+//!< Resets the mesh data stored in the vectors to empty
 void FileReader::resetData()
 {
-	m_points.clear();
+	m_vertexPoints.clear();
 	m_normals.clear();
 	m_texCoords.clear();
-	m_VertexIndices.clear();
+	m_vertexIndices.clear();
     m_uvIndices.clear();
 	m_normalIndices.clear();
-	out_vertices.clear();
+	m_completeVertex.clear();
 }

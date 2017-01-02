@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{d49aa20a-eeef-4cd4-b5cc-8d5a70ba78c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Program Initialization">
+      <UniqueIdentifier>{a78d44a1-83c9-431e-8498-f957b5ce7ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Program Initialization">
+      <UniqueIdentifier>{152f86d9-70eb-4d9e-88ae-ea6d54a8f94e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h">
@@ -62,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="include\QuatCamera.h">
       <Filter>Header Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Button.h">
-      <Filter>Header Files\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="include\cube.h">
       <Filter>Header Files\Game Objects</Filter>
@@ -102,6 +105,12 @@
     <ClInclude Include="include\SoundLoader.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="include\Window.h">
+      <Filter>Header Files\Program Initialization</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>Header Files\Program Initialization</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
@@ -115,9 +124,6 @@
     </ClCompile>
     <ClCompile Include="source\FileReader.cpp">
       <Filter>Source Files\Data Driven</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Button.cpp">
-      <Filter>Source Files\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="source\cube.cpp">
       <Filter>Source Files\Game Objects</Filter>
@@ -148,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="source\SoundLoader.cpp">
       <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Window.cpp">
+      <Filter>Source Files\Program Initialization</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Entity.cpp">
+      <Filter>Source Files\Program Initialization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

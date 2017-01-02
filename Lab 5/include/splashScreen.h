@@ -9,13 +9,11 @@
 \brief  The controller class which displays the splash screen
 */
 
+//!< Inherits from Mesh as the splash screen is a 2d rectangle 
 class SplashScreen: public Mesh  {
 
-	private:
-		GLuint m_programID;
-
 	public:
-		SplashScreen();
-		SplashScreen(GLuint programID);
+		SplashScreen(); //!< Default Constructor 
+		SplashScreen(GLuint programID); //!<  Constructor 
 
 };
