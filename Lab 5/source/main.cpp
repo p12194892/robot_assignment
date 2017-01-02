@@ -47,7 +47,7 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 			scene->animate(!(scene->animating()));
 	//Resets the camera
 	if (key == 'R' && action == GLFW_RELEASE)
-		camera.reset(glm::vec3(-2.0f, -27.0f,20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		camera.reset(camera.getCameraPositions().at(2), camera.getCameraOrientations().at(2));
 
 	//Start button for use of the splash screen
 	if (scene->getGameState() == 0)
@@ -112,14 +112,12 @@ static void key_callback(GLFWwindow* window, int key, int cancode, int action, i
 
 		//Sets the camera to a low position
 		if (key == GLFW_KEY_1 && action == GLFW_RELEASE) {
-			//make the numbers set numbers within the camera!
-			camera.reset(glm::vec3(-20.0f, -38.0f, 31.0f), glm::vec3(-0.0147318f, -0.323816f, -0.00558566f));
+			camera.reset(camera.getCameraPositions().at(0), camera.getCameraOrientations().at(0));
 		}
 
 		//Sets the camera to have a top down view
 		if (key == GLFW_KEY_2 && action == GLFW_RELEASE) {
-			//make the numbers set numbers within the camera!
-			camera.reset(glm::vec3(2.22959f, -38.30103f, -0.91515f), glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
+			camera.reset(camera.getCameraPositions().at(1), camera.getCameraOrientations().at(1));
 		}
 
 		//Sets the camera to have a low view

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 
+
 using std::ifstream;
 #include <sstream>
 #include <glm\gtc\type_ptr.hpp>
@@ -32,8 +33,17 @@ void GameLogic::initScene(QuatCamera camera)
 	//Initialize the vertex and fragment shader
 	createShaders();
 
+	//Initialize File Reader
+	m_Read = new FileReader();
+
 	//Initialize game objects
 	createObjects();	
+
+	//Initialize Collision Detection
+	m_Collision = new Collision();
+
+	//Initialize Game Sounds
+	m_SounderLoader = m_SounderLoader->Instance();
 }
 
 void GameLogic::createShaders()
@@ -146,6 +156,66 @@ void GameLogic::createShaders()
 
 void GameLogic::createObjects()
 {
+	//Creating box
+	m_Box = new Mesh("Box Model");
+	m_Read->resetData();	
+	m_Read->ReadFile("resources/obj/cube.obj");
+	m_Box->setVertrices(m_Read->getVertexPoints());
+	m_Box->setIndices(m_Read->getIndices());
+	m_Box->setNormals(m_Read->getNormals());
+	m_Box->setStartPos(glm::vec3(20.0, -37.0, 0.0));
+	m_Box->Load(m_ProgramHandle);
+	m_Box->translateModelMat(m_Box->getStartPos());
+	m_Box->scaleModelMat(glm::vec3(3));
+
+	//Creating man
+	m_Man = new Mesh("Man Model");
+	m_Read->resetData();
+	m_Read->ReadFile("resources/obj/man.obj");
+	m_Man->setVertrices(m_Read->getVertexPoints());
+	m_Man->setIndices(m_Read->getIndices());
+	m_Man->setNormals(m_Read->getNormals());
+	m_Man->setStartPos(glm::vec3(20.0, -34.0, 0.0));
+	m_Man->Load(m_ProgramHandle);
+	m_Man->translateModelMat(m_Man->getStartPos());
+	m_Man->scaleModelMat(glm::vec3(4));
+
+	//Creating cone
+	m_Cone = new Mesh("Cone Model");
+	m_Read->resetData();
+	m_Read->ReadFile("resources/obj/cone.obj");
+	m_Cone->setVertrices(m_Read->getVertexPoints());
+	m_Cone->setIndices(m_Read->getIndices());
+	m_Cone->setNormals(m_Read->getNormals());
+	m_Cone->setStartPos(glm::vec3(-20.0, -40.0, -30.0));
+	m_Cone->Load(m_ProgramHandle);
+	m_Cone->translateModelMat(m_Cone->getStartPos());
+	m_Cone->scaleModelMat(glm::vec3(2));
+
+	//Creating cone
+	m_Character = new Mesh("BB8 Model");
+	m_Read->resetData();
+	m_Read->ReadFile("resources/obj/bb8.obj");
+	m_Character->setVertrices(m_Read->getVertexPoints());
+	m_Character->setIndices(m_Read->getIndices());
+	m_Character->setNormals(m_Read->getNormals());
+	m_Character->setStartPos(glm::vec3(0.0, -40.0, -20.0));
+	m_Character->Load(m_ProgramHandle);
+	m_Character->translateModelMat(m_Character->getStartPos());
+	m_Character->scaleModelMat(glm::vec3(0.0625));
+
+	//Creating Mickey Mouse
+	m_Mouse = new Mesh("Mickey Mouse Model");
+	m_Read->resetData();
+	m_Read->ReadFile("resources/obj/mouse.obj");
+	m_Mouse->setVertrices(m_Read->getVertexPoints());
+	m_Mouse->setIndices(m_Read->getIndices());
+	m_Mouse->setNormals(m_Read->getNormals());
+	m_Mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
+	m_Mouse->Load(m_ProgramHandle);
+	m_Mouse->translateModelMat(m_Mouse->getStartPos());
+	m_Mouse->scaleModelMat(glm::vec3(6));
+
 	//Making the splash screen 
 	m_ss = new SplashScreen(m_ProgramHandle);
 	gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "bSplashScreenState"), true);
@@ -157,7 +227,6 @@ void GameLogic::createObjects()
 	m_Room->scaleModelMat(glm::vec3(40));
 	m_Room->cubeMap("resources/cubemap", "cube_texture");
 
-
 	//Create Robot character
 	m_Robot = new Robot(m_ProgramHandle);
 	m_Robot->setSpeed(0.001f);
@@ -166,15 +235,41 @@ void GameLogic::createObjects()
 	m_Robot->setVariableWalkAngle(0.0);
 	gl::Enable(gl::DEPTH_TEST);
 	
-	m_Box = new Mesh;
-	m_Read = new FileReader();
+	//Creating garlic press
+	m_Garlicpress = new Mesh("Garlic Press Model");
+	m_Read->resetData();
+	m_Read->ReadFile("resources/obj/garlicpress.obj");
+	m_Garlicpress->setVertrices(m_Read->getVertexPoints());
+	m_Garlicpress->setIndices(m_Read->getIndices());
+	m_Garlicpress->setNormals(m_Read->getNormals());
+	m_Garlicpress->setStartPos(glm::vec3(-20.0, -34.0, 0.0));
+	m_Garlicpress->Load(m_ProgramHandle);
+	m_Garlicpress->translateModelMat(m_Garlicpress->getStartPos());
+	m_Garlicpress->scaleModelMat(glm::vec3(0.5));
+
+	//Creating box
+	m_Box2 = new Mesh("Box Model 2");
+	m_Read->resetData();
 	m_Read->ReadFile("resources/obj/cube.obj");
-	m_Box->setVertrices(m_Read->getVertexPoints());
-	m_Box->setIndices(m_Read->getIndices());
-	m_Box->setNormals(m_Read->getNormals());
-	m_Box->setStartPos(glm::vec3(20.0, -39.0, 0.0));
-	m_Box->Load(m_ProgramHandle);
-	m_Box->translateModelMat(m_Box->getStartPos());
+	m_Box2->setVertrices(m_Read->getVertexPoints());
+	m_Box2->setIndices(m_Read->getIndices());
+	m_Box2->setNormals(m_Read->getNormals());
+	m_Box2->setStartPos(glm::vec3(-20.0, -37.0, 0.0));
+	m_Box2->Load(m_ProgramHandle);
+	m_Box2->translateModelMat(m_Box2->getStartPos());
+	m_Box2->scaleModelMat(glm::vec3(3));
+	
+	//Clears the data being read in from OBJ files
+	m_Read->resetData();
+
+	//Putting the objects into a containter to traverse through
+	m_Objects.push_back(m_Box);
+	m_Objects.push_back(m_Box2);
+	m_Objects.push_back(m_Garlicpress);
+	m_Objects.push_back(m_Mouse);
+	m_Objects.push_back(m_Man);
+	m_Objects.push_back(m_Cone);
+	m_Objects.push_back(m_Character);
 
 	//Lighting stuff
 	//compileAndLinkShader();
@@ -234,24 +329,22 @@ void GameLogic::update(float t, QuatCamera camera)
 
 		case 1:
 			float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
+
 			m_Robot->Prepare(fTime, m_bKeyPress);
 
-			if (m_Box->isDrawable() == true)
-			{
-				//Works out the distance between the objects and the robot
-				vec3 distance;
-				distance.x = m_Box->getStartPos().x - m_Robot->getInitPos().x;
-				distance.z = m_Box->getStartPos().z - m_Robot->getInitPos().z;
-				float d = sqrt(dot(distance, distance));
+			//Collision Detection
+			m_Objects = m_Collision->checkVectorDistance(m_Objects, m_Robot->getInitPos());
 
-				if (d < 2)
+			for (int i = 0; i < m_Objects.size(); i++)
+			{
+				if (!m_Objects.at(i)->isDrawable())
 				{
-					m_Box->setDrawable(false);
+					//pop it off the list and play a sound
+					m_Objects.erase(m_Objects.begin()+i);
+					m_SounderLoader->GetSound(0)->play();
 				}
 			}
-
 			break;
-
 	}	
 }
 
@@ -270,7 +363,7 @@ void GameLogic::render(QuatCamera camera)
 		break;
 
 		//Simulation game state
-		case 1:
+		case 1:		
 			//Tells the shader not to render the splash screen
 			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "bSplashScreenState"), false);
 
@@ -278,31 +371,25 @@ void GameLogic::render(QuatCamera camera)
 			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), true);
 			m_Robot->DrawRobot(camera, m_ProgramHandle);
 
-			if (m_Box->isDrawable())
+			for (int i = 0; i < m_Objects.size(); i++)
 			{
-				//Read in cube
-				gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), 0);
+					// Draw what is on the objects list
+					gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "col"), i);
+					UpdateModelMatrix(camera, m_Objects.at(i)->getModelMat());
+					m_Objects.at(i)->Draw();
+			}		
 
-				//UpdateModelMatrix(camera, m_ModelMatrix2);
-				UpdateModelMatrix(camera, m_Box->getModelMat());
+					//Setting material properties for the cube
+				/*	prog.setUniform("Kd", 0.0f, 1.0f, 0.0f);
+					prog.setUniform("Ld", 0.0f, 1.0f, 0.0f);
 
-				//Setting material properties for the cube
-			/*	prog.setUniform("Kd", 0.0f, 1.0f, 0.0f);
-				prog.setUniform("Ld", 0.0f, 1.0f, 0.0f);
+					prog.setUniform("Ka", 0.0f, 1.0f, 0.0f);
+					prog.setUniform("La", 0.0f, 0.1f, 0.0f);
 
-				prog.setUniform("Ka", 0.0f, 1.0f, 0.0f);
-				prog.setUniform("La", 0.0f, 0.1f, 0.0f);
-
-				prog.setUniform("Ks", 1.0f, 1.0f, 1.0f);
-				prog.setUniform("Ls", 0.2f, 0.2f, 0.2f);*/
-
-				m_Box->Draw();
-			}
-
-			//Now set up the teapot 
-		//	UpdateModelMatrix(camera, m_Box->getModelMat());
-			//Set the Teapot material properties in the shaders and render
-		//	teapot->render();
+					prog.setUniform("Ks", 1.0f, 1.0f, 1.0f);
+					prog.setUniform("Ls", 0.2f, 0.2f, 0.2f);*/					
+				
+			//gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);
 
 			//Room
 			gl::Uniform1i(gl::GetUniformLocation(m_ProgramHandle, "drawRcube"), false);
@@ -349,11 +436,6 @@ void GameLogic::keyPress(bool b, char c)
 {
 	m_bKeyPress = b;
 	m_Robot->changeDirection(c);
-
-	if (c == 'F')
-	{
-		m_cCam2 = 'F';
-	}
 }
 
 char GameLogic::getGameState()

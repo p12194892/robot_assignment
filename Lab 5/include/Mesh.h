@@ -21,9 +21,11 @@ class Mesh
 	    int m_iTexUnit;
 		glm::mat4 m_ModelMatrix;
 		glm::vec3 m_startPosition;
+		std::string m_sMeshObjectID;
 
 	public:
 		Mesh();
+		Mesh(std::string name);
 		void Draw();
 		void cubeMap(std::string s, std::string s2);
 		void setVertrices(std::vector<glm::vec3> v);

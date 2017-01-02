@@ -26,6 +26,7 @@ public:
 	vector <glm::vec3> getNormals();
 	vector <glm::vec2> getTexPoints();
 	vector <int> getIndices();
+	void resetData();
 };
 
 

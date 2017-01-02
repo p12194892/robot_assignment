@@ -20,6 +20,16 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 	QuatCamera::QuatCamera() 
 	{
 		reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		//Positions of various cameras
+		m_cameraPositions.push_back(glm::vec3(-20.0f, -38.0f, 31.0f));
+		m_cameraPositions.push_back(glm::vec3(2.22959f, -38.30103f, -0.91515f));
+		m_cameraPositions.push_back(glm::vec3(-2.0f, -27.0f, 20.0f));
+		//Orientations of various cameras
+		m_cameraOrientations.push_back(glm::vec3(-0.0147318f, -0.323816f, -0.00558566f));
+		m_cameraOrientations.push_back(glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
+		m_cameraOrientations.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+
+
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -253,4 +263,14 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 	glm::mat4 QuatCamera::getMVP()
 	{
 		return m_MVP;
+	}
+
+	std::vector<glm::vec3> QuatCamera::getCameraPositions()
+	{
+		return m_cameraPositions;
+	}
+
+	std::vector<glm::vec3> QuatCamera::getCameraOrientations()
+	{
+		return m_cameraOrientations;
 	}

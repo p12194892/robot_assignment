@@ -9,6 +9,12 @@ Mesh::Mesh() {
 	m_bDrawable = true;
 }
 
+Mesh::Mesh(std::string name)
+{
+	m_bDrawable = true;
+	m_sMeshObjectID = name;
+}
+
 void Mesh::Load(GLuint programID)
 {
 	m_programHandleID = programID;

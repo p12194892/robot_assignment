@@ -16,6 +16,9 @@
 #include "glslprogram.h"
 #include "Button.h"
 #include "splashScreen.h"
+#include <vector>
+#include "Collision.h"
+#include "SoundLoader.h"
 
 /*! \class GameLogic
 \brief The control of rendering and controlling the simulation  
@@ -28,7 +31,17 @@ private:
 	//Game objects that make the scene
 	Mesh* m_Room; //!< The room 
 	Robot* m_Robot; //!< The robot mesh	
+
+	std::vector<Mesh*> m_Objects;
+	Mesh* m_Box2;
 	Mesh* m_Box; //!< Read in box
+	Mesh* m_Man;
+	Mesh* m_Garlicpress;
+	Mesh* m_Mouse;
+	Mesh* m_Cone;
+	Mesh* m_Character;
+	SoundLoader* m_SounderLoader;  //! Sound loader object
+	Collision* m_Collision;
 
 	GLuint m_ProgramHandle; //!< The main program handle
 	bool m_bKeyPress; //!< If a key has been pressed

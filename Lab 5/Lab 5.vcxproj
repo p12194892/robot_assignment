@@ -121,6 +121,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\Button.h" />
+    <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\cube.h" />
     <ClInclude Include="include\GameLogic.h" />
     <ClInclude Include="include\FileReader.h" />
@@ -142,12 +144,14 @@
     <ClInclude Include="include\Robot.h" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\sceneTexture.h" />
+    <ClInclude Include="include\SoundLoader.h" />
     <ClInclude Include="include\splashScreen.h" />
     <ClInclude Include="include\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp" />
     <ClCompile Include="source\Button.cpp" />
+    <ClCompile Include="source\Collision.cpp" />
     <ClCompile Include="source\cube.cpp" />
     <ClCompile Include="source\GameLogic.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
@@ -157,6 +161,7 @@
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\QuatCamera.cpp" />
     <ClCompile Include="source\Robot.cpp" />
+    <ClCompile Include="source\SoundLoader.cpp" />
     <ClCompile Include="source\splashScreen.cpp" />
     <ClCompile Include="source\Texture.cpp" />
   </ItemGroup>

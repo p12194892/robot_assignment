@@ -46,6 +46,12 @@
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{9b84cecf-8b0e-4820-ae15-f13a461f3b48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{a326fdca-7f82-492f-90b8-886dd64ea856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{d49aa20a-eeef-4cd4-b5cc-8d5a70ba78c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h">
@@ -90,6 +96,12 @@
     <ClInclude Include="include\GameLogic.h">
       <Filter>Header Files\Game Logic</Filter>
     </ClInclude>
+    <ClInclude Include="include\Collision.h">
+      <Filter>Header Files\Game Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SoundLoader.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
@@ -130,6 +142,12 @@
     </ClCompile>
     <ClCompile Include="source\GameLogic.cpp">
       <Filter>Source Files\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Collision.cpp">
+      <Filter>Source Files\Game Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundLoader.cpp">
+      <Filter>Source Files\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

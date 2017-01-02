@@ -78,6 +78,16 @@ void main()
 			fragColour = vec4(0.0, 0.0, 1.0, 1.0);
 		}
 
+		else if(col == 5)
+		{
+			fragColour = vec4(1.0, 0.0, 1.0, 1.0);
+		}
+
+		else if(col == 6)
+		{
+			fragColour = vec4(1.0, 0.0, 1.0, 0.0);
+		}
+
 	}
 
 
