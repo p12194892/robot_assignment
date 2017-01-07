@@ -13,11 +13,8 @@ int main(int argc, char *argv[])
 
 	//Window initialization
 	m_mainWindow->initWindow();
-
-	// Enter the main loop for the program
+	
+	//Enter the main loop for the program
 	m_mainWindow->mainLoop();
-
-	// Close window and terminate GLFW and exit the program
-	m_mainWindow->terminate();
 }
 

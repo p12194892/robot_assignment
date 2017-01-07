@@ -146,11 +146,14 @@ void FileReader::ReadFile(const char * filename)
 				}
 		//	}
 	}
-		
+		//Getting indicies for vertex 
 		for (unsigned int i = 0; i < m_vertexIndices.size(); i++) {
 			unsigned int vertexIndex = m_vertexIndices[i];
 			m_completeVertex.push_back(vertexIndex - 1);
 		}
+
+		
+
 		std::cout << "Loaded mesh from: " << filename << std::endl;
 }
 

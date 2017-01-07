@@ -3,9 +3,7 @@
 #ifndef GLSLPROGRAM_H
 #define GLSLPROGRAM_H
 
-#ifdef WIN32
 #pragma warning( disable : 4290 )
-#endif
 
 
 #include "gl_core_4_3.hpp"

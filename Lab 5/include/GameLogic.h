@@ -50,8 +50,8 @@ private:
 	
 public:
 	GameLogic(); //!< Default constructor	
-	void initScene(QuatCamera& camera); //!< Initialise the scene 
-	void update( float t, QuatCamera& camera); //!< Update the scene with animations
+	void initScene(QuatCamera camera); //!< Initialise the scene 
+	void update( float t, QuatCamera camera); //!< Update the scene with animations
 	void render(QuatCamera camera); //!< Render mesh objects
 	void resize(QuatCamera camera, int, int); //!< Resizing the view port
  	void keyPress(bool b, char c); //!< Detects when a key is press

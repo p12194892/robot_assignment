@@ -72,57 +72,22 @@ void Mesh::Load(GLuint programID)
 	//Indices
 	gl::BindBuffer(gl::ELEMENT_ARRAY_BUFFER, index_buffer);//activates the buffer for the indicies //Putting the data into the buffer
 	gl::BufferData(gl::ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned int), &m_indices[0], gl::STATIC_DRAW);//finds how big the buffer needs to be
-	
-	if (m_uvData.size() != 0)
-	{																											  
-		//Load the texture
-	/*	Bitmap bmp = Bitmap::bitmapFromFile(m_sTexName);
-		bmp.flipVertically();
-		m_gTexture = new Texture(bmp);
-
-		//Set texture
-		gl::ActiveTexture(gl::TEXTURE0);
-		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-		GLint loc = gl::GetUniformLocation(programHandleID, "tex");
-		gl::Uniform1f(loc, 0);
-
-		gl::ActiveTexture(gl::TEXTURE1);
-		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-		GLint l = gl::GetUniformLocation(programHandleID, "but");
-		gl::Uniform1f(l, 1);
-		//gl::Uniform1f(loc, 1);*/
-		loadTexture();
-	}
 }
 
 //!< Loads the texture
-void Mesh::loadTexture()
+void Mesh::loadTexture(std::string sname, std::string s2)
 {
 	//Load the texture
-	Bitmap bmp = Bitmap::bitmapFromFile(m_sTexName);
+	Bitmap bmp = Bitmap::bitmapFromFile(sname);
 	bmp.flipVertically();
 	m_gTexture = new Texture(bmp);
 
-	//Set texture
-	if (m_iTexUnit == 1)
-	{
-		gl::ActiveTexture(gl::TEXTURE1);
-		gl::Uniform1i(gl::GetUniformLocation(m_programHandleID, "tex2"), m_iTexUnit);
+		//Set texture
+		GLint textureLocation = gl::GetUniformLocation(m_programHandleID, s2.c_str());
+		gl::Uniform1i(textureLocation, m_iTexUnit);
+		gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
 		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-	}
-
-	else
-	{
-		gl::ActiveTexture(gl::TEXTURE0);
-		gl::Uniform1i(gl::GetUniformLocation(m_programHandleID, "tex"), m_iTexUnit);
-		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-	}
-	
-
-	
-	//GLint loc = gl::GetUniformLocation(programHandleID, &m_TexType);
-	//gl::Uniform1f(loc, 0);
-
+		
 }
 
 //!< Draws the mesh
@@ -144,10 +109,9 @@ void Mesh::cubeMap(std::string s, std::string s2) {
 	target[4] = gl::TEXTURE_CUBE_MAP_POSITIVE_Z; // Back
 	target[5] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Z; //front
 
-	gl::ActiveTexture(gl::TEXTURE0);
-	GLuint loc;
-	gl::GenTextures(1, &loc);
-	gl::BindTexture(gl::TEXTURE_CUBE_MAP, loc);
+	gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
+	GLuint textureLocation2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
+	gl::BindTexture(gl::TEXTURE_CUBE_MAP, textureLocation2);
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -163,8 +127,7 @@ void Mesh::cubeMap(std::string s, std::string s2) {
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_S, gl::CLAMP_TO_EDGE);
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_T, gl::CLAMP_TO_EDGE);
 	
-	GLuint loc2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
-	gl::Uniform1i(loc2, 0);
+	gl::Uniform1i(textureLocation2, m_iTexUnit);
 }
 
 //!< Sets vertex data
@@ -237,6 +200,7 @@ void Mesh::setStartPos(glm::vec3 s)
 void Mesh::updateModelMatrix(QuatCamera camera, GLuint programHandle)
 {
 	camera.updateMVP(m_modelMatrix);
+
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "MVP"), 1, gl::FALSE_, &camera.getMVP()[0][0]);
 
 	//Lighting stuff - See if this works?
@@ -251,4 +215,13 @@ void Mesh::updateModelMatrix(QuatCamera camera, GLuint programHandle)
 	//prog.setUniform("NormalMatrix", normMat);
 	prog.setUniform("V", camera.view());
 	//prog.setUniform("P", camera.projection());*/
+}
+void Mesh::setTextureUnit(int i)
+{
+	m_iTexUnit = i;
+}
+
+void Mesh::setUVs(std::vector<glm::vec2> uv)
+{
+	m_uvData = uv;
 }

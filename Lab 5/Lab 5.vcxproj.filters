@@ -34,9 +34,6 @@
     <Filter Include="Source Files\Data Driven">
       <UniqueIdentifier>{ecbad061-72f1-436d-877a-276b11eae753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Game Objects">
-      <UniqueIdentifier>{8b1a9b59-2f57-4cad-a86d-e83c2439c8b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game Logic">
       <UniqueIdentifier>{e03d4620-e994-48cc-bf0f-4e2d88fc7a92}</UniqueIdentifier>
     </Filter>
@@ -58,12 +55,54 @@
     <Filter Include="Source Files\Program Initialization">
       <UniqueIdentifier>{152f86d9-70eb-4d9e-88ae-ea6d54a8f94e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game Objects">
+      <UniqueIdentifier>{8b1a9b59-2f57-4cad-a86d-e83c2439c8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{e50c0a9f-f487-4dd1-b96f-0b5491b56c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine Components">
+      <UniqueIdentifier>{3f1d53a0-e43e-431e-8ca5-a2798ff4d3e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine Components">
+      <UniqueIdentifier>{852dd935-dded-4cf3-b92b-8247612733b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Texture">
+      <UniqueIdentifier>{c1c2afda-6490-4f7f-9633-650b9c34d588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Texture\OpenGL">
+      <UniqueIdentifier>{11ee16e3-07ca-49f2-ba4a-98c92865305a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Texture\SFML">
+      <UniqueIdentifier>{31f95104-b7b9-45bb-8f2b-559f3d7850ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Texture">
+      <UniqueIdentifier>{596568a8-55e0-4f9f-b9a2-0887643aa095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Texture\OpenGL">
+      <UniqueIdentifier>{f3a71387-a48a-4666-a9ec-0fe0d9b9cf27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Texture\SFML">
+      <UniqueIdentifier>{8a69c6cf-2c9a-4e48-b376-ba4a4c656e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{cb07cc06-4e38-4709-89d8-a2f6d5d76134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Room">
+      <UniqueIdentifier>{1da5b794-e0b3-4c99-9160-f75c5c70fe2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Rubix">
+      <UniqueIdentifier>{95927f1c-d1ef-420a-8126-1703278dd5f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Splash Screen">
+      <UniqueIdentifier>{e34437f7-5ad4-4026-b03e-ef71a248159c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{b62b7265-c0b2-41b5-817a-1e13f017d7f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Texture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\QuatCamera.h">
@@ -73,9 +112,6 @@
       <Filter>Header Files\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="include\gl_core_4_3.hpp">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\sceneTexture.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\scene.h">
@@ -93,9 +129,6 @@
     <ClInclude Include="include\FileReader.h">
       <Filter>Header Files\Data Driven</Filter>
     </ClInclude>
-    <ClInclude Include="include\splashScreen.h">
-      <Filter>Header Files\Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="include\GameLogic.h">
       <Filter>Header Files\Game Logic</Filter>
     </ClInclude>
@@ -111,12 +144,21 @@
     <ClInclude Include="include\Entity.h">
       <Filter>Header Files\Program Initialization</Filter>
     </ClInclude>
+    <ClInclude Include="include\sceneTexture.h">
+      <Filter>Header Files\Graphics\Texture\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
+      <Filter>Header Files\Graphics\Texture\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Button.h">
+      <Filter>Header Files\Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\splashScreen.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="source\glslprogram.cpp">
@@ -143,9 +185,6 @@
     <ClCompile Include="source\Robot.cpp">
       <Filter>Source Files\Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="source\splashScreen.cpp">
-      <Filter>Source Files\Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="source\GameLogic.cpp">
       <Filter>Source Files\Game Logic</Filter>
     </ClCompile>
@@ -161,35 +200,80 @@
     <ClCompile Include="source\Entity.cpp">
       <Filter>Source Files\Program Initialization</Filter>
     </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>Source Files\Graphics\Texture\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\splashScreen.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shader\basic.frag">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="resources\shader\basic.vert">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\cubemap_back.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\cubemap_front.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\cubemap_left.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\cubemap_right.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="resources\cubemap_up.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Room</Filter>
     </Image>
     <Image Include="resources\cubemap_down.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Room</Filter>
+    </Image>
+    <Image Include="resources\cubemap_front.png">
+      <Filter>Resource Files\Room</Filter>
+    </Image>
+    <Image Include="resources\cubemap_left.png">
+      <Filter>Resource Files\Room</Filter>
+    </Image>
+    <Image Include="resources\cubemap_right.png">
+      <Filter>Resource Files\Room</Filter>
+    </Image>
+    <Image Include="resources\cubemap_up.png">
+      <Filter>Resource Files\Room</Filter>
+    </Image>
+    <Image Include="resources\rmap_back.png">
+      <Filter>Resource Files\Rubix</Filter>
+    </Image>
+    <Image Include="resources\rmap_down.png">
+      <Filter>Resource Files\Rubix</Filter>
+    </Image>
+    <Image Include="resources\rmap_front.png">
+      <Filter>Resource Files\Rubix</Filter>
+    </Image>
+    <Image Include="resources\rmap_left.png">
+      <Filter>Resource Files\Rubix</Filter>
+    </Image>
+    <Image Include="resources\rmap_right.png">
+      <Filter>Resource Files\Rubix</Filter>
+    </Image>
+    <Image Include="resources\rmap_up.png">
+      <Filter>Resource Files\Rubix</Filter>
     </Image>
     <Image Include="resources\shader\sign.png">
+      <Filter>Resource Files\Splash Screen</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_down.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\shader\pattern_up.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

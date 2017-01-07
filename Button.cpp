@@ -1,14 +1,13 @@
-#include "splashScreen.h"
+#include "Button.h"
 
-//!< Default Constructor 
-SplashScreen::SplashScreen()
+Button::Button()
 {
 
 }
 
-//!<  Constructor 
-SplashScreen::SplashScreen(GLuint programID)
+Button::Button(GLuint m_programID)
 {
+	m_programID = m_programID;
 	//Loading a 2d rectangle to texture 
 	m_vertices.push_back(glm::vec3(-0.1f, 0.1f, 0.0f));//0 V1
 	m_vertices.push_back(glm::vec3(0.1f, 0.1f, 0.0f));//1 V2
@@ -24,7 +23,14 @@ SplashScreen::SplashScreen(GLuint programID)
 		0,1,3,
 		1,3,2
 	};
-	Load(programID);
 
+	m_sTexName = "resources/shader/button1.png";
+//	m_TexType = GLchar("p");
+	m_iTexUnit = 1;
+	Load(m_programID);
 }
 
+Button::~Button()
+{
+
+}

@@ -4,21 +4,21 @@
 * Header file containing the button data
 */
 
-#include "SFML\Graphics.hpp"
-#include "Entity.h"
+#include "Mesh.h"
 
 /*! \class Button
 \brief  A button object which the user can click on to transition to the next state
 */
 
-class Button: public Entity
-{
+class Button : public Mesh {
+
 	private:
-		sf::RectangleShape m_buttonShape;
-		sf::Text m_buttonText;
+		GLuint m_programID;
 	public:
 		Button(); 
-		Button(float xpos, float ypos, float w, float h);
+		Button(GLuint m_programID);
+		~Button();
+
 };
 
 

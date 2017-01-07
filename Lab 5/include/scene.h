@@ -21,13 +21,13 @@ public:
 	/**
 	Load textures, initialize shaders, etc.
 	*/
-	virtual void initScene(QuatCamera& camera) = 0;
+	virtual void initScene(QuatCamera camera) = 0;
 
 	/**
 	This is called prior to every frame.  Use this
 	to update your animation.
 	*/
-	virtual void update(float t, QuatCamera& camera) = 0;
+	virtual void update(float t, QuatCamera camera) = 0;
 
 	/**
 	Draw your scene.

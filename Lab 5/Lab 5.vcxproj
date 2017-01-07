@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h" />
+    <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\cube.h" />
     <ClInclude Include="include\Entity.h" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp" />
+    <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\Collision.cpp" />
     <ClCompile Include="source\cube.cpp" />
     <ClCompile Include="source\Entity.cpp" />
@@ -178,6 +180,18 @@
     <Image Include="resources\cubemap_left.png" />
     <Image Include="resources\cubemap_right.png" />
     <Image Include="resources\cubemap_up.png" />
+    <Image Include="resources\rmap_back.png" />
+    <Image Include="resources\rmap_down.png" />
+    <Image Include="resources\rmap_front.png" />
+    <Image Include="resources\rmap_left.png" />
+    <Image Include="resources\rmap_right.png" />
+    <Image Include="resources\rmap_up.png" />
+    <Image Include="resources\shader\pattern_back.png" />
+    <Image Include="resources\shader\pattern_down.png" />
+    <Image Include="resources\shader\pattern_front.png" />
+    <Image Include="resources\shader\pattern_left.png" />
+    <Image Include="resources\shader\pattern_right.png" />
+    <Image Include="resources\shader\pattern_up.png" />
     <Image Include="resources\shader\sign.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

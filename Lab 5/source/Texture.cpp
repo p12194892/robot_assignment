@@ -35,8 +35,8 @@ Texture::Texture(const Bitmap& bitmap, GLint minMagFiler, GLint wrapMode) :
     _originalWidth((GLfloat)bitmap.width()),
     _originalHeight((GLfloat)bitmap.height())
 {
-    gl::GenTextures(1, &_object);
-    gl::BindTexture(gl::TEXTURE_2D, _object);
+	// gl::GenTextures(1, &_object);
+	//  gl::BindTexture(gl::TEXTURE_2D, _object);
     gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MIN_FILTER, minMagFiler);
     gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_MAG_FILTER, minMagFiler);
     gl::TexParameteri(gl::TEXTURE_2D, gl::TEXTURE_WRAP_S, wrapMode);

@@ -21,7 +21,7 @@ using std::string;
 GameLogic::GameLogic() {}
 
 //!< Initialise the scene 
-void GameLogic::initScene(QuatCamera& camera)
+void GameLogic::initScene(QuatCamera camera)
 {
 	//Initialize Game States
 	m_cGameState = 0; //Game state, 0 = Splash Screen
@@ -158,7 +158,7 @@ void GameLogic::createShaders()
 void GameLogic::createObjects()
 {
 	//Creating box
-	m_box = new Mesh("Box Model");
+    m_box = new Mesh("Box Model");
 	m_read->resetData();	
 	m_read->ReadFile("resources/obj/cube.obj");
 	m_box->setVertrices(m_read->getVertexPoints());
@@ -193,7 +193,7 @@ void GameLogic::createObjects()
 	m_cone->translateModelMat(m_cone->getStartPos());
 	m_cone->scaleModelMat(glm::vec3(2));
 
-	//Creating cone
+	//Creating character
 	m_character = new Mesh("BB8 Model");
 	m_read->resetData();
 	m_read->ReadFile("resources/obj/bb8.obj");
@@ -205,37 +205,6 @@ void GameLogic::createObjects()
 	m_character->translateModelMat(m_character->getStartPos());
 	m_character->scaleModelMat(glm::vec3(0.0625));
 
-	//Creating Mickey Mouse
-	m_mouse = new Mesh("Mickey Mouse Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/mouse.obj");
-	m_mouse->setVertrices(m_read->getVertexPoints());
-	m_mouse->setIndices(m_read->getIndices());
-	m_mouse->setNormals(m_read->getNormals());
-	m_mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
-	m_mouse->Load(m_programHandle);
-	m_mouse->translateModelMat(m_mouse->getStartPos());
-	m_mouse->scaleModelMat(glm::vec3(6));
-
-	//Making the splash screen 
-	m_ss = new SplashScreen(m_programHandle);
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
-	m_ss->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
-	m_ss->scaleModelMat(glm::vec3(13));
-
-	//Create the room to hold the scene
-	m_room = new Cube(m_programHandle);
-	m_room->scaleModelMat(glm::vec3(40));
-	m_room->cubeMap("resources/cubemap", "cube_texture");
-
-	//Create Robot character
-	m_robot = new Robot(m_programHandle);
-	m_robot->setSpeed(0.001f);
-	m_robot->setAnimationAngle(0.2f);
-	m_robot->setStartPos(glm::vec3(0.0, -24.0, 0.0));
-	m_robot->setVariableWalkAngle(0.0);
-	gl::Enable(gl::DEPTH_TEST);
-	
 	//Creating garlic press
 	m_garlicpress = new Mesh("Garlic Press Model");
 	m_read->resetData();
@@ -246,9 +215,41 @@ void GameLogic::createObjects()
 	m_garlicpress->setStartPos(glm::vec3(-20.0, -34.0, 0.0));
 	m_garlicpress->Load(m_programHandle);
 	m_garlicpress->translateModelMat(m_garlicpress->getStartPos());
-	m_garlicpress->scaleModelMat(glm::vec3(0.5));
+	m_garlicpress->scaleModelMat(glm::vec3(0.5));	
+
+	//Making the splash screen 	
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
+	m_ss = new SplashScreen(m_programHandle);
+	m_ss->setTextureUnit(0);
+	m_ss->loadTexture("resources/shader/sign.png", "tex");
+	m_ss->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
+	m_ss->scaleModelMat(glm::vec3(13));
+
+	//Creating Mickey Mouse
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
+	m_mouse = new Mesh("Mickey Mouse Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/mouse.obj");
+	m_mouse->setVertrices(m_read->getVertexPoints());
+	m_mouse->setIndices(m_read->getIndices());
+	m_mouse->setNormals(m_read->getNormals());
+	m_mouse->setUVs(m_read->getTexPoints());
+	m_mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
+	m_mouse->Load(m_programHandle);
+	m_mouse->setTextureUnit(1);
+	m_mouse->loadTexture("resources/shader/mouse.png", "mousetexture");
+	m_mouse->translateModelMat(m_mouse->getStartPos());
+	m_mouse->scaleModelMat(glm::vec3(6));
+ 
+	//Create the room to hold the scene
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
+	m_room = new Cube(m_programHandle);
+	m_room->setTextureUnit(2);
+	m_room->scaleModelMat(glm::vec3(40));
+	m_room->cubeMap("resources/cubemap", "cube_texture");
 
 	//Creating box
+	 gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
 	m_box2 = new Mesh("Box Model 2");
 	m_read->resetData();
 	m_read->ReadFile("resources/obj/cube.obj");
@@ -257,21 +258,30 @@ void GameLogic::createObjects()
 	m_box2->setNormals(m_read->getNormals());
 	m_box2->setStartPos(glm::vec3(-20.0, -37.0, 0.0));
 	m_box2->Load(m_programHandle);
+	m_box2->setTextureUnit(3);
+	m_box2->cubeMap("resources/rmap", "cube_texture2");	
 	m_box2->translateModelMat(m_box2->getStartPos());
 	m_box2->scaleModelMat(glm::vec3(3));
 	
+	//Create Robot character
+	m_robot = new Robot(m_programHandle);
+	m_robot->setSpeed(0.001f);
+	m_robot->setAnimationAngle(0.2f);
+	m_robot->setStartPos(glm::vec3(0.0, -24.0, 0.0));
+	m_robot->setVariableWalkAngle(0.0);
+
 	//Clears the data being read in from OBJ files
 	m_read->resetData();
 
 	//Putting the objects into a containter to traverse through
 	m_objects.push_back(m_box);
-	m_objects.push_back(m_box2);
-	m_objects.push_back(m_garlicpress);
-	m_objects.push_back(m_mouse);
 	m_objects.push_back(m_man);
 	m_objects.push_back(m_cone);
+	//m_objects.push_back(m_box2);
+	m_objects.push_back(m_garlicpress);
+	//m_objects.push_back(m_mouse);	
 	m_objects.push_back(m_character);
-
+	m_objects.push_back(m_box);
 	//Lighting stuff
 	//compileAndLinkShader();
 	//Set up the lighting
@@ -312,7 +322,7 @@ void GameLogic::linkMe(GLint vertShader, GLint fragShader)
 
             fprintf(stderr, "Program log: \n%s", log);
 
-            free(log);
+          free(log);
         }
     } else {
         gl::UseProgram(m_programHandle);
@@ -321,7 +331,7 @@ void GameLogic::linkMe(GLint vertShader, GLint fragShader)
 }
 
 //!< Update the scene with animations
-void GameLogic::update(float t, QuatCamera& camera)
+void GameLogic::update(float t, QuatCamera camera)
 {
 
 	switch (m_cGameState)
@@ -354,33 +364,54 @@ void GameLogic::update(float t, QuatCamera& camera)
 //!< Render mesh objects
 void GameLogic::render(QuatCamera camera)
 {
-   gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
 	switch (m_cGameState)
 	{
 		//Splash screen state
 		case 0:
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
 			m_ss->updateModelMatrix(camera, m_programHandle);
 			m_ss->draw();
 			
 		break;
-
+		
 		//Simulation game state
 		case 1:		
 			//Tells the shader not to render the splash screen
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
 
-			//Draw robot
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), true);
-			m_robot->drawRobot(camera, m_programHandle);
+		//Room
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), true);
+		m_room->updateModelMatrix(camera, m_programHandle);
+		m_room->draw();
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
+
 
 			for (int i = 0; i < m_objects.size(); i++)
 			{
-					// Draw what is on the objects list
-					gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "col"), i);
-					m_objects.at(i)->updateModelMatrix(camera, m_programHandle);
-					m_objects.at(i)->draw();
-			}		
+				// Draw what is on the objects list
+				gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "col"), i);
+				m_objects.at(i)->updateModelMatrix(camera, m_programHandle);
+				m_objects.at(i)->draw();
+			}
+
+			//Draw robot
+			m_robot->drawRobot(camera, m_programHandle);	
+
+			//drawing box test to see if textures are working
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), true);
+			m_box2->updateModelMatrix(camera, m_programHandle);
+			m_box2->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
+
+			//Drawing mickey in pattern wrapper
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), true);
+			m_mouse->updateModelMatrix(camera, m_programHandle);
+			m_mouse->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
+
+
 
 					//Setting material properties for the cube
 				/*	prog.setUniform("Kd", 0.0f, 1.0f, 0.0f);
@@ -392,13 +423,7 @@ void GameLogic::render(QuatCamera camera)
 					prog.setUniform("Ks", 1.0f, 1.0f, 1.0f);
 					prog.setUniform("Ls", 0.2f, 0.2f, 0.2f);*/					
 				
-			//gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);
-
-			//Room
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
-			m_room->updateModelMatrix(camera, m_programHandle);
-			//Draw the room
-			m_room->draw();
+			//gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);		
 
 			break;
 	}

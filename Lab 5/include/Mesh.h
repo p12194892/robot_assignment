@@ -26,8 +26,6 @@ class Mesh
 		GLuint m_programHandleID; //!< Main program handle
 		bool m_bDrawable; //!< If the mesh is drawable
 		Texture *m_gTexture; //!< Texture Object
-		std::string m_sTexName; //!< Texture name
-		//GLchar m_TexType;
 	    int m_iTexUnit; //!< Texture Unit
 		glm::mat4 m_modelMatrix; //!< Model Matrix
 		glm::vec3 m_startPosition; //!< Starting position 
@@ -41,10 +39,11 @@ class Mesh
 		void setVertrices(std::vector<glm::vec3> v); //!< Sets vertex data
 		void setIndices(std::vector< int> i); //!< Sets index data
 		void setNormals(std::vector<glm::vec3> n); //!< Sets normal data
+		void setUVs(std::vector<glm::vec2> uv);
 		void Load(GLuint programID); //!< Loads the buffers
 		void setDrawable(bool b); //!< Set if the mesh is drawable
 		bool isDrawable(); //!< If the mesh is drawable
-		void loadTexture(); //!< Loads the texture
+		void loadTexture(std::string sname, std::string s2); //!< Loads the texture
 		glm::mat4 getModelMat(); //!< Gets the model matrix
 		void translateModelMat(glm::vec3 t); //!< Translates the mesh
 		void scaleModelMat(glm::vec3 s); //!< Scales the mesh
@@ -52,5 +51,8 @@ class Mesh
 		glm::vec3 getStartPos(); //!< Gets the starting position of the mesh
 		void setStartPos(glm::vec3 s); //!< Sets the starting position of the mesh
 		void updateModelMatrix(QuatCamera camera, GLuint programHandle);//!< Updates the model matrix
+
+		void setTextureUnit(int i);
+
 
 };

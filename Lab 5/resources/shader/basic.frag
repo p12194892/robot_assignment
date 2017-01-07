@@ -1,123 +1,89 @@
 #version 430
-//new lighting stuff
-//in vec3 vertPos;
-//in vec3 N;
-//in vec3 lightPos;
 
-//uniform vec3 Kd;   //Diffuse reflectivity
-//uniform vec3 Ka;  //Ambient reflectivity
-//uniform vec3 Ks;  //Specular reflectivity
-//float shine; //Specular shininess factor
-
-//uniform vec3 La; // Ambient light intensity
-//uniform vec3 Ld; // Diffuse light intensity
-//uniform vec3 Ls; //Specular light intensity
-
-in vec3 reflect;
+in vec3 pos;
 in vec2 texCoord;
 
-uniform sampler2D tex;
-uniform sampler2D tex2;
+uniform sampler2D tex; // Bind to texture unit 0
+uniform sampler2D mousetexture; //Bind to texture unit 1
 
+uniform samplerCube cube_texture; // Bind to texture unit 2
 
-//in vec3 rubtex;
+uniform samplerCube cube_texture2; //Bind to texture unit 3
 
-uniform samplerCube cube_texture;
 uniform bool drawRcube;
-uniform bool rubix;
 uniform int col;
 uniform bool bSplashScreenState;
+uniform bool bDrawRubix; //Test
+uniform bool bPattern; //Test
+
 out vec4 fragColour;
-uniform bool button;
+
 void main()
 {
-
 	if(bSplashScreenState == true)
 	{
-
-		//if(button == true)
-		// {
-		//	 fragColour = texture(tex2,texCoord);
-		// }
-
-		//else
-	//	{
-			fragColour = texture(tex,texCoord);
-		//}
+		fragColour = texture2D(tex,texCoord);
 	}
 
-	else 
+	else if (bSplashScreenState == false)
 	{
 		//If we are drawing the room
-		if (drawRcube == false)
+		if (drawRcube == true)
 		{
-		
-			fragColour = texture(cube_texture, reflect);
+			fragColour = texture(cube_texture, pos);
 		}
 
-		//red
-		else if(col == 1)
+		//Drawing m_box2
+		else if (bDrawRubix == true)
 		{
-			fragColour = vec4(1.0, 0.0, 0.0, 1.0);
+			fragColour = texture(cube_texture2, pos);
 		}
 
-		//white
-		else if(col == 2)
+		else if (bPattern == true)
 		{
-			fragColour = vec4(1.0, 1.0, 1.0, 1.0);
+			fragColour = texture2D(mousetexture,texCoord);
 		}
 
-		//yellow
-		else if(col == 3)
-		{
-			fragColour = vec4(1.0, 1.0, 0.0, 1.0);
-		}
+		//Drawing everything else
+		else if(drawRcube == false && bDrawRubix == false && bPattern == false)
+		{	
+			if(col == 0)
+			{
+				fragColour = vec4(0.0, 1.0, 0.0, 0.0);
+			}
 
-		else if(col == 4)
-		{
-			fragColour = vec4(0.0, 0.0, 1.0, 1.0);
-		}
+			//red
+				if(col == 1)
+			{
+				fragColour = vec4(1.0, 0.0, 0.0, 1.0);
+			}
 
-		else if(col == 5)
-		{
-			fragColour = vec4(1.0, 0.0, 1.0, 1.0);
-		}
+			//white
+				if(col == 2)
+			{
+				fragColour = vec4(1.0, 1.0, 1.0, 1.0);
+			}
 
-		else if(col == 6)
-		{
-			fragColour = vec4(1.0, 0.0, 1.0, 0.0);
-		}
+			//yellow
+				if(col == 3)
+			{
+				fragColour = vec4(1.0, 1.0, 0.0, 1.0);
+			}
 
+				if(col == 4)
+			{
+				fragColour = vec4(0.0, 0.0, 1.0, 1.0);
+			}
+
+				if(col == 5)
+			{
+				fragColour = vec4(1.0, 0.0, 1.0, 1.0);
+			}
+
+				if(col == 6)
+			{
+				fragColour = vec4(1.0, 0.0, 1.0, 0.0);
+			}
+		}
 	}
-
-
-
-
-	/*	//lighting equation NEW
-		//Calculate the light vector (Light Source)
-	   vec3 L = normalize(lightPos - vertPos);  
-	   //Eye coordinates, eye pos is (0,0,0)
-		vec3 v = normalize(-vertPos);
-	   //Reflect factor
-		//vec3 r = reflect(-L, N);
-		vec3 r = -reflect(L, N);
-	
-		//Ambient
-		vec3 ambient = Ka * La;
-
-		//Diffuse	
-		//float SDotN = max(dot(N,L), 0.0);
-		float SDotN = max(dot(L,N), 0.0);
-		vec3 diffuse = Ld * Kd * SDotN;
-	
-		 //Specular	
-		 vec3 spec = vec3(0.0);
-		if(SDotN > 0.0)
-		{
-		
-			spec = Ls * Ks *  pow(max(dot(r,v), 0.0 ),  30.0f);
-		}
-		
-		fragColour = vec4(ambient + diffuse + spec, 1.0);
-		*/
 }

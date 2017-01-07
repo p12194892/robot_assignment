@@ -18,6 +18,7 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 QuatCamera::QuatCamera() 
 	{
 		reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+
 		//Positions of various cameras
 		m_cameraPositions.push_back(glm::vec3(-20.0f, -38.0f, 31.0f));
 		m_cameraPositions.push_back(glm::vec3(2.22959f, -38.30103f, -0.91515f));
@@ -178,8 +179,8 @@ void QuatCamera::reset(glm::vec3 pos, glm::vec3 ori)
 
 		//Initialise camera perspective parameters
 		m_fFieldOfView = glm::radians(50.0f);
-		m_fNearPlane = 0.01f;
-		m_fFarPlane = 100.0f;
+		m_fNearPlane = 1.00f;
+		m_fFarPlane = 10000.0f;
 		m_fAspectRatio = 4.0f/3.0f;
 
 		m_projection = glm::perspective(m_fFieldOfView,m_fAspectRatio,m_fNearPlane, m_fFarPlane);
