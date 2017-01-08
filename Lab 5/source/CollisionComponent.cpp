@@ -1,15 +1,15 @@
-#include "Collision.h"
+#include "CollisionComponent.h"
 #include <glm\glm.hpp>
 
 //!< Default Constructor
-Collision::Collision()
+CollisionComponent::CollisionComponent()
 {
 
 }
 //!< Checks the distance between two starting vectors
-std::vector<Mesh*> Collision::checkVectorDistance(std::vector<Mesh*> objects, glm::vec3 robotPos)
+std::vector<MeshComponent*> CollisionComponent::checkVectorDistance(std::vector<MeshComponent*> objects, glm::vec3 robotPos)
 {
-	std::vector<Mesh*> meshObjects = objects;
+	std::vector<MeshComponent*> meshObjects = objects;
 
 	for (int i = 0; i < meshObjects.size(); i++)
 	{

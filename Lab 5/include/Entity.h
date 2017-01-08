@@ -2,12 +2,10 @@
 
 class Entity
 {
-
-	protected:
-	
-		//Make this be inhertited by everything and get working :)
 	public:
-		virtual void update(float t) = 0;
-	//	virtual void init() = 0;
-	//	virtual void draw() = 0;
+		virtual void init() {}
+		virtual void update(float t) {}
+		virtual void update() {} //Overload of the update function
+
+		//virtual void render(CameraComponent camera);
 };

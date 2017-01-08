@@ -133,41 +133,45 @@
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\Button.h" />
-    <ClInclude Include="include\Collision.h" />
+    <ClInclude Include="include\CollisionComponent.h" />
     <ClInclude Include="include\cube.h" />
     <ClInclude Include="include\Entity.h" />
-    <ClInclude Include="include\GameLogic.h" />
+    <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\BaseGame.h" />
     <ClInclude Include="include\FileReader.h" />
     <ClInclude Include="include\glslprogram.h" />
     <ClInclude Include="include\gl_core_4_3.hpp" />
-    <ClInclude Include="include\Mesh.h" />
-    <ClInclude Include="include\QuatCamera.h" />
+    <ClInclude Include="include\MeshComponent.h" />
+    <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\Robot.h" />
-    <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\sceneTexture.h" />
-    <ClInclude Include="include\SoundLoader.h" />
-    <ClInclude Include="include\splashScreen.h" />
+    <ClInclude Include="include\ShaderLinkerComponent.h" />
+    <ClInclude Include="include\SoundComponent.h" />
+    <ClInclude Include="include\SplashScreenComponent.h" />
     <ClInclude Include="include\Texture.h" />
-    <ClInclude Include="include\Window.h" />
+    <ClInclude Include="include\tinyxml2.h" />
+    <ClInclude Include="include\WindowComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp" />
     <ClCompile Include="source\Button.cpp" />
-    <ClCompile Include="source\Collision.cpp" />
+    <ClCompile Include="source\CollisionComponent.cpp" />
     <ClCompile Include="source\cube.cpp" />
-    <ClCompile Include="source\Entity.cpp" />
-    <ClCompile Include="source\GameLogic.cpp" />
+    <ClCompile Include="source\Engine.cpp" />
+    <ClCompile Include="source\BaseGame.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
     <ClCompile Include="source\glslprogram.cpp" />
     <ClCompile Include="source\gl_core_4_3.cpp" />
     <ClCompile Include="source\main.cpp" />
-    <ClCompile Include="source\Mesh.cpp" />
-    <ClCompile Include="source\QuatCamera.cpp" />
+    <ClCompile Include="source\MeshComponent.cpp" />
+    <ClCompile Include="source\CameraComponent.cpp" />
     <ClCompile Include="source\Robot.cpp" />
-    <ClCompile Include="source\SoundLoader.cpp" />
-    <ClCompile Include="source\splashScreen.cpp" />
+    <ClCompile Include="source\ShaderLinkerComponent.cpp" />
+    <ClCompile Include="source\SoundComponent.cpp" />
+    <ClCompile Include="source\SplashScreenComponent.cpp" />
     <ClCompile Include="source\Texture.cpp" />
-    <ClCompile Include="source\Window.cpp" />
+    <ClCompile Include="source\tinyxml2.cpp" />
+    <ClCompile Include="source\WindowComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shader\basic.frag" />
@@ -193,6 +197,9 @@
     <Image Include="resources\shader\pattern_right.png" />
     <Image Include="resources\shader\pattern_up.png" />
     <Image Include="resources\shader\sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="data.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

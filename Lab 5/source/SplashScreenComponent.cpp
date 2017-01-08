@@ -1,13 +1,13 @@
-#include "splashScreen.h"
+#include "SplashScreenComponent.h"
 
 //!< Default Constructor 
-SplashScreen::SplashScreen()
+SplashScreenComponent::SplashScreenComponent()
 {
 
 }
 
 //!<  Constructor 
-SplashScreen::SplashScreen(GLuint programID)
+SplashScreenComponent::SplashScreenComponent(GLuint programID)
 {
 	//Loading a 2d rectangle to texture 
 	m_vertices.push_back(glm::vec3(-0.1f, 0.1f, 0.0f));//0 V1

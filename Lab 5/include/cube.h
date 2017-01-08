@@ -4,7 +4,7 @@
 * Header file creating generic cube object
 */
 
-#include "Mesh.h"
+#include "MeshComponent.h"
 #include "string"
 
 /*! \class Cube
@@ -12,7 +12,7 @@
 */
 
 //!< Inherits from Mesh as a cube object is a mesh
-class Cube : public Mesh
+class Cube : public MeshComponent
 {
 	public:
 		Cube(); //!< Default Constructor 

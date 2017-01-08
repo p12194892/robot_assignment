@@ -1,6 +1,6 @@
 #pragma once
 /*!
-* @file Mesh.h
+* @file MeshComponent.h
 * Header file creating a mesh object
 */
 
@@ -9,13 +9,13 @@
 #include <glm\glm.hpp>
 #include "gl_core_4_3.hpp"
 #include "Texture.h"
-#include "QuatCamera.h"
+#include "CameraComponent.h"
 
-/*! \class Mesh
+/*! \class MeshComponent
 \brief Generates a general mesh
 */
 
-class Mesh
+class MeshComponent
 {
 	protected:
 		std::vector<glm::vec3> m_vertices; //!< Vertex data
@@ -32,15 +32,15 @@ class Mesh
 		std::string m_sMeshObjectID; //!< Mesh ID
 
 	public:
-		Mesh(); //!< Default Constructor 
-		Mesh(std::string name); //!< Constructor 
+		MeshComponent(); //!< Default Constructor 
+		MeshComponent(std::string name); //!< Constructor 
+		void Load(GLuint programID); //!< Loads the buffers
 		void draw(); //!< Draws the mesh
 		void cubeMap(std::string s, std::string s2); //!< Cube Maps the texture (May move to cube)
 		void setVertrices(std::vector<glm::vec3> v); //!< Sets vertex data
 		void setIndices(std::vector< int> i); //!< Sets index data
 		void setNormals(std::vector<glm::vec3> n); //!< Sets normal data
 		void setUVs(std::vector<glm::vec2> uv);
-		void Load(GLuint programID); //!< Loads the buffers
 		void setDrawable(bool b); //!< Set if the mesh is drawable
 		bool isDrawable(); //!< If the mesh is drawable
 		void loadTexture(std::string sname, std::string s2); //!< Loads the texture
@@ -50,9 +50,8 @@ class Mesh
 		void rotateModelMat(glm::vec3 r); //!<  Rotates the mesh
 		glm::vec3 getStartPos(); //!< Gets the starting position of the mesh
 		void setStartPos(glm::vec3 s); //!< Sets the starting position of the mesh
-		void updateModelMatrix(QuatCamera camera, GLuint programHandle);//!< Updates the model matrix
-
+		void updateModelMatrix(CameraComponent camera, GLuint programHandle);//!< Updates the model matrix
 		void setTextureUnit(int i);
-
+		std::string MeshComponent::getID();
 
 };

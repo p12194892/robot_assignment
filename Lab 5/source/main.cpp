@@ -3,18 +3,14 @@
 \brief The entry for the program
 */
 
-#include "Window.h"
+#include "Engine.h"
 
 int main(int argc, char *argv[])
 {
-	//The window wrapper class
-	Window* m_mainWindow;
-	m_mainWindow = new Window();
+	//Create and initalize the engine	
+	Engine* m_coreEngine = new Engine();
 
-	//Window initialization
-	m_mainWindow->initWindow();
-	
-	//Enter the main loop for the program
-	m_mainWindow->mainLoop();
+	//Start the Engine
+	m_coreEngine->start();
 }
 

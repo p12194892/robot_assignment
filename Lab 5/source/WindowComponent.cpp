@@ -1,68 +1,39 @@
-#include "Window.h"
+#include "WindowComponent.h"
 
 //!< Default constructor
-Window::Window()
+WindowComponent::WindowComponent()
 {
-	lastCursorPositionX = 0.0;
-	lastCursorPositionY = 0.0;
-	cursorPositionX = 0.0;
-	cursorPositionY = 0.0;
+	m_lastCursorPositionX = 0.0;
+	m_lastCursorPositionY = 0.0;
+	m_cursorPositionX = 0.0;
+	m_cursorPositionY = 0.0;
 
 	//Creates the scene
-	m_scene = new GameLogic();
+	m_baseGame = new BaseGame();
 
 	//SFML window
-	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Default, sf::ContextSettings(64));
-	m_bifRunning = true;	
+	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Default, sf::ContextSettings(24));
+	m_bifRunning = false;	
 }
 
-//!< Initialize the window
-void Window::initWindow()
-{
-
-	// Load the OpenGL functions.
-	gl::exts::LoadTest didLoad = gl::sys::LoadFunctions();
-
-	if (!didLoad) {
-	//Claen up and abort
-	glfwTerminate();
-	exit(EXIT_FAILURE);
-	}
-
-	gl::Enable(gl::DEPTH_TEST);
-	gl::ClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-	
-	m_scene->initScene(m_camera);
-
-}
- 
- //!< Resizes the camera based on the size of window
- void Window::resizeGL(int w, int h)
+//!< Main loop of the program
+ void WindowComponent::mainLoop()
  {
-	 m_scene->resize(m_camera, w, h);
- }
+	//Update the gameloop
+	update((float)glfwGetTime());
 
- //!< Main loop of the program
- void Window::mainLoop()
- {
-	 while (m_bifRunning)
-	 {
-		 //Update the gameloop
-		 update((float)glfwGetTime());
-
-		 //render 
-		 m_scene->render(m_camera);
+	//render 
+	m_baseGame->render(m_camera);
 		 
-		 //Swap buffers
-		 m_window->display();
+	//Swap buffers
+	m_window->display();
 
-		 //poll events
-		 sfEventPoll();
-	 }
+	//poll events
+	sfEventPoll();
  }
 
  //!< Poll events
- void Window::sfEventPoll()
+ void WindowComponent::sfEventPoll()
  {
 	 while (m_window->pollEvent(m_event))
 	 {
@@ -70,6 +41,7 @@ void Window::initWindow()
 		 {
 		 case sf::Event::Closed:
 			 // end the program
+			 std::cout << "Closing window" << std::endl << std::endl;
 			 m_bifRunning = false;
 			 m_window->close();
 			 exit(EXIT_SUCCESS);
@@ -84,41 +56,35 @@ void Window::initWindow()
 		 //Key Presses
 		 if (m_event.type == sf::Event::KeyPressed)
 		 {
-			 if (m_event.key.code == sf::Keyboard::E)
-			 {
-				 if (m_scene)
-					 m_scene->animate(!(m_scene->animating()));
-			 }
-
 			 //Moving Robot Up
-			 else if (m_event.key.code == sf::Keyboard::Up)
+			 if (m_event.key.code == sf::Keyboard::Up)
 			 {
-				 m_scene->keyPress(true, 'U');
+				 m_baseGame->keyPress(true, 'U');
 			 }
 
 			 //Moving Robot Down
 			 else if (m_event.key.code == sf::Keyboard::Down)
 			 {
-				 m_scene->keyPress(true, 'W');
+				 m_baseGame->keyPress(true, 'W');
 			 }
 
 			 //Moving Robot Right
 			 else if (m_event.key.code == sf::Keyboard::Right)
 			 {
-				 m_scene->keyPress(true, 'D');
+				 m_baseGame->keyPress(true, 'D');
 			 }
 
 			 //Moving Robot Left
 			 else if (m_event.key.code == sf::Keyboard::Left)
 			 {
-				 m_scene->keyPress(true, 'S');
+				 m_baseGame->keyPress(true, 'S');
 			 }
 
 			 else if (m_event.key.code == sf::Keyboard::Space)
 			 {
-				 if (m_scene->getGameState() == 0)
+				 if (m_baseGame->getGameState() == 0)
 				 {
-					 m_scene->changeGameState(1);
+					 m_baseGame->changeGameState(1);
 				 }
 			 }
 
@@ -145,28 +111,31 @@ void Window::initWindow()
 		 {
 			 if (m_event.key.code == sf::Keyboard::Right)
 			 {
-				 m_scene->keyPress(false, 'D');
+				 m_baseGame->keyPress(false, 'D');
 			 }
 
 			 else if (m_event.key.code == sf::Keyboard::Left)
 			 {
-				 m_scene->keyPress(false, 'S');
+				 m_baseGame->keyPress(false, 'S');
 			 }
 
 			 else if (m_event.key.code == sf::Keyboard::Up)
 			 {
-				 m_scene->keyPress(false, 'U');
+				 m_baseGame->keyPress(false, 'U');
 			 }
 
 			 else if (m_event.key.code == sf::Keyboard::Down)
 			 {
-				 m_scene->keyPress(false, 'W');
+				 m_baseGame->keyPress(false, 'W');
 			 }
 		 }
 
 		 if (m_event.type == sf::Event::MouseWheelMoved)
 		 {
-			 m_camera.zoom((float)m_event.mouseWheel.delta*0.5f);
+			 if (m_baseGame->getGameState() == 1)
+			 {
+				 m_camera.zoom((float)m_event.mouseWheel.delta*0.5f);
+			 }
 		 }
 
 
@@ -207,4 +176,18 @@ void Window::initWindow()
 		 }
 	 }
  }
- 
+
+ bool WindowComponent::isRunning()
+ {
+	 return m_bifRunning;
+ }
+
+ WindowComponent::~WindowComponent()
+ {
+
+ }
+
+ void WindowComponent::setRunning(bool run)
+ {
+	 m_bifRunning = run;
+ }

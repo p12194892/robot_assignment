@@ -1,15 +1,15 @@
 /*!
- * @file GameSoundLoader.cpp
+ * @file SoundComponent.cpp
  */
 
-#include "SoundLoader.h"
+#include "SoundComponent.h"
 #include <iostream>
 
 //Singleton design pattern
-SoundLoader* SoundLoader::m_Instance = NULL;
+SoundComponent* SoundComponent::m_Instance = NULL;
 
 //!< Default constructor
-SoundLoader::SoundLoader()
+SoundComponent::SoundComponent()
 {
 	m_sSoundFile.push_back("resources/sounds/bubble.wav");
 
@@ -23,19 +23,19 @@ SoundLoader::SoundLoader()
 }
 
 //!< Instance contructor to ensure that only one GameTextureLoader is created
-SoundLoader* SoundLoader::Instance() 
+SoundComponent* SoundComponent::Instance()
 {
 	//if the pointer is pointing to nothing make an instance of a GameSoundLoader
 	if (m_Instance == NULL)
 	{
-		m_Instance = new SoundLoader();
+		m_Instance = new SoundComponent();
 	}
 
 	return m_Instance;
 }
 
 //!< Gets the sound of the sent index and returns a sound pointer 
-sf::Sound* SoundLoader::GetSound(unsigned int iIndex) 
+sf::Sound* SoundComponent::GetSound(unsigned int iIndex)
 {	
 	//if guard to protect potential memory leak
 	if (iIndex < m_Sounds.size())

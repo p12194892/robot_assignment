@@ -13,80 +13,14 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{6bbf6f5f-0e2c-4776-9dab-dee3a0c9842c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Camera">
-      <UniqueIdentifier>{8aab53ca-9d6a-48f8-9986-3179935e4d5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Game Logic">
-      <UniqueIdentifier>{457affcf-34db-4446-b276-d8bfef8a8729}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Game Objects">
       <UniqueIdentifier>{959ad200-bde6-4ba5-9321-916e5aa0a372}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Data Driven">
-      <UniqueIdentifier>{cce58bf2-077e-40fd-b45b-e5bfcb786e97}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{1968517f-0566-44b0-9168-01d7fbbb6151}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Data Driven">
-      <UniqueIdentifier>{ecbad061-72f1-436d-877a-276b11eae753}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game Logic">
-      <UniqueIdentifier>{e03d4620-e994-48cc-bf0f-4e2d88fc7a92}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Program Entry">
       <UniqueIdentifier>{3e92c5bf-e463-4075-a007-e46431ad053c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Camera">
-      <UniqueIdentifier>{9b84cecf-8b0e-4820-ae15-f13a461f3b48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sound">
-      <UniqueIdentifier>{a326fdca-7f82-492f-90b8-886dd64ea856}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sound">
-      <UniqueIdentifier>{d49aa20a-eeef-4cd4-b5cc-8d5a70ba78c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Program Initialization">
-      <UniqueIdentifier>{a78d44a1-83c9-431e-8498-f957b5ce7ed6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Program Initialization">
-      <UniqueIdentifier>{152f86d9-70eb-4d9e-88ae-ea6d54a8f94e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Game Objects">
       <UniqueIdentifier>{8b1a9b59-2f57-4cad-a86d-e83c2439c8b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UI">
-      <UniqueIdentifier>{e50c0a9f-f487-4dd1-b96f-0b5491b56c47}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine Components">
-      <UniqueIdentifier>{3f1d53a0-e43e-431e-8ca5-a2798ff4d3e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine Components">
-      <UniqueIdentifier>{852dd935-dded-4cf3-b92b-8247612733b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\Texture">
-      <UniqueIdentifier>{c1c2afda-6490-4f7f-9633-650b9c34d588}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\Texture\OpenGL">
-      <UniqueIdentifier>{11ee16e3-07ca-49f2-ba4a-98c92865305a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics\Texture\SFML">
-      <UniqueIdentifier>{31f95104-b7b9-45bb-8f2b-559f3d7850ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Texture">
-      <UniqueIdentifier>{596568a8-55e0-4f9f-b9a2-0887643aa095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Texture\OpenGL">
-      <UniqueIdentifier>{f3a71387-a48a-4666-a9ec-0fe0d9b9cf27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics\Texture\SFML">
-      <UniqueIdentifier>{8a69c6cf-2c9a-4e48-b376-ba4a4c656e7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\UI">
-      <UniqueIdentifier>{cb07cc06-4e38-4709-89d8-a2f6d5d76134}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files\Room">
       <UniqueIdentifier>{1da5b794-e0b3-4c99-9160-f75c5c70fe2b}</UniqueIdentifier>
@@ -100,114 +34,204 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{b62b7265-c0b2-41b5-817a-1e13f017d7f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Camera Component">
+      <UniqueIdentifier>{9b84cecf-8b0e-4820-ae15-f13a461f3b48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera Component">
+      <UniqueIdentifier>{8aab53ca-9d6a-48f8-9986-3179935e4d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound Component">
+      <UniqueIdentifier>{d49aa20a-eeef-4cd4-b5cc-8d5a70ba78c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound Component">
+      <UniqueIdentifier>{a326fdca-7f82-492f-90b8-886dd64ea856}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI Components">
+      <UniqueIdentifier>{e50c0a9f-f487-4dd1-b96f-0b5491b56c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI Components">
+      <UniqueIdentifier>{cb07cc06-4e38-4709-89d8-a2f6d5d76134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Core Engine">
+      <UniqueIdentifier>{3f1d53a0-e43e-431e-8ca5-a2798ff4d3e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core Engine">
+      <UniqueIdentifier>{852dd935-dded-4cf3-b92b-8247612733b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parser Components">
+      <UniqueIdentifier>{cce58bf2-077e-40fd-b45b-e5bfcb786e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component">
+      <UniqueIdentifier>{1968517f-0566-44b0-9168-01d7fbbb6151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Texture">
+      <UniqueIdentifier>{596568a8-55e0-4f9f-b9a2-0887643aa095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Texture\OpenGL">
+      <UniqueIdentifier>{f3a71387-a48a-4666-a9ec-0fe0d9b9cf27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Texture\SFML">
+      <UniqueIdentifier>{8a69c6cf-2c9a-4e48-b376-ba4a4c656e7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphic Render Component">
+      <UniqueIdentifier>{6bbf6f5f-0e2c-4776-9dab-dee3a0c9842c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphic Render Component\Texture">
+      <UniqueIdentifier>{c1c2afda-6490-4f7f-9633-650b9c34d588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphic Render Component\Texture\OpenGL">
+      <UniqueIdentifier>{11ee16e3-07ca-49f2-ba4a-98c92865305a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\XML - Data Driven">
+      <UniqueIdentifier>{7c828bb3-d539-425c-9223-537be5c2a33a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity">
+      <UniqueIdentifier>{5f762cbd-09a0-4b36-8a1a-bf8ab95225f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Window Component">
+      <UniqueIdentifier>{152f86d9-70eb-4d9e-88ae-ea6d54a8f94e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Window Component">
+      <UniqueIdentifier>{a78d44a1-83c9-431e-8498-f957b5ce7ed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Collision Detection Component">
+      <UniqueIdentifier>{2eba8490-d5b0-40b5-bc86-54e3b3406f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collision Detection Component">
+      <UniqueIdentifier>{69d20b52-8d33-44fc-b422-213aa9960c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parser Components">
+      <UniqueIdentifier>{ecbad061-72f1-436d-877a-276b11eae753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base Game">
+      <UniqueIdentifier>{457affcf-34db-4446-b276-d8bfef8a8729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Base Game">
+      <UniqueIdentifier>{e03d4620-e994-48cc-bf0f-4e2d88fc7a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphic Render Component\Mesh">
+      <UniqueIdentifier>{c10c3b47-f773-48f3-86d6-eb9df742db10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Bitmap.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\QuatCamera.h">
-      <Filter>Header Files\Camera</Filter>
+      <Filter>Header Files\Graphic Render Component</Filter>
     </ClInclude>
     <ClInclude Include="include\cube.h">
       <Filter>Header Files\Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="include\gl_core_4_3.hpp">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\scene.h">
-      <Filter>Header Files\Game Logic</Filter>
+      <Filter>Header Files\Graphic Render Component</Filter>
     </ClInclude>
     <ClInclude Include="include\glslprogram.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Header Files\Graphic Render Component</Filter>
     </ClInclude>
     <ClInclude Include="include\Robot.h">
       <Filter>Header Files\Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="include\Mesh.h">
-      <Filter>Header Files\Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="include\FileReader.h">
-      <Filter>Header Files\Data Driven</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameLogic.h">
-      <Filter>Header Files\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Collision.h">
-      <Filter>Header Files\Game Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SoundLoader.h">
-      <Filter>Header Files\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Window.h">
-      <Filter>Header Files\Program Initialization</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files\Program Initialization</Filter>
+      <Filter>Header Files\Parser Components</Filter>
     </ClInclude>
     <ClInclude Include="include\sceneTexture.h">
-      <Filter>Header Files\Graphics\Texture\OpenGL</Filter>
+      <Filter>Header Files\Graphic Render Component\Texture\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="include\Texture.h">
-      <Filter>Header Files\Graphics\Texture\OpenGL</Filter>
+      <Filter>Header Files\Graphic Render Component\Texture\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CameraComponent.h">
+      <Filter>Header Files\Camera Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SoundComponent.h">
+      <Filter>Header Files\Sound Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SplashScreenComponent.h">
+      <Filter>Header Files\UI Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowComponent.h">
+      <Filter>Header Files\Window Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine.h">
+      <Filter>Header Files\Core Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml2.h">
+      <Filter>Header Files\Parser Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="include\Button.h">
-      <Filter>Header Files\Game Objects</Filter>
+      <Filter>Header Files\UI Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\splashScreen.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="include\CollisionComponent.h">
+      <Filter>Header Files\Collision Detection Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseGame.h">
+      <Filter>Header Files\Base Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderLinkerComponent.h">
+      <Filter>Header Files\Graphic Render Component</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshComponent.h">
+      <Filter>Header Files\Graphic Render Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Graphic Render Component</Filter>
     </ClCompile>
     <ClCompile Include="source\glslprogram.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Graphic Render Component</Filter>
     </ClCompile>
     <ClCompile Include="source\FileReader.cpp">
-      <Filter>Source Files\Data Driven</Filter>
+      <Filter>Source Files\Parser Components</Filter>
     </ClCompile>
     <ClCompile Include="source\cube.cpp">
       <Filter>Source Files\Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="source\gl_core_4_3.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Graphic Render Component</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>Source Files\Program Entry</Filter>
     </ClCompile>
-    <ClCompile Include="source\Mesh.cpp">
-      <Filter>Source Files\Game Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="source\QuatCamera.cpp">
-      <Filter>Source Files\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="source\Robot.cpp">
       <Filter>Source Files\Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameLogic.cpp">
-      <Filter>Source Files\Game Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Collision.cpp">
-      <Filter>Source Files\Game Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundLoader.cpp">
-      <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Window.cpp">
-      <Filter>Source Files\Program Initialization</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Entity.cpp">
-      <Filter>Source Files\Program Initialization</Filter>
-    </ClCompile>
     <ClCompile Include="source\Texture.cpp">
-      <Filter>Source Files\Graphics\Texture\OpenGL</Filter>
+      <Filter>Source Files\Graphic Render Component\Texture\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="source\Button.cpp">
       <Filter>Source Files\Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="source\splashScreen.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="source\CameraComponent.cpp">
+      <Filter>Source Files\Camera Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundComponent.cpp">
+      <Filter>Source Files\Sound Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SplashScreenComponent.cpp">
+      <Filter>Source Files\UI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WindowComponent.cpp">
+      <Filter>Source Files\Window Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Engine.cpp">
+      <Filter>Source Files\Core Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxml2.cpp">
+      <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CollisionComponent.cpp">
+      <Filter>Source Files\Collision Detection Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MeshComponent.cpp">
+      <Filter>Source Files\Graphic Render Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BaseGame.cpp">
+      <Filter>Source Files\Base Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderLinkerComponent.cpp">
+      <Filter>Source Files\Graphic Render Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,5 +300,10 @@
     <Image Include="resources\shader\pattern_up.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="data.xml">
+      <Filter>Resource Files\XML - Data Driven</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

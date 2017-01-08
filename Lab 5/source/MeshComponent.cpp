@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "MeshComponent.h"
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
@@ -6,19 +6,19 @@
 #include "Bitmap.h"
 
 //!< Default Constructor 
-Mesh::Mesh() {
+MeshComponent::MeshComponent() {
 	m_bDrawable = true;
 }
 
 //!< Constructor 
-Mesh::Mesh(std::string name)
+MeshComponent::MeshComponent(std::string name)
 {
 	m_bDrawable = true;
 	m_sMeshObjectID = name;
 }
 
 //!< Loads the buffers
-void Mesh::Load(GLuint programID)
+void MeshComponent::Load(GLuint programID)
 {
 	m_programHandleID = programID;
 	GLuint index_buffer;
@@ -75,7 +75,7 @@ void Mesh::Load(GLuint programID)
 }
 
 //!< Loads the texture
-void Mesh::loadTexture(std::string sname, std::string s2)
+void MeshComponent::loadTexture(std::string sname, std::string s2)
 {
 	//Load the texture
 	Bitmap bmp = Bitmap::bitmapFromFile(sname);
@@ -91,7 +91,7 @@ void Mesh::loadTexture(std::string sname, std::string s2)
 }
 
 //!< Draws the mesh
-void Mesh::draw()
+void MeshComponent::draw()
 {
 	gl::BindVertexArray(m_vaoHandle);
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
@@ -99,7 +99,7 @@ void Mesh::draw()
 }
 
 //!< Cube Maps the texture (May move to cube)
-void Mesh::cubeMap(std::string s, std::string s2) {
+void MeshComponent::cubeMap(std::string s, std::string s2) {
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
 	GLuint target[6];
 	target[0] = gl::TEXTURE_CUBE_MAP_POSITIVE_X; //Right
@@ -131,73 +131,73 @@ void Mesh::cubeMap(std::string s, std::string s2) {
 }
 
 //!< Sets vertex data
-void Mesh::setVertrices(std::vector<glm::vec3> v)
+void MeshComponent::setVertrices(std::vector<glm::vec3> v)
 {
 	m_vertices = v;
 }
 
 //!< Sets index data
-void Mesh::setIndices(std::vector<int> i)
+void MeshComponent::setIndices(std::vector<int> i)
 {
 	m_indices = i;
 }
 
 //!< Sets normal data
-void Mesh::setNormals(std::vector<glm::vec3> n)
+void MeshComponent::setNormals(std::vector<glm::vec3> n)
 {
 	m_normals = n;
 }
 
 //!< Set if the mesh is drawable
-void Mesh::setDrawable(bool b)
+void MeshComponent::setDrawable(bool b)
 {
 	m_bDrawable = b;
 }
 
 //!< If the mesh is drawable
-bool Mesh::isDrawable()
+bool MeshComponent::isDrawable()
 {
 	return m_bDrawable;
 }
 
 //!< Gets the model matrix
-glm::mat4 Mesh::getModelMat()
+glm::mat4 MeshComponent::getModelMat()
 {
 	return m_modelMatrix;
 }
 
 //!< Translates the mesh
-void Mesh::translateModelMat(glm::vec3 t)
+void MeshComponent::translateModelMat(glm::vec3 t)
 {
 	m_modelMatrix *= glm::translate(t);
 }
 
 //!< Scales the mesh
-void Mesh::scaleModelMat(glm::vec3 s)
+void MeshComponent::scaleModelMat(glm::vec3 s)
 {
 	m_modelMatrix *= glm::scale(s);
 }
 
 //!<  Rotates the mesh
-void Mesh::rotateModelMat(glm::vec3 r)
+void MeshComponent::rotateModelMat(glm::vec3 r)
 {
 	//To be done
 }
 
 //!< Gets the starting position of the mesh
-glm::vec3 Mesh::getStartPos()
+glm::vec3 MeshComponent::getStartPos()
 {
 	return m_startPosition;
 }
 
 //!< Sets the starting position of the mesh
-void Mesh::setStartPos(glm::vec3 s)
+void MeshComponent::setStartPos(glm::vec3 s)
 {
 	m_startPosition = s;
 }
 
 //!< Updates the model matrix
-void Mesh::updateModelMatrix(QuatCamera camera, GLuint programHandle)
+void MeshComponent::updateModelMatrix(CameraComponent camera, GLuint programHandle)
 {
 	camera.updateMVP(m_modelMatrix);
 
@@ -216,12 +216,18 @@ void Mesh::updateModelMatrix(QuatCamera camera, GLuint programHandle)
 	prog.setUniform("V", camera.view());
 	//prog.setUniform("P", camera.projection());*/
 }
-void Mesh::setTextureUnit(int i)
+
+void MeshComponent::setTextureUnit(int i)
 {
 	m_iTexUnit = i;
 }
 
-void Mesh::setUVs(std::vector<glm::vec2> uv)
+void MeshComponent::setUVs(std::vector<glm::vec2> uv)
 {
 	m_uvData = uv;
+}
+
+std::string MeshComponent::getID()
+{
+	return m_sMeshObjectID;
 }

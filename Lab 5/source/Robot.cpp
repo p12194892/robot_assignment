@@ -59,7 +59,7 @@ Robot::~Robot()
 }
 
 //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
-void Robot::drawRobot(QuatCamera c/*!The camera*/, GLuint programID/*!The main program handle*/)
+void Robot::drawRobot(CameraComponent c/*!The camera*/, GLuint programID/*!The main program handle*/)
 {
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 2);
 
