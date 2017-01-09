@@ -14,7 +14,7 @@
 #include "SFML\Window.hpp"
 
 //New stuff
-#include "SplashScreenComponent.h"
+#include "UIComponent.h"
 #include "SFML/Graphics.hpp"
 
 #define MOVE_VELOCITY 0.01f
@@ -50,8 +50,7 @@ class WindowComponent: public Entity
 		//!< Update the camera controls (virtual function)
 		void update(float t)
 		{
-			if (m_baseGame->getGameState() == 1)
-			{
+			
 				//Current mouse position
 				m_cursorPositionX = sf::Mouse::getPosition().x;
 				m_cursorPositionY = sf::Mouse::getPosition().y;
@@ -72,7 +71,6 @@ class WindowComponent: public Entity
 
 				//Update the scene
 				m_baseGame->update((float)glfwGetTime());
-			}
 		}		
 
 		void init() //!< Initialize the window

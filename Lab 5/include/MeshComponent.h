@@ -15,7 +15,7 @@
 \brief Generates a general mesh
 */
 
-class MeshComponent
+class MeshComponent: public Entity
 {
 	protected:
 		std::vector<glm::vec3> m_vertices; //!< Vertex data

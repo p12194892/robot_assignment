@@ -5,6 +5,7 @@
 #include <glm/gtx/transform.hpp>
 #include "Bitmap.h"
 
+#include <iostream>
 //!< Default Constructor 
 MeshComponent::MeshComponent() {
 	m_bDrawable = true;
@@ -80,14 +81,11 @@ void MeshComponent::loadTexture(std::string sname, std::string s2)
 	//Load the texture
 	Bitmap bmp = Bitmap::bitmapFromFile(sname);
 	bmp.flipVertically();
-	m_gTexture = new Texture(bmp);
+	m_gTexture = new Texture(m_iTexUnit,bmp);
 
-		//Set texture
-		GLint textureLocation = gl::GetUniformLocation(m_programHandleID, s2.c_str());
-		gl::Uniform1i(textureLocation, m_iTexUnit);
-		gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
-		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-		
+	//Set texture to the unit location
+	GLint textureLocation = gl::GetUniformLocation(m_programHandleID, s2.c_str());
+	gl::Uniform1i(textureLocation, m_iTexUnit);
 }
 
 //!< Draws the mesh

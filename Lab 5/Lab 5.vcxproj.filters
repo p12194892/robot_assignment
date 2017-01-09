@@ -144,9 +144,6 @@
     <ClInclude Include="include\SoundComponent.h">
       <Filter>Header Files\Sound Component</Filter>
     </ClInclude>
-    <ClInclude Include="include\SplashScreenComponent.h">
-      <Filter>Header Files\UI Components</Filter>
-    </ClInclude>
     <ClInclude Include="include\WindowComponent.h">
       <Filter>Header Files\Window Component</Filter>
     </ClInclude>
@@ -174,6 +171,9 @@
     <ClInclude Include="include\MeshComponent.h">
       <Filter>Header Files\Graphic Render Component\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="include\UIComponent.h">
+      <Filter>Header Files\UI Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp">
@@ -200,17 +200,11 @@
     <ClCompile Include="source\Texture.cpp">
       <Filter>Source Files\Graphic Render Component\Texture\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="source\Button.cpp">
-      <Filter>Source Files\Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="source\CameraComponent.cpp">
       <Filter>Source Files\Camera Component</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundComponent.cpp">
       <Filter>Source Files\Sound Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SplashScreenComponent.cpp">
-      <Filter>Source Files\UI Components</Filter>
     </ClCompile>
     <ClCompile Include="source\WindowComponent.cpp">
       <Filter>Source Files\Window Component</Filter>
@@ -232,6 +226,12 @@
     </ClCompile>
     <ClCompile Include="source\ShaderLinkerComponent.cpp">
       <Filter>Source Files\Graphic Render Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIComponent.cpp">
+      <Filter>Source Files\UI Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>Source Files\UI Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,7 @@
 /*!
-* @file GameLogic.h
+* @file BaseGame.h
 * Header file control of rendering and controlling the simulation 
 */
-
 #pragma once
 #include "Texture.h"
 #include <vector>
@@ -13,7 +12,7 @@
 #include "FileReader.h"
 #include "glslprogram.h"
 #include "Button.h"
-#include "SplashScreenComponent.h"
+#include "UIComponent.h"
 #include <vector>
 #include "CollisionComponent.h"
 #include "SoundComponent.h"
@@ -45,11 +44,19 @@ private:
 	GLuint m_programHandle; //!< The main program handle
 	bool m_bKeyPress; //!< If a key has been pressed
 	GLSLProgram prog; //!< Program to run the simulation
-	FileReader* m_read; //!< File Reader
-	SplashScreenComponent* m_splashScreenComponent;	//!< Splash Screen
+	FileReader* m_read; //!< File Reader	
 	char m_cGameState; //!< Game State
 	ShaderLinkerComponent* m_linkShader;
-	
+
+	//UI Components
+	UIComponent* m_splashScreenComponent; //!< Splash Screen
+	UIComponent* m_menuScreenComponent; //!< Menu
+	UIComponent* m_instructionsComponent;
+	Button* m_buttonStart;
+	Button* m_buttonExit;
+	Button* m_buttonInstruction;
+	Button* m_backButton;
+
 public:
 	BaseGame(); //!< Default constructor	
 	void render(CameraComponent camera); //!< Render mesh objects
@@ -66,8 +73,10 @@ public:
 		case 0:
 			//Any code for getting the splash screen button
 			break;
-
 		case 1:
+			break;
+		
+		case 2:
 			float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
 
 			m_robot->prepare(fTime, m_bKeyPress);
@@ -93,7 +102,7 @@ public:
 	void init()
 	{
 		//Initialize Game States
-		m_cGameState = 0; //Game state, 0 = Splash Screen
+		m_cGameState = 0; //Game state, 0 = Splash Screen, 1 = Menu Screen, 2 = Simulation Screen
 
 		//Initialize Key Press
 		m_bKeyPress = false;

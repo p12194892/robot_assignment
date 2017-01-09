@@ -5,20 +5,22 @@
 */
 
 #include "SFML\Graphics.hpp"
-#include "Entity.h"
+#include "UIComponent.h"
 
 /*! \class Button
 \brief  A button object which the user can click on to transition to the next state
 */
 
-class Button: public Entity
+class Button: public UIComponent
 {
-	private:
-		sf::RectangleShape m_buttonShape;
-		sf::Text m_buttonText;
 	public:
-		Button(); 
-		Button(float xpos, float ypos, float w, float h);
+		Button();
+		Button(GLuint programID);
+		void update()
+		{
+			//update by seeing if there is a click in the bounds!
+		}
+	
 };
 
 

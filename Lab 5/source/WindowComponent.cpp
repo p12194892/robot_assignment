@@ -12,7 +12,7 @@ WindowComponent::WindowComponent()
 	m_baseGame = new BaseGame();
 
 	//SFML window
-	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Default, sf::ContextSettings(24));
+	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Close|sf::Style::Titlebar, sf::ContextSettings(24));
 	m_bifRunning = false;	
 }
 
@@ -132,29 +132,70 @@ WindowComponent::WindowComponent()
 
 		 if (m_event.type == sf::Event::MouseWheelMoved)
 		 {
-			 if (m_baseGame->getGameState() == 1)
+			 if (m_baseGame->getGameState() == 2)
 			 {
 				 m_camera.zoom((float)m_event.mouseWheel.delta*0.5f);
 			 }
 		 }
 
-
 		 if (m_event.type == sf::Event::MouseButtonPressed)
 		 {
-			 if (m_event.mouseButton.button == sf::Mouse::Left)
+			 std::cout << "x :" <<m_event.mouseButton.x << " y :" <<m_event.mouseButton.y << std::endl;
+
+			 if (m_baseGame->getGameState() == 1)
 			 {
-				 m_ckeyPress = 'L';
+				 //Setting the state of the game here
+				 if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 140 && m_event.mouseButton.y < 200)
+				 {
+					 m_baseGame->changeGameState(2);
+				 }
+
+				 else if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 270 && m_event.mouseButton.y < 330)
+				 {
+					 //Go to the control screen
+					 m_baseGame->changeGameState(3);
+				 }
+
+				 else if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 400 && m_event.mouseButton.y < 460)
+				 {
+					 // end the program - need to stop the engine!
+					 std::cout << "Closing window" << std::endl << std::endl;
+					 m_bifRunning = false;
+					 m_window->close();
+					 exit(EXIT_SUCCESS);
+				 }
 			 }
 
-			 else if (m_event.mouseButton.button == sf::Mouse::Right)
+			else if (m_baseGame->getGameState() == 2)
 			 {
-				 m_ckeyPress = 'R';
+				 if (m_event.mouseButton.button == sf::Mouse::Left)
+				 {
+					 m_ckeyPress = 'L';
+				 }
+
+				 else if (m_event.mouseButton.button == sf::Mouse::Right)
+				 {
+					 m_ckeyPress = 'R';
+				 }
+
+				 else if (m_event.mouseButton.button == sf::Mouse::Middle)
+				 {
+					 m_ckeyPress = 'M';
+				 }
 			 }
 
-			 else if (m_event.mouseButton.button == sf::Mouse::Middle)
-			 {
-				 m_ckeyPress = 'M';
-			 }
+			else if (m_baseGame->getGameState() == 3)
+			{
+				//Controls menu
+				if (m_event.mouseButton.x > 367 && m_event.mouseButton.x < 432
+					&& m_event.mouseButton.y > 527 && m_event.mouseButton.y < 590)
+				{
+					m_baseGame->changeGameState(1);
+				}
+			}
 		 }
 
 		 if (m_event.type == sf::Event::MouseButtonReleased)

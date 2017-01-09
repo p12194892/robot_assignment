@@ -147,7 +147,7 @@
     <ClInclude Include="include\sceneTexture.h" />
     <ClInclude Include="include\ShaderLinkerComponent.h" />
     <ClInclude Include="include\SoundComponent.h" />
-    <ClInclude Include="include\SplashScreenComponent.h" />
+    <ClInclude Include="include\UIComponent.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\WindowComponent.h" />
@@ -168,7 +168,7 @@
     <ClCompile Include="source\Robot.cpp" />
     <ClCompile Include="source\ShaderLinkerComponent.cpp" />
     <ClCompile Include="source\SoundComponent.cpp" />
-    <ClCompile Include="source\SplashScreenComponent.cpp" />
+    <ClCompile Include="source\UIComponent.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\tinyxml2.cpp" />
     <ClCompile Include="source\WindowComponent.cpp" />
