@@ -5,6 +5,7 @@
 #include <glm/gtx/transform.hpp>
 #include "Bitmap.h"
 
+#include <iostream>
 //!< Default Constructor 
 MeshComponent::MeshComponent() {
 	m_bDrawable = true;
@@ -80,14 +81,7 @@ void MeshComponent::loadTexture(std::string sname, std::string s2)
 	//Load the texture
 	Bitmap bmp = Bitmap::bitmapFromFile(sname);
 	bmp.flipVertically();
-	m_gTexture = new Texture(bmp);
-
-		//Set texture
-		GLint textureLocation = gl::GetUniformLocation(m_programHandleID, s2.c_str());
-		gl::Uniform1i(textureLocation, m_iTexUnit);
-		gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
-		gl::BindTexture(gl::TEXTURE_2D, m_gTexture->object());
-		
+	m_gTexture = new Texture(m_iTexUnit,bmp);
 }
 
 //!< Draws the mesh
@@ -100,6 +94,11 @@ void MeshComponent::draw()
 
 //!< Cube Maps the texture (May move to cube)
 void MeshComponent::cubeMap(std::string s, std::string s2) {
+	
+	gl::GenTextures(1, &m_cubemapTex);
+	//gl::ActiveTexture(gl::TEXTURE0 + iunit); 	// Activate the texture unit first before binding texture
+	gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_cubemapTex);
+
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
 	GLuint target[6];
 	target[0] = gl::TEXTURE_CUBE_MAP_POSITIVE_X; //Right
@@ -109,9 +108,9 @@ void MeshComponent::cubeMap(std::string s, std::string s2) {
 	target[4] = gl::TEXTURE_CUBE_MAP_POSITIVE_Z; // Back
 	target[5] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Z; //front
 
-	gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
-	GLuint textureLocation2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
-	gl::BindTexture(gl::TEXTURE_CUBE_MAP, textureLocation2);
+	//gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
+	//GLuint textureLocation2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
+	//gl::BindTexture(gl::TEXTURE_CUBE_MAP, textureLocation2);
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -127,7 +126,8 @@ void MeshComponent::cubeMap(std::string s, std::string s2) {
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_S, gl::CLAMP_TO_EDGE);
 	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_T, gl::CLAMP_TO_EDGE);
 	
-	gl::Uniform1i(textureLocation2, m_iTexUnit);
+	//gl::Uniform1i(textureLocation2, m_iTexUnit);
+	gl::BindTexture(gl::TEXTURE_CUBE_MAP, 0);
 }
 
 //!< Sets vertex data
@@ -197,10 +197,9 @@ void MeshComponent::setStartPos(glm::vec3 s)
 }
 
 //!< Updates the model matrix
-void MeshComponent::updateModelMatrix(CameraComponent camera, GLuint programHandle)
+void MeshComponent::updateModelMatrix(CameraComponent& camera, GLuint programHandle)
 {
 	camera.updateMVP(m_modelMatrix);
-
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "MVP"), 1, gl::FALSE_, &camera.getMVP()[0][0]);
 
 	//Lighting stuff - See if this works?
@@ -217,17 +216,38 @@ void MeshComponent::updateModelMatrix(CameraComponent camera, GLuint programHand
 	//prog.setUniform("P", camera.projection());*/
 }
 
+//!< Sets a texture unit
 void MeshComponent::setTextureUnit(int i)
 {
 	m_iTexUnit = i;
 }
 
+//!< Sets UV texture coordinates
 void MeshComponent::setUVs(std::vector<glm::vec2> uv)
 {
 	m_uvData = uv;
 }
 
+//!< Gets the mesh ID
 std::string MeshComponent::getID()
 {
 	return m_sMeshObjectID;
+}
+
+//!< Gets a texture unit
+int MeshComponent::getTextureUnit()
+{
+	return m_iTexUnit;
+}
+
+//!< Gets the textured 2D object
+Texture* MeshComponent::getTextureObject()
+{
+	return m_gTexture;
+}
+
+//!< Gets a cube map texture handle
+GLuint MeshComponent::getCubeMapTexture()
+{
+	return m_cubemapTex;
 }

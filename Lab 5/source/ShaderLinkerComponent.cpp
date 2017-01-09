@@ -6,10 +6,14 @@ using std::ifstream;
 #include <sstream>
 #include <string>
 
-ShaderLinkerComponent::ShaderLinkerComponent()
+ShaderLinkerComponent::ShaderLinkerComponent(std::string svertexshader, std::string sfragmentshader)
 {
+	m_svertexShader = svertexshader;
+	m_sfragmentShader = sfragmentshader;
 
+	createShaders();
 }
+
 //!< Creates the fragment and vertex shaders
 void ShaderLinkerComponent::createShaders()
 {
@@ -19,7 +23,7 @@ void ShaderLinkerComponent::createShaders()
 	//////////////////////////////////////////////////////
 
 	// Load contents of file
-	ifstream inFile("resources/shader/basic.vert");
+	ifstream inFile(m_svertexShader);
 	if (!inFile) {
 		fprintf(stderr, "Error opening file: resources/shader/basic.vert\n");
 		exit(1);
@@ -71,7 +75,7 @@ void ShaderLinkerComponent::createShaders()
 	//////////////////////////////////////////////////////
 
 	// Load contents of file into shaderCode here
-	ifstream fragFile("resources/shader/basic.frag");
+	ifstream fragFile(m_sfragmentShader);
 	if (!fragFile) {
 		fprintf(stderr, "Error opening file: resources/shader/basic.frag\n");
 		exit(1);
@@ -156,12 +160,17 @@ void ShaderLinkerComponent::linkShaders(GLint vertShader, GLint fragShader)
 			free(log);
 		}
 	}
-	else {
-		gl::UseProgram(m_programHandle);
-	}
+	//else {
+		//gl::UseProgram(m_programHandle);
+	//}
 }
 
 GLuint ShaderLinkerComponent::getProgramHandle()
 {
 	return m_programHandle;
+}
+
+void ShaderLinkerComponent::setUseShader()
+{
+	gl::UseProgram(m_programHandle);
 }

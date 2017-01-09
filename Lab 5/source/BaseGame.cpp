@@ -1,4 +1,3 @@
-
 #include "BaseGame.h"
 #include <vector>
 #include <glm\glm.hpp>
@@ -81,37 +80,69 @@ void BaseGame::createObjects()
 
 	//Making the splash screen 	
 	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
-	m_splashScreenComponent = new SplashScreenComponent(m_programHandle);
+	m_splashScreenComponent = new UIComponent(m_programHandle);
 	m_splashScreenComponent->setTextureUnit(0);
 	m_splashScreenComponent->loadTexture("resources/shader/sign.png", "tex");
 	m_splashScreenComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
 	m_splashScreenComponent->scaleModelMat(glm::vec3(13));
+		
+	//Making the menu screen
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
+	m_menuScreenComponent = new UIComponent(m_programHandle);
+	m_menuScreenComponent->setTextureUnit(1);
+	m_menuScreenComponent->loadTexture("resources/shader/menu.png", "menutexture");
+	m_menuScreenComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
+	m_menuScreenComponent->scaleModelMat(glm::vec3(13));
 
-	//Creating Mickey Mouse
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
-	m_mouse = new MeshComponent("Mickey Mouse Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/mouse.obj");
-	m_mouse->setVertrices(m_read->getVertexPoints());
-	m_mouse->setIndices(m_read->getIndices());
-	m_mouse->setNormals(m_read->getNormals());
-	m_mouse->setUVs(m_read->getTexPoints());
-	m_mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
-	m_mouse->Load(m_programHandle);
-	m_mouse->setTextureUnit(1);
-	m_mouse->loadTexture("resources/shader/mouse.png", "mousetexture");
-	m_mouse->translateModelMat(m_mouse->getStartPos());
-	m_mouse->scaleModelMat(glm::vec3(6));
- 
-	//Create the room to hold the scene
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
-	m_room = new Cube(m_programHandle);
-	m_room->setTextureUnit(2);
+	//Making start button
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbuttontexture"), false);
+	m_buttonStart = new Button(m_programHandle);
+	m_buttonStart->setTextureUnit(2);
+	m_buttonStart->loadTexture("resources/shader/button1.png", "buttontex");
+	m_buttonStart->translateModelMat(glm::vec3(-2.0, -26.6, 18.0));
+	m_buttonStart->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
+
+	//Making exit button
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bexitButton"), false);
+	m_buttonExit = new Button(m_programHandle);
+	m_buttonExit->setTextureUnit(3);
+	m_buttonExit->loadTexture("resources/shader/button2.png", "exitButtonTex");
+	m_buttonExit->translateModelMat(glm::vec3(-2.0, -27.4, 18.0));
+	m_buttonExit->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
+
+	//Making instruction button
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bmoreButton"), false);
+	m_buttonInstruction = new Button(m_programHandle);
+	m_buttonInstruction->setTextureUnit(4);
+	m_buttonInstruction->loadTexture("resources/shader/button3.png", "moreButtonTex");
+	m_buttonInstruction->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
+	m_buttonInstruction->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
+
+	//Creating instructions screen
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcontrolScreen"), false);
+	m_instructionsComponent = new UIComponent(m_programHandle);
+	m_instructionsComponent->setTextureUnit(5);
+	m_instructionsComponent->loadTexture("resources/shader/controls.png", "controlTex");
+	m_instructionsComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
+	m_instructionsComponent->scaleModelMat(glm::vec3(13));
+
+	//Creating Back Button
+	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbackbutton"), false);
+	m_backButton = new Button(m_programHandle);
+	m_backButton->setTextureUnit(6);
+	m_backButton->loadTexture("resources/shader/back.png", "buttonBackTex");
+	m_backButton->translateModelMat(glm::vec3(-2.0, -27.8, 18.0));
+//	m_backButton->scaleModelMat(glm::vec3(.0f));
+	
+//Create the room to hold the scene
+	gl::Uniform1i(gl::GetUniformLocation(m_lightingShader->getProgramHandle(), "drawRcube"), false);
+	m_room = new Cube(m_lightingShader->getProgramHandle());
+	m_room->setTextureUnit(0);
 	m_room->scaleModelMat(glm::vec3(40));
 	m_room->cubeMap("resources/cubemap", "cube_texture");
 
 	//Creating box
-	 gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
+	gl::Uniform1i(gl::GetUniformLocation(m_lightingShader->getProgramHandle(), "bDrawRubix"), false);
 	m_box2 = new MeshComponent("Box Model 2");
 	m_read->resetData();
 	m_read->ReadFile("resources/obj/cube.obj");
@@ -119,12 +150,26 @@ void BaseGame::createObjects()
 	m_box2->setIndices(m_read->getIndices());
 	m_box2->setNormals(m_read->getNormals());
 	m_box2->setStartPos(glm::vec3(-20.0, -37.0, 0.0));
-	m_box2->Load(m_programHandle);
-	m_box2->setTextureUnit(3);
-	m_box2->cubeMap("resources/rmap", "cube_texture2");	
+	m_box2->Load(m_lightingShader->getProgramHandle());
+	m_box2->setTextureUnit(1);
+	m_box2->cubeMap("resources/rmap", "cube_texture2");
 	m_box2->translateModelMat(m_box2->getStartPos());
 	m_box2->scaleModelMat(glm::vec3(3));
-	
+
+
+	//Creating Mickey Mouse
+	//gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
+	m_mouse = new MeshComponent("Mickey Mouse Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/mouse.obj");
+	m_mouse->setVertrices(m_read->getVertexPoints());
+	m_mouse->setIndices(m_read->getIndices());
+	m_mouse->setNormals(m_read->getNormals());
+	m_mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
+	m_mouse->Load(m_programHandle);
+	m_mouse->translateModelMat(m_mouse->getStartPos());
+	m_mouse->scaleModelMat(glm::vec3(6));
+ 
 	//Create Robot character
 	m_robot = new Robot(m_programHandle);
 	m_robot->setSpeed(0.001f);
@@ -141,7 +186,7 @@ void BaseGame::createObjects()
 	m_objects.push_back(m_cone);
 	//m_objects.push_back(m_box2);
 	m_objects.push_back(m_garlicpress);
-	//m_objects.push_back(m_mouse);	
+	m_objects.push_back(m_mouse);	
 	m_objects.push_back(m_character);
 	m_objects.push_back(m_box);
 	//Lighting stuff
@@ -151,28 +196,85 @@ void BaseGame::createObjects()
 }
 
 //!< Render mesh objects
-void BaseGame::render(CameraComponent camera)
+void BaseGame::render(CameraComponent& camera)
 {
 	gl::Clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
 
 	switch (m_cGameState)
 	{
-		//Splash screen state
 		case 0:
+			//Splash screen state
+			m_menuShader->setUseShader();
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
 			m_splashScreenComponent->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE0);
+			gl::BindTexture(gl::TEXTURE_2D, m_splashScreenComponent->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "tex"), m_splashScreenComponent->getTextureUnit());
 			m_splashScreenComponent->draw();
 			
 		break;
 		
-		//Simulation game state
-		case 1:		
-			//Tells the shader not to render the splash screen
+		case 1:
+			//Use menu shader
+			m_menuShader->setUseShader();
+
+			//Menu Screen state
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "col"), 3);
+				
+			//Start Buttons
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbuttontexture"), true);
+			m_buttonStart->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE2);
+			gl::BindTexture(gl::TEXTURE_2D, m_buttonStart->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "buttontex"), m_buttonStart->getTextureUnit());
+			m_buttonStart->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbuttontexture"), false);
+
+			//Exit Button
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bexitButton"), true);
+			m_buttonExit->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE3);
+			gl::BindTexture(gl::TEXTURE_2D, m_buttonExit->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "exitButtonTex"), m_buttonExit->getTextureUnit());
+			m_buttonExit->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bexitButton"), false);
+
+			//Instruction Button
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bmoreButton"), true);
+			m_buttonInstruction->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE4);
+			gl::BindTexture(gl::TEXTURE_2D, m_buttonInstruction->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "moreButtonTex"), m_buttonInstruction->getTextureUnit());
+			m_buttonInstruction->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bmoreButton"), false);
+
+
+			//Menu
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), true);
+			m_menuScreenComponent->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE1);
+			gl::BindTexture(gl::TEXTURE_2D, m_menuScreenComponent->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "menutexture"), m_menuScreenComponent->getTextureUnit());
+			m_menuScreenComponent->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
+		break;
+		
+		case 2:		
+			//Simulation game state
+			//Tells the shader not to render the splash screen or menu screen
+		m_programHandle = m_lightingShader->getProgramHandle();
+		m_lightingShader->setUseShader();
+		
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
 
 		//Room
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), true);
 		m_room->updateModelMatrix(camera, m_programHandle);
+		gl::ActiveTexture(gl::TEXTURE0);
+		gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_room->getCubeMapTexture());
+		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture"), m_room->getTextureUnit());
 		m_room->draw();
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
 
@@ -191,31 +293,37 @@ void BaseGame::render(CameraComponent camera)
 			//drawing box test to see if textures are working
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), true);
 			m_box2->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE1);
+			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_box2->getCubeMapTexture());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture2"), m_box2->getTextureUnit());
 			m_box2->draw();
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
-
-			//Drawing mickey in pattern wrapper
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), true);
-			m_mouse->updateModelMatrix(camera, m_programHandle);
-			m_mouse->draw();
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
-
-
-
-					//Setting material properties for the cube
-				/*	prog.setUniform("Kd", 0.0f, 1.0f, 0.0f);
-					prog.setUniform("Ld", 0.0f, 1.0f, 0.0f);
-
-					prog.setUniform("Ka", 0.0f, 1.0f, 0.0f);
-					prog.setUniform("La", 0.0f, 0.1f, 0.0f);
-
-					prog.setUniform("Ks", 1.0f, 1.0f, 1.0f);
-					prog.setUniform("Ls", 0.2f, 0.2f, 0.2f);*/					
-				
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);			
 			//gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);		
 
 			break;
+
+		case 3:
+			//Controls state
+			//Back button
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbackbutton"), true);
+			m_backButton->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE6);
+			gl::BindTexture(gl::TEXTURE_2D, m_backButton->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "buttonBackTex"), m_backButton->getTextureUnit());
+			m_backButton->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbackbutton"), false);
+
+			//Controls screen
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcontrolScreen"), true);
+			m_instructionsComponent->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE5);
+			gl::BindTexture(gl::TEXTURE_2D, m_instructionsComponent->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "controlTex"), m_instructionsComponent->getTextureUnit());
+			m_instructionsComponent->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcontrolScreen"), false);
+			break;
 	}
+
 }
 
 //!< Detects when a key is press
@@ -237,29 +345,3 @@ void BaseGame::changeGameState(int i)
 {
 	m_cGameState = i;
 }
-
-/*void GameLogic::setLightParams(QuatCamera camera)
-{
-//vec3 worldLight = vec3(-5.0f, -5.0f, 5.0f);
-
-//  prog.setUniform("Ld", 1.0f, 1.0f, 1.0f);
-//  prog.setUniform("LightPosition", camera.view() * vec4(worldLight,1.0) );
-//	prog.setUniform("LightPosition", worldLight);
-}*/
-
-
-
-/*void GameLogic::compileAndLinkShader()
-{
-try {
-prog.compileShader("resources/shader/basic.vert");
-prog.compileShader("resources/shader/basic.frag");
-prog.link();
-prog.validate();
-prog.use();
-}
-catch (GLSLProgramException & e) {
-cerr << e.what() << endl;
-exit(EXIT_FAILURE);
-}
-}*/

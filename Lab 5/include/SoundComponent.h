@@ -1,10 +1,8 @@
+#pragma once
 /*!
  * @file SoundLoader.h
  * Header file containing the sound loader which loads sounds
  */
-
-#ifndef SoundComponent_H
-#define SoundComponent_H
 
 #include <string>
 #include <SFML\Audio.hpp>
@@ -26,4 +24,3 @@ class SoundComponent
 		static SoundComponent* Instance(); //!< Instance contructor to ensure that only one GameTextureLoader is created
 		sf::Sound* GetSound(unsigned int iIndex/*!Initial index*/);//!< Gets the sound of the sent index and returns a sound pointer 
 };
-#endif

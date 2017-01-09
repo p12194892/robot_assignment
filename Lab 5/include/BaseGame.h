@@ -1,8 +1,7 @@
 /*!
-* @file GameLogic.h
+* @file BaseGame.h
 * Header file control of rendering and controlling the simulation 
 */
-
 #pragma once
 #include "Texture.h"
 #include <vector>
@@ -11,9 +10,8 @@
 #include "gl_core_4_3.hpp"
 #include "Robot.h"
 #include "FileReader.h"
-#include "glslprogram.h"
 #include "Button.h"
-#include "SplashScreenComponent.h"
+#include "UIComponent.h"
 #include <vector>
 #include "CollisionComponent.h"
 #include "SoundComponent.h"
@@ -21,8 +19,9 @@
 #include "MeshComponent.h"
 #include "ShaderLinkerComponent.h"
 #include <iostream>
-/*! \class GameLogicComponent
-\brief The control of rendering and controlling the simulation  
+
+/*! \class BaseGame
+\brief The base game that renders the scene and updates the game objects
 */
 
 //!< Inherits from scene
@@ -32,6 +31,8 @@ private:
 	//Game objects that make the scene
 	MeshComponent* m_room; //!< The room 
 	Robot* m_robot; //!< The robot mesh	
+	
+	//Eventually will make everything new and just have the vector
 	std::vector<MeshComponent*> m_objects;
 	MeshComponent* m_box2; //!< The Box Object
 	MeshComponent* m_box; //!< The Box Object
@@ -40,23 +41,34 @@ private:
 	MeshComponent* m_mouse; //!< The Mickey Mouse Object
 	MeshComponent* m_cone; //!< The Cone Object
 	MeshComponent* m_character; //!< BB8 Object
+	
+	//UI Components 
+	UIComponent* m_splashScreenComponent; //!< Splash Screen
+	UIComponent* m_menuScreenComponent; //!< Menu
+	UIComponent* m_instructionsComponent;
+	Button* m_buttonStart;
+	Button* m_buttonExit;
+	Button* m_buttonInstruction;
+	Button* m_backButton;
+
 	SoundComponent* m_soundComponent;  //!< Sound loader object
 	CollisionComponent* m_collision; //!< Collision detection 
 	GLuint m_programHandle; //!< The main program handle
 	bool m_bKeyPress; //!< If a key has been pressed
-	GLSLProgram prog; //!< Program to run the simulation
-	FileReader* m_read; //!< File Reader
-	SplashScreenComponent* m_splashScreenComponent;	//!< Splash Screen
+	FileReader* m_read; //!< File Reader, reads in obj files
 	char m_cGameState; //!< Game State
-	ShaderLinkerComponent* m_linkShader;
+	ShaderLinkerComponent* m_menuShader; //!< GUI shaders 
+	ShaderLinkerComponent* m_lightingShader; //!< Runs the simulation with lighting
 	
 public:
 	BaseGame(); //!< Default constructor	
-	void render(CameraComponent camera); //!< Render mesh objects
+	void render(CameraComponent& camera); //!< Render mesh objects
  	void keyPress(bool b, char c); //!< Detects when a key is press
 	char getGameState(); //!< Obtains the current game state
 	void changeGameState(int i); //!< Changes the game state
 	void createObjects(); //!< Creates objects to be used in the simulation
+
+	//Virtual functions inherited
 
 	//!< Update the scene with animations
 	void update(float t)
@@ -66,8 +78,10 @@ public:
 		case 0:
 			//Any code for getting the splash screen button
 			break;
-
 		case 1:
+			break;
+		
+		case 2:
 			float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
 
 			m_robot->prepare(fTime, m_bKeyPress);
@@ -93,17 +107,17 @@ public:
 	void init()
 	{
 		//Initialize Game States
-		m_cGameState = 0; //Game state, 0 = Splash Screen
+		m_cGameState = 0; //Game state, 0 = Splash Screen, 1 = Menu Screen, 2 = Simulation Screen
 
 		//Initialize Key Press
 		m_bKeyPress = false;
 
 		//Initialize the vertex and fragment shader
-		m_linkShader = new ShaderLinkerComponent();
-		m_linkShader->createShaders();
+		m_menuShader = new ShaderLinkerComponent("resources/shader/basic.vert","resources/shader/basic.frag");
+		m_lightingShader = new ShaderLinkerComponent("resources/shader/lighting.vert", "resources/shader/lighting.frag");
 
 		//Obtains the program handle
-		m_programHandle = m_linkShader->getProgramHandle();
+		m_programHandle = m_menuShader->getProgramHandle();
 
 		//Initialize File Reader
 		m_read = new FileReader();
@@ -120,10 +134,5 @@ public:
 		//Reading in XML???
 		//XMLDocument doc
 	}
-
-
-
- //void setLightParams(QuatCamera camera);
- //void compileAndLinkShader();
 };
  

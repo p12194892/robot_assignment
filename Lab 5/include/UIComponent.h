@@ -1,19 +1,18 @@
 #pragma once
 /*!
-* @file SplashScreenComponent.h
+* @file UIComponent.h
 * Header file containing the splashScreen data
 */
 #include "MeshComponent.h"
 
-/*! \class SplashScreenComponent
+/*! \class UIComponent
 \brief  The controller class which displays the splash screen
 */
 
 //!< Inherits from Mesh as the splash screen is a 2d rectangle 
-class SplashScreenComponent : public MeshComponent {
+class UIComponent : public MeshComponent {
 
 	public:
-		SplashScreenComponent(); //!< Default Constructor 
-		SplashScreenComponent(GLuint programID); //!<  Constructor 
-
+		UIComponent(); //!< Default Constructor 
+		UIComponent(GLuint programID); //!<  Constructor 
 };

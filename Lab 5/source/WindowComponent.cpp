@@ -3,6 +3,14 @@
 //!< Default constructor
 WindowComponent::WindowComponent()
 {
+	//Cameras pushed back onto vector
+	m_Cameras.push_back(new CameraComponent(0));
+	m_Cameras.push_back(new CameraComponent(1));
+	m_Cameras.push_back(new CameraComponent(2));
+
+	//Sets the camera to the first camera
+	m_cameraChangeState = 0;
+
 	m_lastCursorPositionX = 0.0;
 	m_lastCursorPositionY = 0.0;
 	m_cursorPositionX = 0.0;
@@ -12,7 +20,7 @@ WindowComponent::WindowComponent()
 	m_baseGame = new BaseGame();
 
 	//SFML window
-	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Default, sf::ContextSettings(24));
+	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Close|sf::Style::Titlebar, sf::ContextSettings(24));
 	m_bifRunning = false;	
 }
 
@@ -23,8 +31,20 @@ WindowComponent::WindowComponent()
 	update((float)glfwGetTime());
 
 	//render 
-	m_baseGame->render(m_camera);
-		 
+	if (m_cameraChangeState == 0)
+	{
+		m_baseGame->render(*m_Cameras.at(m_cameraChangeState));
+	}
+
+	else if (m_cameraChangeState == 1)
+	{
+		m_baseGame->render(*m_Cameras.at(m_cameraChangeState));
+	}
+	
+	else if (m_cameraChangeState == 2)
+	{
+		m_baseGame->render(*m_Cameras.at(m_cameraChangeState));
+	}
 	//Swap buffers
 	m_window->display();
 
@@ -88,22 +108,32 @@ WindowComponent::WindowComponent()
 				 }
 			 }
 
-			 //Resets the camera
-			 else if (m_event.key.code == sf::Keyboard::R)
-			 {
-				 m_camera.reset(m_camera.getCameraPositions().at(2), m_camera.getCameraOrientations().at(2));
-			 }
-
 			 //Sets the camera to a low position
 			 else if (m_event.key.code == sf::Keyboard::Num1)
 			 {
-				 m_camera.reset(m_camera.getCameraPositions().at(0), m_camera.getCameraOrientations().at(0));
+				 //activate camera 1
+				 if (m_baseGame->getGameState() == 2)
+				 {
+					 m_cameraChangeState = 2;
+				 }
 			 }
 
 			 //Sets the camera to have a top down view
 			 else if (m_event.key.code == sf::Keyboard::Num2)
 			 {
-				 m_camera.reset(m_camera.getCameraPositions().at(1), m_camera.getCameraOrientations().at(1));
+				 if (m_baseGame->getGameState() == 2)
+				 {
+					 //activate camera 2
+					 m_cameraChangeState = 1;
+				 }
+			 }
+			 //Resets the camera
+			 else if (m_event.key.code == sf::Keyboard::R)
+			 {
+				 if (m_baseGame->getGameState() == 2)
+				 {
+					 m_cameraChangeState = 0;
+				 }
 			 }
 		 }
 
@@ -132,29 +162,70 @@ WindowComponent::WindowComponent()
 
 		 if (m_event.type == sf::Event::MouseWheelMoved)
 		 {
-			 if (m_baseGame->getGameState() == 1)
+			 if (m_baseGame->getGameState() == 2)
 			 {
-				 m_camera.zoom((float)m_event.mouseWheel.delta*0.5f);
+				 m_Cameras.at(m_cameraChangeState)->zoom((float)m_event.mouseWheel.delta*0.5f);
 			 }
 		 }
 
-
 		 if (m_event.type == sf::Event::MouseButtonPressed)
 		 {
-			 if (m_event.mouseButton.button == sf::Mouse::Left)
+			 std::cout << "x :" <<m_event.mouseButton.x << " y :" <<m_event.mouseButton.y << std::endl;
+
+			 if (m_baseGame->getGameState() == 1)
 			 {
-				 m_ckeyPress = 'L';
+				 //Setting the state of the game here
+				 if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 140 && m_event.mouseButton.y < 200)
+				 {
+					 m_baseGame->changeGameState(2);
+				 }
+
+				 else if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 270 && m_event.mouseButton.y < 330)
+				 {
+					 //Go to the control screen
+					 m_baseGame->changeGameState(3);
+				 }
+
+				 else if (m_event.mouseButton.x > 300 && m_event.mouseButton.x < 500
+					 && m_event.mouseButton.y > 400 && m_event.mouseButton.y < 460)
+				 {
+					 // end the program - need to stop the engine!
+					 std::cout << "Closing window" << std::endl << std::endl;
+					 m_bifRunning = false;
+					 m_window->close();
+					 exit(EXIT_SUCCESS);
+				 }
 			 }
 
-			 else if (m_event.mouseButton.button == sf::Mouse::Right)
+			else if (m_baseGame->getGameState() == 2)
 			 {
-				 m_ckeyPress = 'R';
+				 if (m_event.mouseButton.button == sf::Mouse::Left)
+				 {
+					 m_ckeyPress = 'L';
+				 }
+
+				 else if (m_event.mouseButton.button == sf::Mouse::Right)
+				 {
+					 m_ckeyPress = 'R';
+				 }
+
+				 else if (m_event.mouseButton.button == sf::Mouse::Middle)
+				 {
+					 m_ckeyPress = 'M';
+				 }
 			 }
 
-			 else if (m_event.mouseButton.button == sf::Mouse::Middle)
-			 {
-				 m_ckeyPress = 'M';
-			 }
+			else if (m_baseGame->getGameState() == 3)
+			{
+				//Controls menu
+				if (m_event.mouseButton.x > 367 && m_event.mouseButton.x < 432
+					&& m_event.mouseButton.y > 527 && m_event.mouseButton.y < 590)
+				{
+					m_baseGame->changeGameState(1);
+				}
+			}
 		 }
 
 		 if (m_event.type == sf::Event::MouseButtonReleased)

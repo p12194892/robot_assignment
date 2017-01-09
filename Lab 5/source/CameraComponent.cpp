@@ -1,11 +1,13 @@
-#define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINE
+#define PI 3.141592653589793
+#define TWOPI 6.2831853071795862
+#define TWOPI_F 6.2831853f
+#define TO_RADIANS(x) (x * 0.017453292519943295)
+#define TO_DEGREES(x) (x * 57.29577951308232)
 #include <cmath>
-
-
 #include "CameraComponent.h"
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include "defines.h"
 #include <iostream>
 
 //World coordinate System Axes
@@ -15,18 +17,22 @@ const glm::vec3 WORLDZ = glm::vec3(0,0,1);
 
 
 //!< Default constructor
-CameraComponent::CameraComponent()
-	{
-		reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+CameraComponent::CameraComponent(int i)
+	{		
+		if (i == 0)
+		{
+			reset(glm::vec3(-2.0f, -27.0f, 20.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+		}
 
-		//Positions of various cameras
-		m_cameraPositions.push_back(glm::vec3(-20.0f, -37.0f, 34.0f));
-		m_cameraPositions.push_back(glm::vec3(2.22959f, -38.30103f, -0.91515f));
-		m_cameraPositions.push_back(glm::vec3(-2.0f, -27.0f, 20.0f));
-		//Orientations of various cameras
-		m_cameraOrientations.push_back(glm::vec3(-0.0147318f, -0.297431f, -0.00698154f));
-		m_cameraOrientations.push_back(glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
-		m_cameraOrientations.push_back(glm::vec3(0.0f, 0.0f, 0.0f));
+		else if (i == 1)
+		{
+			reset(glm::vec3(2.22959f, -38.30103f, -0.91515f), glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
+		}
+
+		else if (i == 2)
+		{
+			reset(glm::vec3(-20.0f, -37.0f, 34.0f), glm::vec3(-0.0147318f, -0.297431f, -0.00698154f));
+		}
 	}
 
 //!< Position getter method
@@ -186,20 +192,8 @@ void CameraComponent::updateMVP(glm::mat4 model)
 		m_MVP = m_projection * (m_view * model);
 	}
 	
-//!< gets the MVP matrix
+//!< Gets the MVP matrix
 glm::mat4 CameraComponent::getMVP()
 	{
 		return m_MVP;
-	}
-
-//!< Gets the camera positions
-std::vector<glm::vec3> CameraComponent::getCameraPositions()
-	{
-		return m_cameraPositions;
-	}
-
-//!< gets the camera orientations
-std::vector<glm::vec3> CameraComponent::getCameraOrientations()
-	{
-		return m_cameraOrientations;
 	}

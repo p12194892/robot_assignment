@@ -3,18 +3,23 @@
 in vec3 pos;
 in vec2 texCoord;
 
+//Textures for Menu and GUI
 uniform sampler2D tex; // Bind to texture unit 0
-uniform sampler2D mousetexture; //Bind to texture unit 1
+uniform sampler2D menutexture; //Bind to texture unit 1
+uniform sampler2D buttontex; //Bind to texture unit 2
+uniform sampler2D exitButtonTex; //Bind to texture unit 3
+uniform sampler2D moreButtonTex; //Bind to texture unit 4
+uniform sampler2D controlTex; //Bind to texture unit 5
+uniform sampler2D buttonBackTex; //Bind to texture unit 6
 
-uniform samplerCube cube_texture; // Bind to texture unit 2
-
-uniform samplerCube cube_texture2; //Bind to texture unit 3
-
-uniform bool drawRcube;
-uniform int col;
+//uniform bools
 uniform bool bSplashScreenState;
-uniform bool bDrawRubix; //Test
-uniform bool bPattern; //Test
+uniform bool bbuttontexture; //Test
+uniform bool bMenu; //new
+uniform bool bexitButton;
+uniform bool bmoreButton;
+uniform bool bcontrolScreen;
+uniform bool bbackbutton;
 
 out vec4 fragColour;
 
@@ -27,63 +32,35 @@ void main()
 
 	else if (bSplashScreenState == false)
 	{
-		//If we are drawing the room
-		if (drawRcube == true)
+		if(bMenu == true && bbuttontexture == false && bexitButton == false && bmoreButton == false && bcontrolScreen == false && bbackbutton == false)
 		{
-			fragColour = texture(cube_texture, pos);
+			fragColour = texture2D(menutexture,texCoord);
 		}
 
-		//Drawing m_box2
-		else if (bDrawRubix == true)
+		else if (bbuttontexture == true && bMenu == false && bexitButton == false && bmoreButton == false && bcontrolScreen == false && bbackbutton == false)
 		{
-			fragColour = texture(cube_texture2, pos);
+			fragColour = texture2D(buttontex,texCoord);
 		}
 
-		else if (bPattern == true)
+		else if (bbuttontexture == false && bMenu == false && bexitButton == true && bmoreButton == false && bcontrolScreen == false && bbackbutton == false)
 		{
-			fragColour = texture2D(mousetexture,texCoord);
+			fragColour = texture2D(exitButtonTex,texCoord);
 		}
 
-		//Drawing everything else
-		else if(drawRcube == false && bDrawRubix == false && bPattern == false)
-		{	
-			if(col == 0)
-			{
-				fragColour = vec4(0.0, 1.0, 0.0, 0.0);
-			}
+		else if (bbuttontexture == false && bMenu == false && bexitButton == false && bmoreButton == true && bcontrolScreen == false && bbackbutton == false)
+		{
+			fragColour = texture2D(moreButtonTex,texCoord);
+		}
 
-			//red
-				if(col == 1)
-			{
-				fragColour = vec4(1.0, 0.0, 0.0, 1.0);
-			}
+		else if(bbuttontexture == false && bMenu == false && bexitButton == false && bmoreButton == false && bcontrolScreen == true && bbackbutton == false)
+		{
+			fragColour = texture2D(controlTex,texCoord);
+		}
 
-			//white
-				if(col == 2)
-			{
-				fragColour = vec4(1.0, 1.0, 1.0, 1.0);
-			}
-
-			//yellow
-				if(col == 3)
-			{
-				fragColour = vec4(1.0, 1.0, 0.0, 1.0);
-			}
-
-				if(col == 4)
-			{
-				fragColour = vec4(0.0, 0.0, 1.0, 1.0);
-			}
-
-				if(col == 5)
-			{
-				fragColour = vec4(1.0, 0.0, 1.0, 1.0);
-			}
-
-				if(col == 6)
-			{
-				fragColour = vec4(1.0, 0.0, 1.0, 0.0);
-			}
+		else if(bbuttontexture == false && bMenu == false && bexitButton == false && bmoreButton == false && bcontrolScreen == false && bbackbutton == true)
+		{
+			fragColour = texture2D(buttonBackTex,texCoord);
 		}
 	}
+		
 }

@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+//!< Default constructor
 Engine::Engine()
 {
 	std::cout << "Starting Engine" << std::endl << std::endl;
@@ -9,6 +10,7 @@ Engine::Engine()
 	std::cout << "Window Loaded" << std::endl << std::endl;
 }
 
+//!< Starts engine
 void Engine::start()
 {
 	m_bstartRunning = true;
@@ -28,6 +30,7 @@ void Engine::start()
 	}
 }
 
+//!< Stops engine
 void Engine::stop()
 {
 	delete m_window;

@@ -134,20 +134,18 @@
     <ClInclude Include="include\Bitmap.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionComponent.h" />
-    <ClInclude Include="include\cube.h" />
+    <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\BaseGame.h" />
     <ClInclude Include="include\FileReader.h" />
-    <ClInclude Include="include\glslprogram.h" />
     <ClInclude Include="include\gl_core_4_3.hpp" />
     <ClInclude Include="include\MeshComponent.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\Robot.h" />
-    <ClInclude Include="include\sceneTexture.h" />
     <ClInclude Include="include\ShaderLinkerComponent.h" />
     <ClInclude Include="include\SoundComponent.h" />
-    <ClInclude Include="include\SplashScreenComponent.h" />
+    <ClInclude Include="include\UIComponent.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\WindowComponent.h" />
@@ -156,11 +154,10 @@
     <ClCompile Include="source\Bitmap.cpp" />
     <ClCompile Include="source\Button.cpp" />
     <ClCompile Include="source\CollisionComponent.cpp" />
-    <ClCompile Include="source\cube.cpp" />
+    <ClCompile Include="source\Cube.cpp" />
     <ClCompile Include="source\Engine.cpp" />
     <ClCompile Include="source\BaseGame.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
-    <ClCompile Include="source\glslprogram.cpp" />
     <ClCompile Include="source\gl_core_4_3.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MeshComponent.cpp" />
@@ -168,14 +165,17 @@
     <ClCompile Include="source\Robot.cpp" />
     <ClCompile Include="source\ShaderLinkerComponent.cpp" />
     <ClCompile Include="source\SoundComponent.cpp" />
-    <ClCompile Include="source\SplashScreenComponent.cpp" />
+    <ClCompile Include="source\UIComponent.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\tinyxml2.cpp" />
     <ClCompile Include="source\WindowComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="resources\shader\basic.frag" />
     <None Include="resources\shader\basic.vert" />
+    <None Include="resources\shader\lighting.frag" />
+    <None Include="resources\shader\lighting.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\cubemap_back.png" />

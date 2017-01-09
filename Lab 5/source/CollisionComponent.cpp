@@ -6,6 +6,7 @@ CollisionComponent::CollisionComponent()
 {
 
 }
+
 //!< Checks the distance between two starting vectors
 std::vector<MeshComponent*> CollisionComponent::checkVectorDistance(std::vector<MeshComponent*> objects, glm::vec3 robotPos)
 {

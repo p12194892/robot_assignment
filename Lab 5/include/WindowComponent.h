@@ -1,20 +1,17 @@
 #pragma once
 /*!
 * @file Window.h
-* Header file window creation through GLFW
+* Header file window creation through SFML
 */
 #include "gl_core_4_3.hpp"
 #include <GLFW/glfw3.h>
-#include <windows.h>
 #include <string>
 #include "Entity.h"
 #include <iostream>
 #include "CameraComponent.h"
 #include "BaseGame.h"
 #include "SFML\Window.hpp"
-
-//New stuff
-#include "SplashScreenComponent.h"
+#include <vector>
 #include "SFML/Graphics.hpp"
 
 #define MOVE_VELOCITY 0.01f
@@ -23,7 +20,6 @@
 /*! \class Window.h
 \brief The control the creating of the program window
 */
-
 
 class WindowComponent: public Entity
 {
@@ -35,8 +31,9 @@ class WindowComponent: public Entity
 		sf::RenderWindow* m_window; //!< The window
 		sf::Event m_event; //!< The event
 		char m_ckeyPress; //!< Key that shows what mouse button has been pressed 
-		bool m_bifRunning;
-		CameraComponent m_camera; //!< The camera
+		bool m_bifRunning; //!< Define if the window is running
+		std::vector<CameraComponent*> m_Cameras;//!< The multiple cameras
+		int m_cameraChangeState; //!< Changes the active camera
 		BaseGame* m_baseGame; //!< The scene
 	
 		public:
@@ -44,14 +41,13 @@ class WindowComponent: public Entity
 		~WindowComponent(); //!< Destructor
 		void mainLoop(); //!< Main loop of the program
 		void sfEventPoll(); //!< new SFML functions
-		bool isRunning();
-		void setRunning(bool run);
+		bool isRunning(); //! If the window is running 
+		void setRunning(bool run); //!< Sets if the window is running
 
 		//!< Update the camera controls (virtual function)
 		void update(float t)
 		{
-			if (m_baseGame->getGameState() == 1)
-			{
+			
 				//Current mouse position
 				m_cursorPositionX = sf::Mouse::getPosition().x;
 				m_cursorPositionY = sf::Mouse::getPosition().y;
@@ -60,11 +56,11 @@ class WindowComponent: public Entity
 				float deltaX = (float)(m_lastCursorPositionX - m_cursorPositionX);
 				float deltaY = (float)(m_lastCursorPositionY - m_cursorPositionY);
 
-				if (m_ckeyPress == 'L') { m_camera.rotate(deltaX*ROTATE_VELOCITY, deltaY*ROTATE_VELOCITY); }
+				if (m_ckeyPress == 'L') { m_Cameras.at(m_cameraChangeState)->rotate(deltaX*ROTATE_VELOCITY, deltaY*ROTATE_VELOCITY); }
 
-				else if (m_ckeyPress == 'R') { m_camera.pan(deltaX*MOVE_VELOCITY, deltaY*MOVE_VELOCITY); }
+				else if (m_ckeyPress == 'R') { m_Cameras.at(m_cameraChangeState)->pan(deltaX*MOVE_VELOCITY, deltaY*MOVE_VELOCITY); }
 
-				else if (m_ckeyPress == 'M') { m_camera.roll(deltaX*ROTATE_VELOCITY); }
+				else if (m_ckeyPress == 'M') { m_Cameras.at(m_cameraChangeState)->roll(deltaX*ROTATE_VELOCITY); }
 
 				//Store the current cursor position
 				m_lastCursorPositionX = m_cursorPositionX;
@@ -72,10 +68,10 @@ class WindowComponent: public Entity
 
 				//Update the scene
 				m_baseGame->update((float)glfwGetTime());
-			}
-		}		
+		}	
 
-		void init() //!< Initialize the window
+		//!< Initialize the window
+		void init() 
 		{
 			// Load the OpenGL functions.
 			gl::exts::LoadTest didLoad = gl::sys::LoadFunctions();
