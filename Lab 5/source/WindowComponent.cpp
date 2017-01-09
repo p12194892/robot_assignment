@@ -8,6 +8,8 @@ WindowComponent::WindowComponent()
 	m_Cameras.push_back(new CameraComponent(1));
 	m_Cameras.push_back(new CameraComponent(2));
 
+	//new
+
 	//Sets the camera to the first camera
 	m_cameraChangeState = 0;
 
