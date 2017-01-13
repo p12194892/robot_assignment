@@ -64,13 +64,7 @@ private:
 	char m_cGameState; //!< Game State
 	ShaderLinkerComponent* m_menuShader; //!< GUI shaders 
 	ShaderLinkerComponent* m_lightingShader; //!< Runs the simulation with lighting
-
-	//Might keep if can get the text reports
-	bool m_berasedObject;
-	std::string m_sobjectErased;
-
-	//Lighting Component
-	//LightingComponent* m_spotLight;
+	LightingComponent* m_generalLight;//!< Spot Light
 	
 public:
 	BaseGame(); //!< Default constructor	
@@ -79,11 +73,6 @@ public:
 	char getGameState(); //!< Obtains the current game state
 	void changeGameState(int i); //!< Changes the game state
 	void createObjects(); //!< Creates objects to be used in the simulation
-
-	//Might keep if can get the text reports
-	void eraseOject(bool b);
-	std::string objectPickedUp();
-	bool objectIsErased();
 
 	//Virtual functions inherited
 	//!< Update the scene with animations
@@ -111,10 +100,13 @@ public:
 				{
 					//pop it off the list and play a sound
 					std::cout << std::endl << "Picked up object: " << m_objects.at(i)->getID() << std::endl << std::endl;
-					m_sobjectErased = "Picked up object: " + m_objects.at(i)->getID();
 					m_objects.erase(m_objects.begin() + i);	
-					eraseOject(true);
 					m_soundComponent->GetSound(0)->play();
+				}
+
+				if (m_objects.size() == 0)
+				{
+					std::cout << "All Objects Picked Up :) " << std::endl;
 				}
 			}
 			break;
@@ -135,7 +127,7 @@ public:
 		m_lightingShader = new ShaderLinkerComponent("resources/shader/lighting.vert", "resources/shader/lighting.frag");
 
 		//Initalize lighting in the scene
-		//m_spotLight = new LightingComponent();
+		m_generalLight = new LightingComponent();
 		
 		//Obtains the program handle
 		m_programHandle = m_menuShader->getProgramHandle();
@@ -152,8 +144,6 @@ public:
 		//Initialize Game Sounds
 		m_soundComponent = m_soundComponent->Instance();
 
-		//Objects that have been erased off the vector list
-		m_berasedObject = false;
 	}
 };
  

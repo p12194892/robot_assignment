@@ -14,6 +14,7 @@ Cube::Cube(GLuint programID)
 	m_read->ReadFile("resources/obj/cube.obj");
 	setVertrices(m_read->getVertexPoints());
 	setIndices(m_read->getIndices());
+	setUVs(m_read->getTexPoints());
 	setNormals(m_read->getNormals());
 
 	//make sure the program handle is the main handle

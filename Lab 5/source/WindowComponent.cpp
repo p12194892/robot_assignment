@@ -22,36 +22,6 @@ WindowComponent::WindowComponent()
 //!< Main loop of the program
  void WindowComponent::mainLoop(XMLReader* s)
  {
-	 //Update text reports
-	 if (m_baseGame->objectIsErased() == true)
-	 {
-		 //Returning the string so draw the string to the screen
-	/*	 std::string sobjectName = m_baseGame->objectPickedUp();
-		 m_textReport->setString(sobjectName);
-		 m_window->pushGLStates();
-		 m_window->draw(*m_textReport);
-		 //Draw the text report to the screen under a timer (maybe 20 seconds?)
-		 //Push and pop openGl to draw to the window
-		 //m_time = m_clock.getElapsedTime();
-		 //After elapsed time set it back to false:
-
-	/*	 sf::Clock clock;
-		 clock.restart();
-
-		 sf::Time timer = clock.getElapsedTime();
-		 while (timer.asSeconds() != sf::seconds(5).asSeconds())
-		 {
-			 //do nothing
-		 }*/
-
-
-		
-		/* m_window->popGLStates();
-		 m_window->display();
-		 m_window->setActive();
-		 m_baseGame->eraseOject(false);*/
-	 }
-
 	//Update the gameloop
 	update((float)glfwGetTime());
 

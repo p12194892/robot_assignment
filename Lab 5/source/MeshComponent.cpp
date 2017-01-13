@@ -54,11 +54,11 @@ void MeshComponent::Load(GLuint programID)
 	if (m_normals.size() != 0)
 	{
 		//Normals
-	/*	gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
+		gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
 		gl::BufferData(gl::ARRAY_BUFFER, m_normals.size() * sizeof(glm::vec3), &m_normals[0], gl::STATIC_DRAW);
 		GLuint locl2 = gl::GetAttribLocation(m_programHandleID, "vertNormal");
 		gl::VertexAttribPointer(locl2, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
-		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex*/
+		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex
 	}
 	if (m_uvData.size() != 0)
 	{
@@ -90,6 +90,7 @@ void MeshComponent::draw()
 	gl::BindVertexArray(m_vaoHandle);
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
 	gl::BindVertexArray(0);
+
 }
 
 //!< Cube Maps the texture (May move to cube)
@@ -198,7 +199,7 @@ void MeshComponent::updateModelMatrix(CameraComponent& camera, GLuint programHan
 	//need to send view, model and projection seperately
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "M"), 1, gl::FALSE_, &m_modelMatrix[0][0]);
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "V"), 1, gl::FALSE_, &camera.getView()[0][0]);
-	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "P"), 1, gl::FALSE_, &camera.getProjection()[0][0]);
+	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "P"), 1, gl::FALSE_, &camera.projection()[0][0]);
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "MVP"), 1, gl::FALSE_, &camera.getMVP()[0][0]);
 }
 

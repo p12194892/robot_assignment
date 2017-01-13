@@ -189,7 +189,7 @@ void CameraComponent::updateMVP(glm::mat4 model)
 //!< Gets the MVP matrix
 glm::mat4 CameraComponent::getMVP()
 {
-		return m_MVP;
+	return m_MVP;
 }
 
 //!< Gets the view matrix
