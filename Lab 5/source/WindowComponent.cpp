@@ -85,7 +85,7 @@ WindowComponent::WindowComponent()
 		m_window->setSize(sf::Vector2u(std::stoi(s->getData().at(1)), std::stoi(s->getData().at(2))));
 	}
  }
- //test
+ 
  //!< Poll events
  void WindowComponent::sfEventPoll()
  {
