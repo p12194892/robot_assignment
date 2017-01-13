@@ -7,9 +7,9 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
-#include "tinyxml2.h"
+
 #include <iostream>
-using namespace tinyxml2;
+
 
 //!< Default constructor
 BaseGame::BaseGame() {}
@@ -18,177 +18,271 @@ BaseGame::BaseGame() {}
 void BaseGame::createObjects()
 {
 	std::cout << "Loading Objects into the scene" << std::endl << std::endl;
-	//Creating box
-    m_box = new MeshComponent("Box Model");
-	m_read->resetData();	
-	m_read->ReadFile("resources/obj/cube.obj");
-	m_box->setVertrices(m_read->getVertexPoints());
-	m_box->setIndices(m_read->getIndices());
-	m_box->setNormals(m_read->getNormals());
-	m_box->setStartPos(glm::vec3(20.0, -37.0, 0.0));
-	m_box->Load(m_programHandle);
-	m_box->translateModelMat(m_box->getStartPos());
-	m_box->scaleModelMat(glm::vec3(3));
-
-	//Creating man
-	m_man = new MeshComponent("Man Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/man.obj");
-	m_man->setVertrices(m_read->getVertexPoints());
-	m_man->setIndices(m_read->getIndices());
-	m_man->setNormals(m_read->getNormals());
-	m_man->setStartPos(glm::vec3(20.0, -34.0, 0.0));
-	m_man->Load(m_programHandle);
-	m_man->translateModelMat(m_man->getStartPos());
-	m_man->scaleModelMat(glm::vec3(4));
-
-	//Creating cone
-	m_cone = new MeshComponent("Cone Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/cone.obj");
-	m_cone->setVertrices(m_read->getVertexPoints());
-	m_cone->setIndices(m_read->getIndices());
-	m_cone->setNormals(m_read->getNormals());
-	m_cone->setStartPos(glm::vec3(-20.0, -40.0, -30.0));
-	m_cone->Load(m_programHandle);
-	m_cone->translateModelMat(m_cone->getStartPos());
-	m_cone->scaleModelMat(glm::vec3(2));
-
-	//Creating character
-	m_character = new MeshComponent("BB8 Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/bb8.obj");
-	m_character->setVertrices(m_read->getVertexPoints());
-	m_character->setIndices(m_read->getIndices());
-	m_character->setNormals(m_read->getNormals());
-	m_character->setStartPos(glm::vec3(0.0, -40.0, -20.0));
-	m_character->Load(m_programHandle);
-	m_character->translateModelMat(m_character->getStartPos());
-	m_character->scaleModelMat(glm::vec3(0.0625));
-
-	//Creating garlic press
-	m_garlicpress = new MeshComponent("Garlic Press Model");
-	m_read->resetData();
-	m_read->ReadFile("resources/obj/garlicpress.obj");
-	m_garlicpress->setVertrices(m_read->getVertexPoints());
-	m_garlicpress->setIndices(m_read->getIndices());
-	m_garlicpress->setNormals(m_read->getNormals());
-	m_garlicpress->setStartPos(glm::vec3(-20.0, -34.0, 0.0));
-	m_garlicpress->Load(m_programHandle);
-	m_garlicpress->translateModelMat(m_garlicpress->getStartPos());
-	m_garlicpress->scaleModelMat(glm::vec3(0.5));	
 
 	//Making the splash screen 	
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), true);
 	m_splashScreenComponent = new UIComponent(m_programHandle);
 	m_splashScreenComponent->setTextureUnit(0);
-	m_splashScreenComponent->loadTexture("resources/shader/sign.png", "tex");
+	m_splashScreenComponent->loadTexture("resources/textures/sign.png", "tex");
 	m_splashScreenComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
 	m_splashScreenComponent->scaleModelMat(glm::vec3(13));
 		
 	//Making the menu screen
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
 	m_menuScreenComponent = new UIComponent(m_programHandle);
 	m_menuScreenComponent->setTextureUnit(1);
-	m_menuScreenComponent->loadTexture("resources/shader/menu.png", "menutexture");
+	m_menuScreenComponent->loadTexture("resources/textures/menu.png", "menutexture");
 	m_menuScreenComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
 	m_menuScreenComponent->scaleModelMat(glm::vec3(13));
 
 	//Making start button
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbuttontexture"), false);
 	m_buttonStart = new Button(m_programHandle);
 	m_buttonStart->setTextureUnit(2);
-	m_buttonStart->loadTexture("resources/shader/button1.png", "buttontex");
+	m_buttonStart->loadTexture("resources/textures/button1.png", "buttontex");
 	m_buttonStart->translateModelMat(glm::vec3(-2.0, -26.6, 18.0));
 	m_buttonStart->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
 
 	//Making exit button
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bexitButton"), false);
 	m_buttonExit = new Button(m_programHandle);
 	m_buttonExit->setTextureUnit(3);
-	m_buttonExit->loadTexture("resources/shader/button2.png", "exitButtonTex");
+	m_buttonExit->loadTexture("resources/textures/button2.png", "exitButtonTex");
 	m_buttonExit->translateModelMat(glm::vec3(-2.0, -27.4, 18.0));
 	m_buttonExit->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
 
 	//Making instruction button
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bmoreButton"), false);
 	m_buttonInstruction = new Button(m_programHandle);
 	m_buttonInstruction->setTextureUnit(4);
-	m_buttonInstruction->loadTexture("resources/shader/button3.png", "moreButtonTex");
+	m_buttonInstruction->loadTexture("resources/textures/button3.png", "moreButtonTex");
 	m_buttonInstruction->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
 	m_buttonInstruction->scaleModelMat(glm::vec3(3.0f, 1.0f, 0.0f));
 
 	//Creating instructions screen
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcontrolScreen"), false);
 	m_instructionsComponent = new UIComponent(m_programHandle);
 	m_instructionsComponent->setTextureUnit(5);
-	m_instructionsComponent->loadTexture("resources/shader/controls.png", "controlTex");
+	m_instructionsComponent->loadTexture("resources/textures/controls.png", "controlTex");
 	m_instructionsComponent->translateModelMat(glm::vec3(-2.0, -27.0, 18.0));
 	m_instructionsComponent->scaleModelMat(glm::vec3(13));
 
 	//Creating Back Button
-	gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbackbutton"), false);
 	m_backButton = new Button(m_programHandle);
 	m_backButton->setTextureUnit(6);
-	m_backButton->loadTexture("resources/shader/back.png", "buttonBackTex");
+	m_backButton->loadTexture("resources/textures/back.png", "buttonBackTex");
 	m_backButton->translateModelMat(glm::vec3(-2.0, -27.8, 18.0));
-//	m_backButton->scaleModelMat(glm::vec3(.0f));
 	
-//Create the room to hold the scene
-	gl::Uniform1i(gl::GetUniformLocation(m_lightingShader->getProgramHandle(), "drawRcube"), false);
+	//Create the room to hold the scene
 	m_room = new Cube(m_lightingShader->getProgramHandle());
 	m_room->setTextureUnit(0);
 	m_room->scaleModelMat(glm::vec3(40));
-	m_room->cubeMap("resources/cubemap", "cube_texture");
+	m_room->cubeMap("resources/textures/cubemap", "cube_texture");
 
 	//Creating box
-	gl::Uniform1i(gl::GetUniformLocation(m_lightingShader->getProgramHandle(), "bDrawRubix"), false);
-	m_box2 = new MeshComponent("Box Model 2");
+	m_rubix = new MeshComponent("Rubix Cube Model");
 	m_read->resetData();
 	m_read->ReadFile("resources/obj/cube.obj");
+	m_rubix->setVertrices(m_read->getVertexPoints());
+	m_rubix->setIndices(m_read->getIndices());
+	m_rubix->setNormals(m_read->getNormals());
+	m_rubix->setStartPos(glm::vec3(-20.0, -35.0, 0.0));
+	m_rubix->Load(m_lightingShader->getProgramHandle());
+	m_rubix->setTextureUnit(1);
+	m_rubix->cubeMap("resources/textures/rmap", "cube_texture2");
+	m_rubix->translateModelMat(m_rubix->getStartPos());
+	m_rubix->scaleModelMat(glm::vec3(5));
+
+	//Creating box
+	m_box = new MeshComponent("Box Model");
+	m_box->setVertrices(m_read->getVertexPoints());
+	m_box->setIndices(m_read->getIndices());
+	m_box->setNormals(m_read->getNormals());
+	m_box->setStartPos(glm::vec3(-25.0, -35.0, 30.0));
+	m_box->Load(m_programHandle);
+	m_box->setTextureUnit(2);
+	m_box->cubeMap("resources/textures/pattern", "cube_texture3");
+	m_box->translateModelMat(m_box->getStartPos());
+	m_box->scaleModelMat(glm::vec3(5));
+
+	m_box2 = new MeshComponent("Box Model");
 	m_box2->setVertrices(m_read->getVertexPoints());
 	m_box2->setIndices(m_read->getIndices());
 	m_box2->setNormals(m_read->getNormals());
-	m_box2->setStartPos(glm::vec3(-20.0, -37.0, 0.0));
-	m_box2->Load(m_lightingShader->getProgramHandle());
-	m_box2->setTextureUnit(1);
-	m_box2->cubeMap("resources/rmap", "cube_texture2");
+	m_box2->setStartPos(glm::vec3(18.0, -32.0, -10.0));
+	m_box2->Load(m_programHandle);
 	m_box2->translateModelMat(m_box2->getStartPos());
-	m_box2->scaleModelMat(glm::vec3(3));
+	m_box2->scaleModelMat(glm::vec3(5.0,8.0,5.0));
+	m_box2->rotateModelMat(45.0, glm::vec3(0.0, 1.0, 0.0));
 
-
-	//Creating Mickey Mouse
-	//gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bPattern"), false);
-	m_mouse = new MeshComponent("Mickey Mouse Model");
+	//Sphere object 
+	m_sphere = new MeshComponent("Ball 1 Model");
 	m_read->resetData();
-	m_read->ReadFile("resources/obj/mouse.obj");
-	m_mouse->setVertrices(m_read->getVertexPoints());
-	m_mouse->setIndices(m_read->getIndices());
-	m_mouse->setNormals(m_read->getNormals());
-	m_mouse->setStartPos(glm::vec3(20.0, -40.0, -30.0));
-	m_mouse->Load(m_programHandle);
-	m_mouse->translateModelMat(m_mouse->getStartPos());
-	m_mouse->scaleModelMat(glm::vec3(6));
- 
+	m_read->ReadFile("resources/obj/sphere.obj");
+	m_sphere->setVertrices(m_read->getVertexPoints());
+	m_sphere->setIndices(m_read->getIndices());
+	m_sphere->setNormals(m_read->getNormals());
+	m_sphere->setUVs(m_read->getTexPoints());
+	m_sphere->setStartPos(glm::vec3(32.0, -34.0, -30.0));
+	m_sphere->Load(m_programHandle);
+	m_sphere->setTextureUnit(3);
+	m_sphere->loadTexture("resources/textures/pattern3.png", "spheretexture");
+	m_sphere->translateModelMat(m_sphere->getStartPos());
+	m_sphere->scaleModelMat(glm::vec3(6));
+	m_sphere->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	//Sphere object 2
+	m_sphere2 = new MeshComponent("Ball 2 Model");
+	m_sphere2->setVertrices(m_read->getVertexPoints());
+	m_sphere2->setIndices(m_read->getIndices());
+	m_sphere2->setNormals(m_read->getNormals());
+	m_sphere2->setUVs(m_read->getTexPoints());
+	m_sphere2->setStartPos(glm::vec3(32.0, -33.0, 0.0));
+	m_sphere2->Load(m_programHandle);
+	m_sphere2->translateModelMat(m_sphere2->getStartPos());
+	m_sphere2->scaleModelMat(glm::vec3(7));
+	m_sphere2->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	
+	//Creating cone
+	m_cone = new MeshComponent("Cone Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/simplecone.obj");
+	m_cone->setVertrices(m_read->getVertexPoints());
+	m_cone->setIndices(m_read->getIndices());
+	m_cone->setNormals(m_read->getNormals());
+	m_cone->setUVs(m_read->getTexPoints());
+	m_cone->setStartPos(glm::vec3(30.0, -40.0, 30.0));
+	m_cone->Load(m_programHandle);
+	m_cone->setTextureUnit(4);
+	m_cone->loadTexture("resources/textures/pattern2.png", "spheretexture");
+	m_cone->translateModelMat(m_cone->getStartPos());
+	m_cone->scaleModelMat(glm::vec3(9));
+
+	//Creating torus 
+	m_torus = new MeshComponent("Torus Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/torus.obj");
+	m_torus->setVertrices(m_read->getVertexPoints());
+	m_torus->setIndices(m_read->getIndices());
+	m_torus->setNormals(m_read->getNormals());
+	m_torus->setUVs(m_read->getTexPoints());
+	m_torus->setStartPos(glm::vec3(0.0, -37.0, -30.0));
+	m_torus->Load(m_programHandle);
+	m_torus->setTextureUnit(5);
+	m_torus->loadTexture("resources/textures/pattern2.png", "torusTexture");
+	m_torus->translateModelMat(m_torus->getStartPos());
+	m_torus->scaleModelMat(glm::vec3(6));
+	m_torus->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	m_torus2 = new MeshComponent("Torus 2 Model");
+	m_torus2->setVertrices(m_read->getVertexPoints());
+	m_torus2->setIndices(m_read->getIndices());
+	m_torus2->setNormals(m_read->getNormals());
+	m_torus2->setUVs(m_read->getTexPoints());
+	m_torus2->setStartPos(glm::vec3(10.0, -31.0, 10.0));
+	m_torus2->Load(m_programHandle);
+	m_torus2->translateModelMat(m_torus2->getStartPos());
+	m_torus2->scaleModelMat(glm::vec3(6));
+
+	//Creating cylinder
+	m_cylinder = new MeshComponent("Cylinder Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/cylinder.obj");
+	m_cylinder->setVertrices(m_read->getVertexPoints());
+	m_cylinder->setIndices(m_read->getIndices());
+	m_cylinder->setNormals(m_read->getNormals());
+	m_cylinder->setUVs(m_read->getTexPoints());
+	m_cylinder->setStartPos(glm::vec3(-29.0, -32.0, -28.0));
+	m_cylinder->Load(m_programHandle);
+	m_cylinder->setTextureUnit(6);
+	m_cylinder->loadTexture("resources/textures/pattern5.png", "torusTexture");
+	m_cylinder->translateModelMat(m_cylinder->getStartPos());
+	m_cylinder->scaleModelMat(glm::vec3(8));
+	m_cylinder->rotateModelMat(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+
+	m_cylinder2 = new MeshComponent("Cylinder 2 Model");
+	m_cylinder2->setVertrices(m_read->getVertexPoints());
+	m_cylinder2->setIndices(m_read->getIndices());
+	m_cylinder2->setNormals(m_read->getNormals());
+	m_cylinder2->setUVs(m_read->getTexPoints());
+	m_cylinder2->setStartPos(glm::vec3(0.0, -34.0, 28.0));
+	m_cylinder2->Load(m_programHandle);
+	m_cylinder2->translateModelMat(m_cylinder2->getStartPos());
+	m_cylinder2->scaleModelMat(glm::vec3(6));
+	m_cylinder2->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	
 	//Create Robot character
 	m_robot = new Robot(m_programHandle);
-	m_robot->setSpeed(0.001f);
+	m_robot->setTextureUnit(7);
+	m_robot->cubeMap("resources/textures/rmap", "robotTexture");
+	m_robot->setSpeed(0.01f);
 	m_robot->setAnimationAngle(0.2f);
 	m_robot->setStartPos(glm::vec3(0.0, -24.0, 0.0));
 	m_robot->setVariableWalkAngle(0.0);
 
+	//Creating stars
+	m_star = new MeshComponent("Star Model");
+	m_read->resetData();
+	m_read->ReadFile("resources/obj/star.obj");
+	m_star->setVertrices(m_read->getVertexPoints());
+	m_star->setIndices(m_read->getIndices());
+	m_star->setNormals(m_read->getNormals());
+	m_star->setUVs(m_read->getTexPoints());
+	m_star->setStartPos(glm::vec3(-30.0, -35.0, -38.0));
+	m_star->Load(m_programHandle);
+	m_star->setTextureUnit(8);
+	m_star->loadTexture("resources/textures/marble.png", "starTexture");
+	m_star->translateModelMat(m_star->getStartPos());
+	m_star->scaleModelMat(glm::vec3(0.5,0.5,1));
+	m_star->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	m_star2 = new MeshComponent("Star Model");
+	m_star2->setVertrices(m_read->getVertexPoints());
+	m_star2->setIndices(m_read->getIndices());
+	m_star2->setNormals(m_read->getNormals());
+	m_star2->setUVs(m_read->getTexPoints());
+	m_star2->setStartPos(glm::vec3(32.0, -35.0, -38.0));
+	m_star2->Load(m_programHandle);
+	m_star2->translateModelMat(m_star2->getStartPos());
+	m_star2->scaleModelMat(glm::vec3(0.5, 0.5, 1));
+	m_star2->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	m_star3 = new MeshComponent("Star Model");
+	m_star3->setVertrices(m_read->getVertexPoints());
+	m_star3->setIndices(m_read->getIndices());
+	m_star3->setNormals(m_read->getNormals());
+	m_star3->setUVs(m_read->getTexPoints());
+	m_star3->setStartPos(glm::vec3(-25.0, -35.0, 36.0));
+	m_star3->Load(m_programHandle);
+	m_star3->translateModelMat(m_star3->getStartPos());
+	m_star3->scaleModelMat(glm::vec3(0.5, 0.5, 1));
+	m_star3->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
+	m_star4 = new MeshComponent("Star Model");
+	m_star4->setVertrices(m_read->getVertexPoints());
+	m_star4->setIndices(m_read->getIndices());
+	m_star4->setNormals(m_read->getNormals());
+	m_star4->setUVs(m_read->getTexPoints());
+	m_star4->setStartPos(glm::vec3(-34.0, -32.0, 30.0));
+	m_star4->Load(m_programHandle);
+	m_star4->translateModelMat(m_star4->getStartPos());
+	m_star4->scaleModelMat(glm::vec3(1, 1, 1));
+	m_star4->rotateModelMat(90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	
 	//Clears the data being read in from OBJ files
 	m_read->resetData();
 
 	//Putting the objects into a containter to traverse through
 	m_objects.push_back(m_box);
-	m_objects.push_back(m_man);
 	m_objects.push_back(m_cone);
-	//m_objects.push_back(m_box2);
-	m_objects.push_back(m_garlicpress);
-	m_objects.push_back(m_mouse);	
-	m_objects.push_back(m_character);
+	m_objects.push_back(m_cylinder);
+	m_objects.push_back(m_rubix);
+	m_objects.push_back(m_sphere);
+	m_objects.push_back(m_torus);
+	m_objects.push_back(m_torus2);
 	m_objects.push_back(m_box);
+	m_objects.push_back(m_star);
+	m_objects.push_back(m_star2);
+	m_objects.push_back(m_star3);
+	m_objects.push_back(m_star4);
+	m_objects.push_back(m_cylinder2);
+	m_objects.push_back(m_box2);
+	m_objects.push_back(m_sphere2);
+
 	//Lighting stuff
 	//compileAndLinkShader();
 	//Set up the lighting
@@ -265,7 +359,10 @@ void BaseGame::render(CameraComponent& camera)
 			//Tells the shader not to render the splash screen or menu screen
 		m_programHandle = m_lightingShader->getProgramHandle();
 		m_lightingShader->setUseShader();
-		
+
+		//Setting up lighting sending the program handle and the cameras position
+		//m_spotLight->setLightingParam(m_programHandle, camera);
+
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
 
@@ -277,29 +374,146 @@ void BaseGame::render(CameraComponent& camera)
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture"), m_room->getTextureUnit());
 		m_room->draw();
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
-
-
-			for (int i = 0; i < m_objects.size(); i++)
+		
+		//drawing rubix cube 
+		if (m_rubix->isDrawable())
+		{
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), true);
+			m_rubix->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE1);
+			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_rubix->getCubeMapTexture());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture2"), m_rubix->getTextureUnit());
+			m_rubix->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
+		}
+	
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawPattern"), true);
+			gl::ActiveTexture(gl::TEXTURE2);
+			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_box->getCubeMapTexture());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture3"), m_box->getTextureUnit());
+			
+			if (m_box->isDrawable())
 			{
-				// Draw what is on the objects list
-				gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "col"), i);
-				m_objects.at(i)->updateModelMatrix(camera, m_programHandle);
-				m_objects.at(i)->draw();
+				m_box->updateModelMatrix(camera, m_programHandle);
+				m_box->draw();
 			}
 
+			if (m_box2->isDrawable()) 
+			{
+				m_box2->updateModelMatrix(camera, m_programHandle);
+				m_box2->draw();
+			}
+
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawPattern"), false);
+				
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bsphere"), true);
+			gl::ActiveTexture(gl::TEXTURE3);
+			gl::BindTexture(gl::TEXTURE_2D, m_sphere->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "spheretexture"), m_sphere->getTextureUnit());
+			
+			if (m_sphere->isDrawable())
+			{
+				m_sphere->updateModelMatrix(camera, m_programHandle);
+				m_sphere->draw();
+			}
+
+			if (m_cylinder2->isDrawable())
+			{
+				m_cylinder2->updateModelMatrix(camera, m_programHandle);
+				m_cylinder2->draw();
+			}
+
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bsphere"), false);
+		
+		 if (m_cone->isDrawable())
+		{
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bsphere"), true);
+			m_cone->updateModelMatrix(camera, m_programHandle);
+			gl::ActiveTexture(gl::TEXTURE4);
+			gl::BindTexture(gl::TEXTURE_2D, m_cone->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "spheretexture"), m_cone->getTextureUnit());
+			m_cone->draw();
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bsphere"), false);
+		}
+		 	
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "btorus"), true);
+			gl::ActiveTexture(gl::TEXTURE5);
+			gl::BindTexture(gl::TEXTURE_2D, m_torus->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "torusTexture"), m_torus->getTextureUnit());
+			
+			if (m_torus->isDrawable())
+			{
+				m_torus->updateModelMatrix(camera, m_programHandle);
+				m_torus->draw();
+			}
+
+			if (m_torus2->isDrawable())
+			{
+				m_torus2->updateModelMatrix(camera, m_programHandle);
+				m_torus2->draw();
+			}
+
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "btorus"), false);
+		
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcylinder"), true);		
+			gl::ActiveTexture(gl::TEXTURE6);
+			gl::BindTexture(gl::TEXTURE_2D, m_cylinder->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cylinderTexture"), m_cylinder->getTextureUnit());
+			
+			if (m_cylinder->isDrawable())
+			{
+				m_cylinder->updateModelMatrix(camera, m_programHandle);
+				m_cylinder->draw();
+			}
+
+			if (m_sphere2->isDrawable()) 
+			{
+				m_sphere2->updateModelMatrix(camera, m_programHandle);
+				m_sphere2->draw();
+			}
+
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bcylinder"), false);
+		
 			//Draw robot
-			m_robot->drawRobot(camera, m_programHandle);	
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bRobot"), true);
+			gl::ActiveTexture(gl::TEXTURE7);
+			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_robot->getCubeMapTexture());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "robotTexture"), m_robot->getTextureUnit());
+			m_robot->drawRobot(camera, m_programHandle);
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bRobot"), false);
 
-			//drawing box test to see if textures are working
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), true);
-			m_box2->updateModelMatrix(camera, m_programHandle);
-			gl::ActiveTexture(gl::TEXTURE1);
-			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_box2->getCubeMapTexture());
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture2"), m_box2->getTextureUnit());
-			m_box2->draw();
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);			
-			//gl::PolygonMode(gl::FRONT_AND_BACK, gl::LINE);		
+			//Stars
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bStar"), true);
+			gl::ActiveTexture(gl::TEXTURE8);
+			gl::BindTexture(gl::TEXTURE_2D, m_star->getTextureObject()->getTextureId());
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "starTexture"), m_star->getTextureUnit());
 
+			if (m_star->isDrawable())
+			{
+				m_star->updateModelMatrix(camera, m_programHandle);
+				m_star->draw();
+			}
+
+
+			if (m_star2->isDrawable())
+			{
+				m_star2->updateModelMatrix(camera, m_programHandle);
+				m_star2->draw();
+			}
+
+			if (m_star3->isDrawable())
+			{
+				m_star3->updateModelMatrix(camera, m_programHandle);
+				m_star3->draw();
+			}
+
+			if (m_star4->isDrawable())
+			{
+				m_star4->updateModelMatrix(camera, m_programHandle);
+				m_star4->draw();
+				
+			}
+			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bStar"), false);
 			break;
 
 		case 3:
@@ -344,4 +558,20 @@ char BaseGame::getGameState()
 void BaseGame::changeGameState(int i)
 {
 	m_cGameState = i;
+}
+
+
+void BaseGame::eraseOject(bool b)
+{
+	m_berasedObject = b;
+}
+
+std::string BaseGame::objectPickedUp()
+{
+	return m_sobjectErased;
+}
+
+bool BaseGame::objectIsErased()
+{
+	return m_berasedObject;
 }

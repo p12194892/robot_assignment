@@ -54,11 +54,11 @@ void MeshComponent::Load(GLuint programID)
 	if (m_normals.size() != 0)
 	{
 		//Normals
-		gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
+	/*	gl::BindBuffer(gl::ARRAY_BUFFER, normal_buffer);
 		gl::BufferData(gl::ARRAY_BUFFER, m_normals.size() * sizeof(glm::vec3), &m_normals[0], gl::STATIC_DRAW);
-		GLuint locl2 = gl::GetAttribLocation(m_programHandleID, "VertexNormal");
+		GLuint locl2 = gl::GetAttribLocation(m_programHandleID, "vertNormal");
 		gl::VertexAttribPointer(locl2, 3, gl::FLOAT, FALSE, sizeof(glm::vec3), (GLubyte *)NULL);
-		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex
+		gl::EnableVertexAttribArray(locl2);  //Enables the array for vertex*/
 	}
 	if (m_uvData.size() != 0)
 	{
@@ -96,7 +96,6 @@ void MeshComponent::draw()
 void MeshComponent::cubeMap(std::string s, std::string s2) {
 	
 	gl::GenTextures(1, &m_cubemapTex);
-	//gl::ActiveTexture(gl::TEXTURE0 + iunit); 	// Activate the texture unit first before binding texture
 	gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_cubemapTex);
 
 	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
@@ -107,10 +106,6 @@ void MeshComponent::cubeMap(std::string s, std::string s2) {
 	target[3] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Y; //Bottom
 	target[4] = gl::TEXTURE_CUBE_MAP_POSITIVE_Z; // Back
 	target[5] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Z; //front
-
-	//gl::ActiveTexture(gl::TEXTURE0 + m_iTexUnit);
-	//GLuint textureLocation2 = gl::GetUniformLocation(m_programHandleID, s2.c_str());
-	//gl::BindTexture(gl::TEXTURE_CUBE_MAP, textureLocation2);
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -179,9 +174,9 @@ void MeshComponent::scaleModelMat(glm::vec3 s)
 }
 
 //!<  Rotates the mesh
-void MeshComponent::rotateModelMat(glm::vec3 r)
+void MeshComponent::rotateModelMat(float a, glm::vec3 r)
 {
-	//To be done
+	m_modelMatrix *= glm::rotate(glm::radians(a), r);
 }
 
 //!< Gets the starting position of the mesh
@@ -200,20 +195,11 @@ void MeshComponent::setStartPos(glm::vec3 s)
 void MeshComponent::updateModelMatrix(CameraComponent& camera, GLuint programHandle)
 {
 	camera.updateMVP(m_modelMatrix);
+	//need to send view, model and projection seperately
+	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "M"), 1, gl::FALSE_, &m_modelMatrix[0][0]);
+	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "V"), 1, gl::FALSE_, &camera.getView()[0][0]);
+	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "P"), 1, gl::FALSE_, &camera.getProjection()[0][0]);
 	gl::UniformMatrix4fv(gl::GetUniformLocation(programHandle, "MVP"), 1, gl::FALSE_, &camera.getMVP()[0][0]);
-
-	//Lighting stuff - See if this works?
-	/*	mat4 mv = camera.view() * model;
-	//	prog.setUniform("ModelViewMatrix", mv);
-	prog.setUniform("NormalMatrix",
-	mat3(vec3(mv[0]), vec3(mv[1]), vec3(mv[2])));
-	//	prog.setUniform("MVP", camera.projection() * mv);
-	// the correct matrix to transform the normal is the transpose of the inverse of the M matrix
-	//mat3 normMat = glm::transpose(glm::inverse(mat3(model)));
-	prog.setUniform("M", model);
-	//prog.setUniform("NormalMatrix", normMat);
-	prog.setUniform("V", camera.view());
-	//prog.setUniform("P", camera.projection());*/
 }
 
 //!< Sets a texture unit

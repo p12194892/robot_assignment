@@ -36,7 +36,7 @@ CameraComponent::CameraComponent(int i)
 	}
 
 //!< Position getter method
-const glm::vec3& CameraComponent::position() const
+glm::vec3 CameraComponent::position() 
 	{
 		return m_position;
 	}
@@ -111,9 +111,6 @@ void CameraComponent::rotate(const float yaw, const float pitch)
 		m_orientation = glm::normalize(fromAxisAngle(WORLDX, pitch)*m_orientation);
 	
 		m_orientation = glm::normalize(m_orientation * fromAxisAngle(WORLDY, yaw));	
-		std::cout << "orientation x: " << m_orientation.x << std::endl << std::endl;
-		std::cout << "orientation y: "<< m_orientation.y << std::endl << std::endl;
-		std::cout << "orientation z: " << m_orientation.z << std::endl << std::endl;
 		update();
 	}
 
@@ -123,8 +120,6 @@ void CameraComponent::pan(const float x, const float y)
 		
 		m_position += m_xaxis * x;
 		m_position += m_yaxis * -y;
-		std::cout << "Position x: " << m_position.x << std::endl << std::endl;
-		std::cout << "Position y: " << m_position.y << std::endl << std::endl;
 		update();
 	}
 
@@ -132,8 +127,7 @@ void CameraComponent::pan(const float x, const float y)
 void CameraComponent::zoom(const float z)
 	{
 
-		m_position += m_zaxis * z;
-		std::cout << "Position z: " << m_position.z << std::endl << std::endl;
+		m_position += m_zaxis * z;;
 		update();
 	}
 
@@ -188,12 +182,26 @@ glm::mat4 CameraComponent::projection()
 
 //!< Updates the mvp matrix 
 void CameraComponent::updateMVP(glm::mat4 model)
-	{
-		m_MVP = m_projection * (m_view * model);
-	}
+{
+	m_MVP = m_projection * (m_view * model);
+}
 	
 //!< Gets the MVP matrix
 glm::mat4 CameraComponent::getMVP()
-	{
+{
 		return m_MVP;
-	}
+}
+
+//!< Gets the view matrix
+glm::mat4 CameraComponent::getView()
+{
+	return m_view;
+}
+
+//!< Gets the projection matrix
+glm::mat4 CameraComponent::getProjection()
+{
+	return	m_projection;
+}
+
+

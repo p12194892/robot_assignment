@@ -112,6 +112,18 @@
     <Filter Include="Header Files\Graphic Render Component\Shaders">
       <UniqueIdentifier>{ff93ebd5-6c11-4dbc-ae47-3b1bb65cd581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphic Render Component\Lighting">
+      <UniqueIdentifier>{b7830843-d8f9-42f6-9c51-ccc682c0d9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Lighting">
+      <UniqueIdentifier>{f68fa3f9-c8b7-4ace-a552-7e68328ab7db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Mesh">
+      <UniqueIdentifier>{271fb4e4-5014-4b72-a32c-7b246cc54e6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphic Render Component\Shaders">
+      <UniqueIdentifier>{0e2a5f8a-0e95-49d1-bd25-7b74da68a08e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\gl_core_4_3.hpp">
@@ -137,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="include\Engine.h">
       <Filter>Header Files\Core Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tinyxml2.h">
-      <Filter>Header Files\Parser Components</Filter>
     </ClInclude>
     <ClInclude Include="include\Entity.h">
       <Filter>Header Files\Entity</Filter>
@@ -168,11 +177,20 @@
     <ClInclude Include="include\ShaderLinkerComponent.h">
       <Filter>Header Files\Graphic Render Component\Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="include\LightingComponent.h">
+      <Filter>Header Files\Graphic Render Component\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\XMLReader.h">
+      <Filter>Header Files\Parser Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinyxml.h">
+      <Filter>Header Files\Parser Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tinystr.h">
+      <Filter>Header Files\Parser Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Bitmap.cpp">
-      <Filter>Source Files\Graphic Render Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\FileReader.cpp">
       <Filter>Source Files\Parser Components</Filter>
     </ClCompile>
@@ -200,20 +218,11 @@
     <ClCompile Include="source\Engine.cpp">
       <Filter>Source Files\Core Engine</Filter>
     </ClCompile>
-    <ClCompile Include="source\tinyxml2.cpp">
-      <Filter>Source Files\Parser Components</Filter>
-    </ClCompile>
     <ClCompile Include="source\CollisionComponent.cpp">
       <Filter>Source Files\Collision Detection Component</Filter>
     </ClCompile>
-    <ClCompile Include="source\MeshComponent.cpp">
-      <Filter>Source Files\Graphic Render Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\BaseGame.cpp">
       <Filter>Source Files\Base Game</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ShaderLinkerComponent.cpp">
-      <Filter>Source Files\Graphic Render Component</Filter>
     </ClCompile>
     <ClCompile Include="source\UIComponent.cpp">
       <Filter>Source Files\UI Components</Filter>
@@ -223,6 +232,33 @@
     </ClCompile>
     <ClCompile Include="source\Cube.cpp">
       <Filter>Source Files\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bitmap.cpp">
+      <Filter>Source Files\Graphic Render Component\Texture\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MeshComponent.cpp">
+      <Filter>Source Files\Graphic Render Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderLinkerComponent.cpp">
+      <Filter>Source Files\Graphic Render Component\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LightingComponent.cpp">
+      <Filter>Source Files\Graphic Render Component\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="source\XMLReader.cpp">
+      <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxml.cpp">
+      <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinystr.cpp">
+      <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxmlerror.cpp">
+      <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tinyxmlparser.cpp">
+      <Filter>Source Files\Parser Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

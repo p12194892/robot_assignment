@@ -1,9 +1,11 @@
 #include "Button.h"
 
+//!< Default Constructor
 Button::Button()
 {
 }
 
+//!< Constructor
 Button::Button(GLuint programID)
 {
 	//Loading a 2d rectangle to texture 

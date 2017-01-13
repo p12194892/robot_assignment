@@ -21,7 +21,7 @@ Robot::Robot(GLuint programID)
 	m_clegStates[RIGHT] = BACKWARD_STATE;
 
 	//Creating the cube objects to form the robot
-
+	//Setting texture units
 	//m_LeftFoot
 	m_leftFoot = new Cube(programID);	
 
@@ -61,23 +61,20 @@ Robot::~Robot()
 //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
 void Robot::drawRobot(CameraComponent c/*!The camera*/, GLuint programID/*!The main program handle*/)
 {
+	//head
 	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 2);
-
 	m_modelMatrix = glm::translate(m_startPosition);
 	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
 	m_modelMatrix *= glm::scale(glm::vec3(1.0, 1.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
 	updateModelMatrix(c, programID);
 	m_head->draw();
 
-	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 0);
 	//m_Torso
 	m_modelMatrix = glm::translate(m_startPosition);
 	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
 	m_modelMatrix *= glm::scale(glm::vec3(2.0, 3.0, 1.0)) * glm::translate(glm::vec3(0.0, -2.0, 0.0));
 	updateModelMatrix(c, programID);
 	m_torso->draw();
-
-	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 3);
 
 	//Left Arm
 	m_modelMatrix = glm::translate(m_startPosition);
@@ -93,8 +90,6 @@ void Robot::drawRobot(CameraComponent c/*!The camera*/, GLuint programID/*!The m
 	updateModelMatrix(c, programID);
 	m_rightArm->draw();
 
-	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 1);
-
 	//right Leg
 	m_modelMatrix = glm::translate(m_startPosition);
 	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
@@ -102,15 +97,12 @@ void Robot::drawRobot(CameraComponent c/*!The camera*/, GLuint programID/*!The m
 	updateModelMatrix(c, programID);
 	m_rightLeg->draw();
 
-
 	//left Leg
 	m_modelMatrix = glm::translate(m_startPosition);
 	m_modelMatrix *= glm::rotate(m_fvariableAngle, glm::vec3(0.0, 1.0, 0.0));
 	m_modelMatrix *= glm::rotate(m_flegAngles[LEFT], glm::vec3(1.0, 0.0, 0.0)) * glm::scale(glm::vec3(0.8, 3.0, 0.5)) * glm::translate(glm::vec3(-1.5, -4.0, 0.0));
 	updateModelMatrix(c, programID);
 	m_leftLeg->draw();
-
-	gl::Uniform1i(gl::GetUniformLocation(programID, "col"), 2);
 
 	//Left foot
 	m_modelMatrix = glm::translate(m_startPosition);

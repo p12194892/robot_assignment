@@ -18,6 +18,7 @@
 #include "Entity.h"
 #include "MeshComponent.h"
 #include "ShaderLinkerComponent.h"
+#include "LightingComponent.h"
 #include <iostream>
 
 /*! \class BaseGame
@@ -31,26 +32,30 @@ private:
 	//Game objects that make the scene
 	MeshComponent* m_room; //!< The room 
 	Robot* m_robot; //!< The robot mesh	
-	
-	//Eventually will make everything new and just have the vector
-	std::vector<MeshComponent*> m_objects;
-	MeshComponent* m_box2; //!< The Box Object
+	std::vector<MeshComponent*> m_objects;//! List of game objects
+	MeshComponent* m_rubix; //!< The rubix object
 	MeshComponent* m_box; //!< The Box Object
-	MeshComponent* m_man; //!< The Man Object
-	MeshComponent* m_garlicpress; //!< The Garlic Press Object
-	MeshComponent* m_mouse; //!< The Mickey Mouse Object
+	MeshComponent* m_box2; //!< The Box Object
 	MeshComponent* m_cone; //!< The Cone Object
-	MeshComponent* m_character; //!< BB8 Object
-	
+	MeshComponent* m_sphere; //!< A sphere object
+	MeshComponent* m_cylinder; //!< The Cone Object
+	MeshComponent* m_cylinder2; //!< The Cone Object
+	MeshComponent* m_torus; //!< Torus Object
+	MeshComponent* m_torus2; //!< Torus Object
+	MeshComponent* m_sphere2; //!< A sphere object
+	MeshComponent* m_star; //!< The star object
+	MeshComponent* m_star2; //!< The star object
+	MeshComponent* m_star3; //!< The star object
+	MeshComponent* m_star4; //!< The star object
+
 	//UI Components 
 	UIComponent* m_splashScreenComponent; //!< Splash Screen
 	UIComponent* m_menuScreenComponent; //!< Menu
-	UIComponent* m_instructionsComponent;
-	Button* m_buttonStart;
-	Button* m_buttonExit;
-	Button* m_buttonInstruction;
-	Button* m_backButton;
-
+	UIComponent* m_instructionsComponent; //!< Instructions Screen
+	Button* m_buttonStart; //!< Start Button
+	Button* m_buttonExit; //!< Exit Button
+	Button* m_buttonInstruction; //!< Instruction Button
+	Button* m_backButton; //!< Back Button
 	SoundComponent* m_soundComponent;  //!< Sound loader object
 	CollisionComponent* m_collision; //!< Collision detection 
 	GLuint m_programHandle; //!< The main program handle
@@ -59,6 +64,13 @@ private:
 	char m_cGameState; //!< Game State
 	ShaderLinkerComponent* m_menuShader; //!< GUI shaders 
 	ShaderLinkerComponent* m_lightingShader; //!< Runs the simulation with lighting
+
+	//Might keep if can get the text reports
+	bool m_berasedObject;
+	std::string m_sobjectErased;
+
+	//Lighting Component
+	//LightingComponent* m_spotLight;
 	
 public:
 	BaseGame(); //!< Default constructor	
@@ -68,8 +80,12 @@ public:
 	void changeGameState(int i); //!< Changes the game state
 	void createObjects(); //!< Creates objects to be used in the simulation
 
-	//Virtual functions inherited
+	//Might keep if can get the text reports
+	void eraseOject(bool b);
+	std::string objectPickedUp();
+	bool objectIsErased();
 
+	//Virtual functions inherited
 	//!< Update the scene with animations
 	void update(float t)
 	{
@@ -95,7 +111,9 @@ public:
 				{
 					//pop it off the list and play a sound
 					std::cout << std::endl << "Picked up object: " << m_objects.at(i)->getID() << std::endl << std::endl;
-					m_objects.erase(m_objects.begin() + i);					
+					m_sobjectErased = "Picked up object: " + m_objects.at(i)->getID();
+					m_objects.erase(m_objects.begin() + i);	
+					eraseOject(true);
 					m_soundComponent->GetSound(0)->play();
 				}
 			}
@@ -116,6 +134,9 @@ public:
 		m_menuShader = new ShaderLinkerComponent("resources/shader/basic.vert","resources/shader/basic.frag");
 		m_lightingShader = new ShaderLinkerComponent("resources/shader/lighting.vert", "resources/shader/lighting.frag");
 
+		//Initalize lighting in the scene
+		//m_spotLight = new LightingComponent();
+		
 		//Obtains the program handle
 		m_programHandle = m_menuShader->getProgramHandle();
 
@@ -131,8 +152,8 @@ public:
 		//Initialize Game Sounds
 		m_soundComponent = m_soundComponent->Instance();
 
-		//Reading in XML???
-		//XMLDocument doc
+		//Objects that have been erased off the vector list
+		m_berasedObject = false;
 	}
 };
  

@@ -51,11 +51,10 @@ class MeshComponent: public Entity
 		glm::mat4 getModelMat(); //!< Gets the model matrix
 		void translateModelMat(glm::vec3 t); //!< Translates the mesh
 		void scaleModelMat(glm::vec3 s); //!< Scales the mesh
-		void rotateModelMat(glm::vec3 r); //!<  Rotates the mesh
+		void rotateModelMat(float a, glm::vec3 r); //!<  Rotates the mesh
 		glm::vec3 getStartPos(); //!< Gets the starting position of the mesh
 		void setStartPos(glm::vec3 s); //!< Sets the starting position of the mesh
 		void updateModelMatrix(CameraComponent& camera, GLuint programHandle);//!< Updates the model matrix
 		void setTextureUnit(int i); //!< Sets a texture unit
 		std::string MeshComponent::getID(); //!< Gets the mesh ID
-
 };

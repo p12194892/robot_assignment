@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<file>
+  <Window>
+    <Size>
+	<Name>Robot Simulation</Name>
+	<Height>800</Height>	
+	<Width>600</Width>
+    </Size>
+  </Window>
+</file>

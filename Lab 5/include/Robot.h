@@ -1,10 +1,10 @@
+#pragma once
+
 /*!
 * @file Robot.h
 * Header file containing the robot attributes
 */
 
-#ifndef __ROBOT_H
-#define __ROBOT_H
 
 /*! \class Robot
 \brief The Robot that walks around the 3D environment 
@@ -56,5 +56,3 @@ public:
 	float getVariableWalkAngle(); //!< Gets the angle of rotating the robot with key press
 	void changeDirection(char c); //!< Changes the direction of the robot
 };
-
-#endif

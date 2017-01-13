@@ -2,7 +2,7 @@
 * @file main.cpp
 \brief The entry for the program
 */
-
+#include "XMLReader.h"
 #include "Engine.h"
 
 int main(int argc, char *argv[])

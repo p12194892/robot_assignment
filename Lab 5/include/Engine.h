@@ -15,6 +15,7 @@ class Engine
 	private:
 		bool m_bstartRunning; //!< Starts the engine
 		WindowComponent* m_window; //!< Creates the window
+		XMLReader* m_read; //!< XML reader to read in init virtual functions
 	public:
 		Engine(); //!< Default constructor
 		void start(); //!< Starts engine

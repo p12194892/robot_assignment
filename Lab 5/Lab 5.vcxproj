@@ -95,6 +95,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;sfml-main-d.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -122,6 +123,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -140,15 +142,18 @@
     <ClInclude Include="include\BaseGame.h" />
     <ClInclude Include="include\FileReader.h" />
     <ClInclude Include="include\gl_core_4_3.hpp" />
+    <ClInclude Include="include\LightingComponent.h" />
     <ClInclude Include="include\MeshComponent.h" />
     <ClInclude Include="include\CameraComponent.h" />
     <ClInclude Include="include\Robot.h" />
     <ClInclude Include="include\ShaderLinkerComponent.h" />
     <ClInclude Include="include\SoundComponent.h" />
+    <ClInclude Include="include\tinystr.h" />
+    <ClInclude Include="include\tinyxml.h" />
     <ClInclude Include="include\UIComponent.h" />
     <ClInclude Include="include\Texture.h" />
-    <ClInclude Include="include\tinyxml2.h" />
     <ClInclude Include="include\WindowComponent.h" />
+    <ClInclude Include="include\XMLReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Bitmap.cpp" />
@@ -159,16 +164,21 @@
     <ClCompile Include="source\BaseGame.cpp" />
     <ClCompile Include="source\FileReader.cpp" />
     <ClCompile Include="source\gl_core_4_3.cpp" />
+    <ClCompile Include="source\LightingComponent.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MeshComponent.cpp" />
     <ClCompile Include="source\CameraComponent.cpp" />
     <ClCompile Include="source\Robot.cpp" />
     <ClCompile Include="source\ShaderLinkerComponent.cpp" />
     <ClCompile Include="source\SoundComponent.cpp" />
+    <ClCompile Include="source\tinystr.cpp" />
+    <ClCompile Include="source\tinyxml.cpp" />
+    <ClCompile Include="source\tinyxmlerror.cpp" />
+    <ClCompile Include="source\tinyxmlparser.cpp" />
     <ClCompile Include="source\UIComponent.cpp" />
     <ClCompile Include="source\Texture.cpp" />
-    <ClCompile Include="source\tinyxml2.cpp" />
     <ClCompile Include="source\WindowComponent.cpp" />
+    <ClCompile Include="source\XMLReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

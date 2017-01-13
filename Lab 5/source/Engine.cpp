@@ -7,21 +7,24 @@ Engine::Engine()
 
 	m_bstartRunning = false;
 	m_window = new WindowComponent();
-	std::cout << "Window Loaded" << std::endl << std::endl;
+	//Work on this in the labs
+	m_read = new XMLReader();
+	m_read->readWindowAttributes("resources/shader/data.xml");
 }
 
 //!< Starts engine
 void Engine::start()
 {
 	m_bstartRunning = true;
-
-	m_window->init();
-
-	m_window->setRunning(m_bstartRunning);
 	
+	//Initiate data here from XML reader using the overload virtual function
+	m_window->init(m_read);
+	m_window->setRunning(m_bstartRunning);
 	while (m_window->isRunning())
 	{
-		m_window->mainLoop();
+		m_read->readWindowAttributes("resources/shader/data.xml");
+		m_window->mainLoop(m_read);
+		m_read->resetData();
 	}
 
 	if (!m_window->isRunning())

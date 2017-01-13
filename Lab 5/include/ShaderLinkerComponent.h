@@ -20,7 +20,7 @@ class ShaderLinkerComponent
 		std::string m_sfragmentShader; //!< Fragment shader file reference
 
 	public:
-		ShaderLinkerComponent(std::string svertexshader, std::string sfragmentshader);
+		ShaderLinkerComponent(std::string svertexshader, std::string sfragmentshader); //!< Constructor
 		void createShaders(); //!< Creates the fragment and vertex shaders
 		GLuint getProgramHandle(); //!< Returns the main program handle
 		void setUseShader(); //!< Uses the current shader

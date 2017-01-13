@@ -37,7 +37,7 @@ class CameraComponent: public Entity
 
 	public:
 		CameraComponent(int i); //!< Default constructor
-		const glm::vec3& position() const; //!< Position getter method
+	    glm::vec3 position(); //!< Position getter method
 		void setPosition(const glm::vec3& position); //!< Position setter method
 		float fieldOfView() const; //!< FieldOfView getter method
 		void setFieldOfView(float fieldOfView); //!< FieldOfView setter method
@@ -56,7 +56,9 @@ class CameraComponent: public Entity
 		void updateMVP(glm::mat4 model); //!< Updates the mvp matrix 
 		glm::mat4 getMVP(); //!< gets the MVP matrix
 		glm::quat fromAxisAngle(glm::vec3 axis, float angle); //!< Converts rotation in quaternion
-		
+		glm::mat4 getView(); //!< Gets the view matrix
+		glm::mat4 getProjection(); //!< Gets the projection matrix
+
 		 //!< Update the camera
 		void update() 
 		{
@@ -66,7 +68,7 @@ class CameraComponent: public Entity
 			//This deals with the rotation and scale part of the view matrix
 			m_view = glm::mat4_cast(m_orientation); // Rotation and Scale
 
-													//Extract the camera coordinate axes from this matrix
+			//Extract the camera coordinate axes from this matrix
 			m_xaxis = glm::vec3(m_view[0][0], m_view[0][1], m_view[0][2]);
 			m_yaxis = glm::vec3(m_view[1][0], m_view[1][1], m_view[1][2]);
 			m_zaxis = glm::vec3(m_view[2][0], m_view[2][1], m_view[2][2]);

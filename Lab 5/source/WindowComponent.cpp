@@ -3,36 +3,60 @@
 //!< Default constructor
 WindowComponent::WindowComponent()
 {
-	//Cameras pushed back onto vector
-	m_Cameras.push_back(new CameraComponent(0));
-	m_Cameras.push_back(new CameraComponent(1));
-	m_Cameras.push_back(new CameraComponent(2));
+	m_textReport = new sf::Text();
+	sf::Font* font = new sf::Font();
 
-	//new
+	if (!font->loadFromFile("./resources/font/arial.ttf"))
+	{
+		std::cout<<"Error loading font";
+	}
 
-	//Sets the camera to the first camera
-	m_cameraChangeState = 0;
-
-	m_lastCursorPositionX = 0.0;
-	m_lastCursorPositionY = 0.0;
-	m_cursorPositionX = 0.0;
-	m_cursorPositionY = 0.0;
-
-	//Creates the scene
-	m_baseGame = new BaseGame();
-
-	//SFML window
-	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "Robot Simulation", sf::Style::Close|sf::Style::Titlebar, sf::ContextSettings(24));
-	m_bifRunning = false;	
+	m_textReport->setCharacterSize(30);
+	m_textReport->setOutlineColor(sf::Color::Green);
+	m_textReport->setPosition(50, 50);
+	m_textReport->setFont(*font);
+	m_textReport->setStyle(sf::Text::Bold);
+	
 }
 
 //!< Main loop of the program
- void WindowComponent::mainLoop()
+ void WindowComponent::mainLoop(XMLReader* s)
  {
+	 //Update text reports
+	 if (m_baseGame->objectIsErased() == true)
+	 {
+		 //Returning the string so draw the string to the screen
+	/*	 std::string sobjectName = m_baseGame->objectPickedUp();
+		 m_textReport->setString(sobjectName);
+		 m_window->pushGLStates();
+		 m_window->draw(*m_textReport);
+		 //Draw the text report to the screen under a timer (maybe 20 seconds?)
+		 //Push and pop openGl to draw to the window
+		 //m_time = m_clock.getElapsedTime();
+		 //After elapsed time set it back to false:
+
+	/*	 sf::Clock clock;
+		 clock.restart();
+
+		 sf::Time timer = clock.getElapsedTime();
+		 while (timer.asSeconds() != sf::seconds(5).asSeconds())
+		 {
+			 //do nothing
+		 }*/
+
+
+		
+		/* m_window->popGLStates();
+		 m_window->display();
+		 m_window->setActive();
+		 m_baseGame->eraseOject(false);*/
+	 }
+
 	//Update the gameloop
 	update((float)glfwGetTime());
 
 	//render 
+	//Clears the buffer when rendering
 	if (m_cameraChangeState == 0)
 	{
 		m_baseGame->render(*m_Cameras.at(m_cameraChangeState));
@@ -52,6 +76,14 @@ WindowComponent::WindowComponent()
 
 	//poll events
 	sfEventPoll();
+
+	//Event Driven programming
+	//Changes window name and size during run time
+	if (s->getData().size() != 0)
+	{
+		m_window->setTitle(s->getData().at(0));
+		m_window->setSize(sf::Vector2u(std::stoi(s->getData().at(1)), std::stoi(s->getData().at(2))));
+	}
  }
 
  //!< Poll events
@@ -172,8 +204,6 @@ WindowComponent::WindowComponent()
 
 		 if (m_event.type == sf::Event::MouseButtonPressed)
 		 {
-			 std::cout << "x :" <<m_event.mouseButton.x << " y :" <<m_event.mouseButton.y << std::endl;
-
 			 if (m_baseGame->getGameState() == 1)
 			 {
 				 //Setting the state of the game here
@@ -250,17 +280,26 @@ WindowComponent::WindowComponent()
 	 }
  }
 
+ //! If the window is running 
  bool WindowComponent::isRunning()
  {
 	 return m_bifRunning;
  }
 
+ //!< Destructor
  WindowComponent::~WindowComponent()
  {
 
  }
 
+ //!< Sets if the window is running
  void WindowComponent::setRunning(bool run)
  {
 	 m_bifRunning = run;
+ }
+
+ //!< Gets the render window
+ sf::RenderWindow* WindowComponent::getRenderWindow()
+ {
+	 return m_window;
  }
