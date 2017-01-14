@@ -6,12 +6,13 @@
 
 #include "gl_core_4_3.hpp"
 #include <string>
+#include "Entity.h"
 
 /*! \class ShaderLinkerComponent
 \brief Creates and links to the shaders
 */
 
-class ShaderLinkerComponent
+class ShaderLinkerComponent: public Entity
 {
 	private:
 		GLuint m_programHandle; //!< The main program handle

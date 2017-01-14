@@ -11,7 +11,7 @@
 \brief The control of detecting collisions between 3d objects
 */
 
-class CollisionComponent
+class CollisionComponent: public Entity
 {
 	public:
 		CollisionComponent(); //!< Default Constructor 

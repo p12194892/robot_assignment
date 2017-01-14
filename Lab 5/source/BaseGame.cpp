@@ -17,7 +17,7 @@ BaseGame::BaseGame() {}
 //!< Creates objects to be used in the simulation
 void BaseGame::createObjects()
 {
-	std::cout << "Loading Objects into the scene" << std::endl << std::endl;
+	std::cout << "Loading objects into the scene" << std::endl << std::endl;
 
 	//Making the splash screen 	
 	m_splashScreenComponent = new UIComponent(m_programHandle);
@@ -100,7 +100,8 @@ void BaseGame::createObjects()
 	m_box->loadTexture("resources/textures/pattern3.png", "cube_texture3");
 	m_box->translateModelMat(m_box->getStartPos());
 	m_box->scaleModelMat(glm::vec3(5));
-
+	
+	//Creating another box
 	m_box2 = new MeshComponent("Box 2 Model");
 	m_box2->setVertrices(m_read->getVertexPoints());
 	m_box2->setIndices(m_read->getIndices());
@@ -171,6 +172,7 @@ void BaseGame::createObjects()
 	m_torus->scaleModelMat(glm::vec3(6));
 	m_torus->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 
+	//Creating another torus 
 	m_torus2 = new MeshComponent("Torus 2 Model");
 	m_torus2->setVertrices(m_read->getVertexPoints());
 	m_torus2->setIndices(m_read->getIndices());
@@ -197,6 +199,7 @@ void BaseGame::createObjects()
 	m_cylinder->scaleModelMat(glm::vec3(8));
 	m_cylinder->rotateModelMat(180.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
+	//Creating another cylinder
 	m_cylinder2 = new MeshComponent("Cylinder 2 Model");
 	m_cylinder2->setVertrices(m_read->getVertexPoints());
 	m_cylinder2->setIndices(m_read->getIndices());
@@ -211,8 +214,7 @@ void BaseGame::createObjects()
 	//Create Robot character
 	m_robot = new Robot(m_programHandle);
 	m_robot->setTextureUnit(7);
-	m_robot->loadTexture("resources/textures/rmap_right.png", "robotTexture");
-//	m_robot->cubeMap("resources/textures/rmap", "robotTexture");
+	m_robot->loadTexture("resources/textures/pattern5.png", "robotTexture");
 	m_robot->setSpeed(0.01f);
 	m_robot->setAnimationAngle(0.2f);
 	m_robot->setStartPos(glm::vec3(0.0, -24.0, 0.0));

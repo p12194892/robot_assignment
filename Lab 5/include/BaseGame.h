@@ -47,8 +47,6 @@ private:
 	MeshComponent* m_star2; //!< The star object
 	MeshComponent* m_star3; //!< The star object
 	MeshComponent* m_star4; //!< The star object
-
-	//UI Components 
 	UIComponent* m_splashScreenComponent; //!< Splash Screen
 	UIComponent* m_menuScreenComponent; //!< Menu
 	UIComponent* m_instructionsComponent; //!< Instructions Screen
@@ -143,7 +141,6 @@ public:
 
 		//Initialize Game Sounds
 		m_soundComponent = m_soundComponent->Instance();
-
 	}
 };
  

@@ -6,12 +6,12 @@
 
 #include <string>
 #include <SFML\Audio.hpp>
-
+#include "Entity.h"
 /*! \class SoundComponent
 	\brief The sound loader
 */
 
-class SoundComponent
+class SoundComponent: public Entity
 {
 	private:
 		SoundComponent(); //!< Default constructor

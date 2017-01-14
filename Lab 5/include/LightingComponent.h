@@ -12,7 +12,7 @@
 \brief sets the uniform variables which deal with lighting the scene
 */
 
-class LightingComponent
+class LightingComponent: public Entity
 {
 	private:
 		glm::vec3 m_lightPosition; //!< Light Position
