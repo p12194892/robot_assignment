@@ -126,8 +126,7 @@ void CameraComponent::pan(const float x, const float y)
 //!< Zoom camera
 void CameraComponent::zoom(const float z)
 	{
-
-		m_position += m_zaxis * z;
+ 		m_position += m_zaxis * z;
 		update();
 	}
 
