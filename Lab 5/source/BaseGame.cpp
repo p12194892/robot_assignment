@@ -71,7 +71,7 @@ void BaseGame::createObjects()
 	m_room = new Cube(m_lightingShader->getProgramHandle());
 	m_room->setTextureUnit(0);
 	m_room->scaleModelMat(glm::vec3(40));
-	m_room->cubeMap("resources/textures/cubemap", "cube_texture");
+	m_room->loadTexture("resources/textures/robot_left.png", "cube_texture");
 
 	//Creating box
 	m_rubix = new MeshComponent("Rubix Cube Model");
@@ -80,10 +80,11 @@ void BaseGame::createObjects()
 	m_rubix->setVertrices(m_read->getVertexPoints());
 	m_rubix->setIndices(m_read->getIndices());
 	m_rubix->setNormals(m_read->getNormals());
+	m_rubix->setUVs(m_read->getTexPoints());
 	m_rubix->setStartPos(glm::vec3(-20.0, -35.0, 0.0));
 	m_rubix->Load(m_lightingShader->getProgramHandle());
 	m_rubix->setTextureUnit(1);
-	m_rubix->cubeMap("resources/textures/rmap", "cube_texture2");
+	m_rubix->loadTexture("resources/textures/pattern5.png", "cube_texture2");
 	m_rubix->translateModelMat(m_rubix->getStartPos());
 	m_rubix->scaleModelMat(glm::vec3(5));
 
@@ -92,17 +93,19 @@ void BaseGame::createObjects()
 	m_box->setVertrices(m_read->getVertexPoints());
 	m_box->setIndices(m_read->getIndices());
 	m_box->setNormals(m_read->getNormals());
+	m_box->setUVs(m_read->getTexPoints());
 	m_box->setStartPos(glm::vec3(-25.0, -35.0, 30.0));
 	m_box->Load(m_programHandle);
 	m_box->setTextureUnit(2);
-	m_box->cubeMap("resources/textures/pattern", "cube_texture3");
+	m_box->loadTexture("resources/textures/pattern3.png", "cube_texture3");
 	m_box->translateModelMat(m_box->getStartPos());
 	m_box->scaleModelMat(glm::vec3(5));
 
-	m_box2 = new MeshComponent("Box Model");
+	m_box2 = new MeshComponent("Box 2 Model");
 	m_box2->setVertrices(m_read->getVertexPoints());
 	m_box2->setIndices(m_read->getIndices());
 	m_box2->setNormals(m_read->getNormals());
+	m_box2->setUVs(m_read->getTexPoints());
 	m_box2->setStartPos(glm::vec3(18.0, -32.0, -10.0));
 	m_box2->Load(m_programHandle);
 	m_box2->translateModelMat(m_box2->getStartPos());
@@ -179,7 +182,7 @@ void BaseGame::createObjects()
 	m_torus2->scaleModelMat(glm::vec3(6));
 
 	//Creating cylinder
-	m_cylinder = new MeshComponent("Cylinder Model");
+ 	m_cylinder = new MeshComponent("Cylinder Model");
 	m_read->resetData();
 	m_read->ReadFile("resources/obj/cylinder.obj");
 	m_cylinder->setVertrices(m_read->getVertexPoints());
@@ -208,7 +211,8 @@ void BaseGame::createObjects()
 	//Create Robot character
 	m_robot = new Robot(m_programHandle);
 	m_robot->setTextureUnit(7);
-	m_robot->cubeMap("resources/textures/rmap", "robotTexture");
+	m_robot->loadTexture("resources/textures/rmap_right.png", "robotTexture");
+//	m_robot->cubeMap("resources/textures/rmap", "robotTexture");
 	m_robot->setSpeed(0.01f);
 	m_robot->setAnimationAngle(0.2f);
 	m_robot->setStartPos(glm::vec3(0.0, -24.0, 0.0));
@@ -274,7 +278,6 @@ void BaseGame::createObjects()
 	m_objects.push_back(m_sphere);
 	m_objects.push_back(m_torus);
 	m_objects.push_back(m_torus2);
-	m_objects.push_back(m_box);
 	m_objects.push_back(m_star);
 	m_objects.push_back(m_star2);
 	m_objects.push_back(m_star3);
@@ -282,11 +285,6 @@ void BaseGame::createObjects()
 	m_objects.push_back(m_cylinder2);
 	m_objects.push_back(m_box2);
 	m_objects.push_back(m_sphere2);
-
-	//Lighting stuff
-	//compileAndLinkShader();
-	//Set up the lighting
-	//setLightParams(camera);
 }
 
 //!< Render mesh objects
@@ -314,8 +312,7 @@ void BaseGame::render(CameraComponent& camera)
 
 			//Menu Screen state
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
-			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "col"), 3);
-				
+
 			//Start Buttons
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bbuttontexture"), true);
 			m_buttonStart->updateModelMatrix(camera, m_programHandle);
@@ -342,8 +339,7 @@ void BaseGame::render(CameraComponent& camera)
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "moreButtonTex"), m_buttonInstruction->getTextureUnit());
 			m_buttonInstruction->draw();
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bmoreButton"), false);
-
-
+			
 			//Menu
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), true);
 			m_menuScreenComponent->updateModelMatrix(camera, m_programHandle);
@@ -355,22 +351,22 @@ void BaseGame::render(CameraComponent& camera)
 		break;
 		
 		case 2:		
-			//Simulation game state
-			//Tells the shader not to render the splash screen or menu screen
+		//Simulation game state
+		//Tells the shader not to render the splash screen or menu screen
 		m_programHandle = m_lightingShader->getProgramHandle();
 		m_lightingShader->setUseShader();
 
 		//Setting up lighting sending the program handle and the cameras position
-		//m_spotLight->setLightingParam(m_programHandle, camera);
-
-		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bSplashScreenState"), false);
-		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bMenu"), false);
-
+		m_generalLight->setLightingParam(m_programHandle, camera);
+		gl::Uniform3f(gl::GetUniformLocation(m_programHandle, "cameraPosition"), camera.position().x, camera.position().y, camera.position().z);
+		gl::Uniform3f(gl::GetUniformLocation(m_programHandle, "light[0].position"), m_robot->getStartPos().x, m_robot->getStartPos().y-10, m_robot->getStartPos().z);
+		gl::Uniform3f(gl::GetUniformLocation(m_programHandle, "light[1].position"), 10.0f, -23.0f, -20.0f);
+		gl::Uniform3f(gl::GetUniformLocation(m_programHandle, "light[2].position"), 10.0f, -23.0f, 20.0f);
 		//Room
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), true);
 		m_room->updateModelMatrix(camera, m_programHandle);
 		gl::ActiveTexture(gl::TEXTURE0);
-		gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_room->getCubeMapTexture());
+		gl::BindTexture(gl::TEXTURE_2D, m_room->getTextureObject()->getTextureId());
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture"), m_room->getTextureUnit());
 		m_room->draw();
 		gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "drawRcube"), false);
@@ -381,7 +377,7 @@ void BaseGame::render(CameraComponent& camera)
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), true);
 			m_rubix->updateModelMatrix(camera, m_programHandle);
 			gl::ActiveTexture(gl::TEXTURE1);
-			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_rubix->getCubeMapTexture());
+			gl::BindTexture(gl::TEXTURE_2D, m_rubix->getTextureObject()->getTextureId());
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture2"), m_rubix->getTextureUnit());
 			m_rubix->draw();
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawRubix"), false);
@@ -389,7 +385,7 @@ void BaseGame::render(CameraComponent& camera)
 	
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bDrawPattern"), true);
 			gl::ActiveTexture(gl::TEXTURE2);
-			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_box->getCubeMapTexture());
+			gl::BindTexture(gl::TEXTURE_2D, m_box->getTextureObject()->getTextureId());
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "cube_texture3"), m_box->getTextureUnit());
 			
 			if (m_box->isDrawable())
@@ -480,6 +476,8 @@ void BaseGame::render(CameraComponent& camera)
 			gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_robot->getCubeMapTexture());
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "robotTexture"), m_robot->getTextureUnit());
 			m_robot->drawRobot(camera, m_programHandle);
+	
+
 			gl::Uniform1i(gl::GetUniformLocation(m_programHandle, "bRobot"), false);
 
 			//Stars
@@ -493,8 +491,7 @@ void BaseGame::render(CameraComponent& camera)
 				m_star->updateModelMatrix(camera, m_programHandle);
 				m_star->draw();
 			}
-
-
+			
 			if (m_star2->isDrawable())
 			{
 				m_star2->updateModelMatrix(camera, m_programHandle);
@@ -558,20 +555,4 @@ char BaseGame::getGameState()
 void BaseGame::changeGameState(int i)
 {
 	m_cGameState = i;
-}
-
-
-void BaseGame::eraseOject(bool b)
-{
-	m_berasedObject = b;
-}
-
-std::string BaseGame::objectPickedUp()
-{
-	return m_sobjectErased;
-}
-
-bool BaseGame::objectIsErased()
-{
-	return m_berasedObject;
 }

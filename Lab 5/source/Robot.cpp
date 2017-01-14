@@ -218,6 +218,7 @@ void Robot::changeDirection(char c)
 			break;
 	}
 
+
 }
 
 

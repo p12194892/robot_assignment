@@ -87,7 +87,7 @@ void XMLReader::resetData()
 //!< Reader for Game Objects attributes *TO-DO*
 SuccessEnum XMLReader::readGameObjectAttributes(const char* cfile)
 {
-
+	return SUCCESS;
 }
 
 	

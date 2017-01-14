@@ -23,7 +23,7 @@ std::vector<MeshComponent*> CollisionComponent::checkVectorDistance(std::vector<
 
 			float d = sqrt(dot(distance, distance));
 
-			if (d < 2)
+			if (d < 10)
 			{
 				meshObjects.at(i)->setDrawable(false);
 

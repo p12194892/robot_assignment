@@ -77,7 +77,6 @@ class CameraComponent: public Entity
 			m_view[3][0] = -glm::dot(m_xaxis, m_position); //Translation x
 			m_view[3][1] = -glm::dot(m_yaxis, m_position); //Translation y
 			m_view[3][2] = -glm::dot(m_zaxis, m_position); //Translation z
-		
 		}
 
 };

@@ -26,12 +26,12 @@ CameraComponent::CameraComponent(int i)
 
 		else if (i == 1)
 		{
-			reset(glm::vec3(2.22959f, -38.30103f, -0.91515f), glm::vec3(0.511735f, 0.00128345f, 0.00129044f));
+			reset(glm::vec3(2.22959f, -38.30103f, 20.91515f), glm::vec3(0.511735f, 0.00128345f, 0.01129044f));
 		}
 
 		else if (i == 2)
 		{
-			reset(glm::vec3(-20.0f, -37.0f, 34.0f), glm::vec3(-0.0147318f, -0.297431f, -0.00698154f));
+			reset(glm::vec3(-20.0f, -37.0f, 31.0f), glm::vec3(-0.0147318f, -0.297431f, -0.00698154f));
 		}
 	}
 
@@ -127,7 +127,7 @@ void CameraComponent::pan(const float x, const float y)
 void CameraComponent::zoom(const float z)
 	{
 
-		m_position += m_zaxis * z;;
+		m_position += m_zaxis * z;
 		update();
 	}
 
@@ -189,7 +189,7 @@ void CameraComponent::updateMVP(glm::mat4 model)
 //!< Gets the MVP matrix
 glm::mat4 CameraComponent::getMVP()
 {
-		return m_MVP;
+	return m_MVP;
 }
 
 //!< Gets the view matrix
