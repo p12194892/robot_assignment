@@ -53,13 +53,13 @@ struct Light
 }; 
 
 //Light information
-uniform Light light[3];
+uniform Light light[5];
 
 //Fragment Colour
 out vec4 fragColour;
 
 //Sending sampler2D
-vec4 light1(Light light, sampler2D materialTex, vec2 texCoord, vec3 Normal, vec3 pos, vec3 cameraPosition)
+vec4 calculateLight(Light light, sampler2D materialTex, vec2 texCoord, vec3 Normal, vec3 pos, vec3 cameraPosition)
 {
 	vec4 surfaceColor = texture(materialTex, texCoord);
 
@@ -104,68 +104,84 @@ void main()
 	//Drawing m_box2
 	 if (bDrawRubix == true)
 	{
-		newLight += light1(light[0],cube_texture2, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],cube_texture2, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],cube_texture2, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[0],cube_texture2, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],cube_texture2, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],cube_texture2, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],cube_texture2, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],cube_texture2, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	
 	}
 
 	else if (bDrawPattern == true)
 	{
-		newLight += light1(light[0],cube_texture3, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],cube_texture3, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],cube_texture3, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[0],cube_texture3, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],cube_texture3, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],cube_texture3, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],cube_texture3, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],cube_texture3, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 
 	else if(bsphere == true)
 	{
-	  newLight += light1(light[0],spheretexture, texCoord, Normal, pos, cameraPosition);
-	  newLight += light1(light[1],spheretexture, texCoord, Normal, pos, cameraPosition);
-	  newLight += light1(light[2],spheretexture, texCoord, Normal, pos, cameraPosition);
+	  newLight += calculateLight(light[0],spheretexture, texCoord, Normal, pos, cameraPosition);
+	  newLight += calculateLight(light[1],spheretexture, texCoord, Normal, pos, cameraPosition);
+	  newLight += calculateLight(light[2],spheretexture, texCoord, Normal, pos, cameraPosition);
+	  newLight += calculateLight(light[3],spheretexture, texCoord, Normal, pos, cameraPosition);
+	  newLight += calculateLight(light[4],spheretexture, texCoord, Normal, pos, cameraPosition);
 	  fragColour = newLight;
 	}
 
 	else if (btorus == true)
 	{
-	  	newLight += light1(light[0],torusTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],torusTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],torusTexture, texCoord, Normal, pos, cameraPosition);
+	  	newLight += calculateLight(light[0],torusTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],torusTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],torusTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],torusTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],torusTexture, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 	
 
 	else if(bcylinder == true)
 	{
-		newLight += light1(light[0],cylinderTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],cylinderTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[0],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],cylinderTexture, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 
 	else if (bRobot == true)
 	{
-		newLight +=  light1(light[0],cylinderTexture, texCoord, Normal, pos, cameraPosition);
-		newLight +=  light1(light[1],cylinderTexture, texCoord, Normal, pos, cameraPosition);
-		newLight +=  light1(light[2],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight +=  calculateLight(light[0],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight +=  calculateLight(light[1],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight +=  calculateLight(light[2],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight +=  calculateLight(light[3],cylinderTexture, texCoord, Normal, pos, cameraPosition);
+		newLight +=  calculateLight(light[4],cylinderTexture, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 
 	else if(bStar == true)
 	{
-		newLight += light1(light[0],starTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],starTexture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],starTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[0],starTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],starTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],starTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],starTexture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],starTexture, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 
 	//If we are drawing the room
 	else if (drawRcube == true)
 	{	
-		newLight += light1(light[0],cube_texture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[1],cube_texture, texCoord, Normal, pos, cameraPosition);
-		newLight += light1(light[2],cube_texture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[0],cube_texture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[1],cube_texture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[2],cube_texture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[3],cube_texture, texCoord, Normal, pos, cameraPosition);
+		newLight += calculateLight(light[4],cube_texture, texCoord, Normal, pos, cameraPosition);
 		fragColour = newLight;
 	}
 }

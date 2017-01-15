@@ -1,5 +1,5 @@
 #include "Cube.h"
-#include "FileReader.h"
+
 
 //!< Default Constructor 
 Cube::Cube()
@@ -8,14 +8,17 @@ Cube::Cube()
 }
 
 //!< Constructor
-Cube::Cube(GLuint programID)
+Cube::Cube(GLuint programID, std::string sid, FileReader* m_read)
 {
-	FileReader* m_read = new FileReader();
-	m_read->ReadFile("resources/obj/cube.obj");
+	//FileReader* m_read = new FileReader();
+	
 	setVertrices(m_read->getVertexPoints());
 	setIndices(m_read->getIndices());
 	setUVs(m_read->getTexPoints());
 	setNormals(m_read->getNormals());
+	
+	//Set ID
+	m_sMeshObjectID = sid;
 
 	//make sure the program handle is the main handle
 	m_programHandleID = programID;

@@ -6,6 +6,7 @@ using std::ifstream;
 #include <sstream>
 #include <string>
 
+//!< Constructor
 ShaderLinkerComponent::ShaderLinkerComponent(std::string svertexshader, std::string sfragmentshader)
 {
 	m_svertexShader = svertexshader;
@@ -165,11 +166,13 @@ void ShaderLinkerComponent::linkShaders(GLint vertShader, GLint fragShader)
 	//}
 }
 
+//!< Returns the main program handle
 GLuint ShaderLinkerComponent::getProgramHandle()
 {
 	return m_programHandle;
 }
 
+//!< Uses the current shader
 void ShaderLinkerComponent::setUseShader()
 {
 	gl::UseProgram(m_programHandle);

@@ -5,7 +5,6 @@
 #include <glm/gtx/transform.hpp>
 #include "Bitmap.h"
 
-#include <iostream>
 //!< Default Constructor 
 MeshComponent::MeshComponent() {
 	m_bDrawable = true;
@@ -76,7 +75,7 @@ void MeshComponent::Load(GLuint programID)
 }
 
 //!< Loads the texture
-void MeshComponent::loadTexture(std::string sname, std::string s2)
+void MeshComponent::loadTexture(std::string sname)
 {
 	//Load the texture
 	Bitmap bmp = Bitmap::bitmapFromFile(sname);
@@ -91,39 +90,6 @@ void MeshComponent::draw()
 	gl::DrawElements(gl::TRIANGLES, (GLsizei)m_indices.size(), gl::UNSIGNED_INT, 0);
 	gl::BindVertexArray(0);
 
-}
-
-//!< Cube Maps the texture (May move to cube)
-void MeshComponent::cubeMap(std::string s, std::string s2) {
-	
-	gl::GenTextures(1, &m_cubemapTex);
-	gl::BindTexture(gl::TEXTURE_CUBE_MAP, m_cubemapTex);
-
-	std::string suffixes[] = { "right","left","up", "down", "back", "front" };
-	GLuint target[6];
-	target[0] = gl::TEXTURE_CUBE_MAP_POSITIVE_X; //Right
-	target[1] = gl::TEXTURE_CUBE_MAP_NEGATIVE_X; //Left
-	target[2] = gl::TEXTURE_CUBE_MAP_POSITIVE_Y; //Top
-	target[3] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Y; //Bottom
-	target[4] = gl::TEXTURE_CUBE_MAP_POSITIVE_Z; // Back
-	target[5] = gl::TEXTURE_CUBE_MAP_NEGATIVE_Z; //front
-
-	for (int i = 0; i < 6; i++)
-	{
-		//change this to 6 pictures
-		std::string textureFile = std::string(s) + "_" + suffixes[i] + ".png";
-		Bitmap bmp = Bitmap::bitmapFromFile(textureFile);
-		gl::TexImage2D(target[i], 0, gl::RGB, bmp.width(), bmp.height(), 0, gl::RGB, gl::UNSIGNED_BYTE, bmp.pixelBuffer());
-	}
-
-	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_MAG_FILTER, gl::LINEAR);
-	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_MIN_FILTER, gl::LINEAR);
-	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_R, gl::CLAMP_TO_EDGE);
-	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_S, gl::CLAMP_TO_EDGE);
-	gl::TexParameteri(gl::TEXTURE_CUBE_MAP, gl::TEXTURE_WRAP_T, gl::CLAMP_TO_EDGE);
-	
-	//gl::Uniform1i(textureLocation2, m_iTexUnit);
-	gl::BindTexture(gl::TEXTURE_CUBE_MAP, 0);
 }
 
 //!< Sets vertex data

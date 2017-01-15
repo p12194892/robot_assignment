@@ -19,4 +19,7 @@ class Entity
 		virtual void init() {} //!< Initalize function
 		virtual void update(float t) {} //!< Update function
 		virtual void update() {} //!< Overload of the update function
+
+		//Add more for further development
+		//Possible render function
 };

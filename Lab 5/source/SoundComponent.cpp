@@ -12,6 +12,7 @@ SoundComponent* SoundComponent::m_Instance = NULL;
 SoundComponent::SoundComponent()
 {
 	m_sSoundFile.push_back("resources/sounds/bubble.wav");
+	m_sSoundFile.push_back("resources/sounds/nyan.wav");
 
 	for(unsigned int i = 0; i < m_sSoundFile.size(); i++)
 	{

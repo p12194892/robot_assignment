@@ -6,7 +6,7 @@
 
 #include "MeshComponent.h"
 #include "string"
-
+#include "FileReader.h"
 /*! \class Cube
 \brief Generates a cube object
 */
@@ -16,5 +16,5 @@ class Cube : public MeshComponent
 {
 	public:
 		Cube(); //!< Default Constructor 
-		Cube(GLuint programID); //!< Constructor
+		Cube(GLuint programID, std::string sid, FileReader* m_read); //!< Constructor
 };

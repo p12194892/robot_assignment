@@ -71,29 +71,6 @@ void FileReader::ReadFile(const char * filename)
 
 				unsigned int vertexIndex[4], uvIndex[4], normalIndex[4];
 				int matches = 0;
-
-				//bool bSlash = false;
-				
-			/*	for (int i = 1 < 0; i < 100; i++)
-				{
-					if (mystring[i] == '/')
-					{
-						//if you find a / it means that you need to use the other parser....
-						bSlash = true;
-						break;
-					}
-				}*/
-
-				/*if (bSlash == false) 
-				{
-					matches = fscanf(file, "%d %d %d\n", &vertexIndex[0], &vertexIndex[1], &vertexIndex[2]);
-					m_VertexIndices.push_back(vertexIndex[0]);
-					m_VertexIndices.push_back(vertexIndex[1]);
-					m_VertexIndices.push_back(vertexIndex[2]);
-				}
-
-				else
-				{*/
 					matches = fscanf(file, " %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2], &vertexIndex[3], &uvIndex[3], &normalIndex[3]);
 				
 					if (matches == 9)
@@ -150,9 +127,7 @@ void FileReader::ReadFile(const char * filename)
 		for (unsigned int i = 0; i < m_vertexIndices.size(); i++) {
 			unsigned int vertexIndex = m_vertexIndices[i];
 			m_completeVertex.push_back(vertexIndex - 1);
-		}
-
-		
+		}		
 
 		std::cout << "Loaded mesh from: " << filename << std::endl;
 }
@@ -168,6 +143,7 @@ std::vector <glm::vec3> FileReader::getNormals()
 {
 	return m_normals;
 }
+
 //!< Gets Texture coordinates 
 std::vector <glm::vec2> FileReader::getTexPoints()
 {
@@ -179,6 +155,7 @@ std::vector<int> FileReader::getIndices()
 {
 	return m_completeVertex;
 }
+
 //!< Resets the mesh data stored in the vectors to empty
 void FileReader::resetData()
 {

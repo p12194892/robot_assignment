@@ -4,7 +4,7 @@ Title: Robot Simulation
 Compiling Code
 
 1. Open the Lab Work Environment.sln to load the project in Visual Studio 2015
-2. Select either debug or release mode
+2. Select either debug or release mode in x64
 3. Select Local Windows Debugger and compile the code
 
 ///////////////////////////////////////////////////////////

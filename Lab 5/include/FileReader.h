@@ -22,9 +22,6 @@ private:
 	std::vector <int> m_normalIndices; //!< Indices for drawing normal data 
 	std::vector <int> m_completeVertex; //!< Vertex coordinate data (-1 in the index)
 
-	//new - come back to this if needed to do lighting?
-	std::vector <int> m_completeuv; //!< Vertex coordinate data (-1 in the index)
-
 public:
 	FileReader(); //!< Default Constructor 
 	void ReadFile(const char * filename); //!< Reads in the obj file and puts data in the specified vectors

@@ -29,10 +29,9 @@
 class BaseGame : public Entity
 {
 private:
-	//Game objects that make the scene
-	MeshComponent* m_room; //!< The room 
 	Robot* m_robot; //!< The robot mesh	
 	std::vector<MeshComponent*> m_objects;//! List of game objects
+	MeshComponent* m_room; //!< The room 
 	MeshComponent* m_rubix; //!< The rubix object
 	MeshComponent* m_box; //!< The Box Object
 	MeshComponent* m_box2; //!< The Box Object
@@ -79,7 +78,6 @@ public:
 		switch (m_cGameState)
 		{
 		case 0:
-			//Any code for getting the splash screen button
 			break;
 		case 1:
 			break;
@@ -87,24 +85,28 @@ public:
 		case 2:
 			float fTime = t / float(1000); //! Divide milliseconds to 1000 to obtain one second.
 
+			//Update the robot movement
 			m_robot->prepare(fTime, m_bKeyPress);
 
-			//Collision Detection
-			m_objects = m_collision->checkVectorDistance(m_objects, m_robot->getStartPos());
-
-			for (int i = 0; i < m_objects.size(); i++)
+			if (m_objects.size() == 0)
 			{
-				if (!m_objects.at(i)->isDrawable())
-				{
-					//pop it off the list and play a sound
-					std::cout << std::endl << "Picked up object: " << m_objects.at(i)->getID() << std::endl << std::endl;
-					m_objects.erase(m_objects.begin() + i);	
-					m_soundComponent->GetSound(0)->play();
-				}
+				std::cout << "All Objects Picked Up :) " << std::endl;
+			}
 
-				if (m_objects.size() == 0)
+			else
+			{
+				//Collision Detection between objects and robot
+				m_objects = m_collision->checkVectorDistance(m_objects, m_robot->getStartPos());
+
+				for (int i = 0; i < m_objects.size(); i++)
 				{
-					std::cout << "All Objects Picked Up :) " << std::endl;
+					if (!m_objects.at(i)->isDrawable())
+					{
+						//pop it off the list and play a sound
+						std::cout << std::endl << "Picked up object: " << m_objects.at(i)->getID() << std::endl << std::endl;
+						m_objects.erase(m_objects.begin() + i);
+						m_soundComponent->GetSound(0)->play();
+					}
 				}
 			}
 			break;
@@ -141,6 +143,8 @@ public:
 
 		//Initialize Game Sounds
 		m_soundComponent = m_soundComponent->Instance();
+		m_soundComponent->GetSound(1)->play();
+		m_soundComponent->GetSound(1)->setLoop(true);
 	}
 };
  

@@ -4,16 +4,15 @@
 * @file Robot.h
 * Header file containing the robot attributes
 */
-
-
-/*! \class Robot
-\brief The Robot that walks around the 3D environment 
-*/
-
 #include "MeshComponent.h"
 #include "cube.h"
 #include <vector>
 #include "CameraComponent.h"
+#include "FileReader.h"
+
+/*! \class Robot
+\brief The Robot that walks around the 3D environment 
+*/
 
 // constants for arm and leg movement states
 const char BACKWARD_STATE = 0;
@@ -44,7 +43,7 @@ private:
 
 public:
 	Robot(); //!< Default constructor
-	Robot(GLuint programID/*!The main program handle*/); //!< Constructor 
+	Robot(GLuint programID/*!The main program handle*/, FileReader* read); //!< Constructor 
 	virtual ~Robot(); //!< Destructor 
 	void drawRobot(CameraComponent c/*!The camera*/, GLuint programID/*!The main program handle*/); //!< Draws the robot to the screen, taking it's starting position, the angle of rotation, the camera to update the model matrix and the main program handle
 	void prepare(float seconds/*!seconds of time*/, bool b/*if the key has been pressed*/); //!< Animations of the leg and arm movements

@@ -5,7 +5,7 @@
 #include <glm/gtx/transform.hpp>
 
 //!< Constructor 
-Robot::Robot(GLuint programID)
+Robot::Robot(GLuint programID, FileReader* read)
 {
 	//Angles of arms and legs
 	m_farmAngles[LEFT] = 0.0;
@@ -23,28 +23,28 @@ Robot::Robot(GLuint programID)
 	//Creating the cube objects to form the robot
 	//Setting texture units
 	//m_LeftFoot
-	m_leftFoot = new Cube(programID);	
+	m_leftFoot = new Cube(programID, "Robot - Left Foot", read);
 
 	//right foot
-	m_rightFoot = new Cube(programID);	
+	m_rightFoot = new Cube(programID, "Robot - Right Foot", read);
 
 	//m_Head
-	m_head = new Cube(programID);
+	m_head = new Cube(programID, "Robot - Head", read);
 
 	//m_Torso
-	m_torso = new Cube(programID);
+	m_torso = new Cube(programID, "Robot - Torso", read);
 		
 	//Left Arm
-	m_leftArm = new Cube(programID);
+	m_leftArm = new Cube(programID, "Robot - Left Arm", read);
 
 	//Right Arm
-	m_rightArm = new Cube(programID);
+	m_rightArm = new Cube(programID, "Robot - Right Arm", read);
 
 	//m_LeftLeg
-	m_leftLeg = new Cube(programID);
+	m_leftLeg = new Cube(programID, "Robot - Left Leg", read);
 
 	//right leg
-	m_rightLeg = new Cube(programID);
+	m_rightLeg = new Cube(programID, "Robot - Right Leg", read);
 }
 
 //!< Default constructor

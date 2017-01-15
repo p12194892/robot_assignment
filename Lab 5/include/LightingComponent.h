@@ -14,10 +14,6 @@
 
 class LightingComponent: public Entity
 {
-	private:
-		glm::vec3 m_lightPosition; //!< Light Position
-		glm::vec3 m_lightColour; //!< Light Colour
-
 	public:
 		LightingComponent(); //!< Default Constructor
 		void setLightingParam(GLuint handle, CameraComponent& cameraLocation); //!< Setting the lighting uniform variables in the shader

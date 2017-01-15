@@ -3,19 +3,6 @@
 //!< Default constructor
 WindowComponent::WindowComponent()
 {
-	m_textReport = new sf::Text();
-	sf::Font* font = new sf::Font();
-
-	if (!font->loadFromFile("./resources/font/arial.ttf"))
-	{
-		std::cout<<"Error loading font";
-	}
-
-	m_textReport->setCharacterSize(30);
-	m_textReport->setOutlineColor(sf::Color::Green);
-	m_textReport->setPosition(50, 50);
-	m_textReport->setFont(*font);
-	m_textReport->setStyle(sf::Text::Bold);
 	
 }
 

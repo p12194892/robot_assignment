@@ -13,7 +13,6 @@
 	private:
 		GLfloat m_originalWidth;//!< Gets the original width of bitmap
 		GLfloat m_originalHeight; //!< Gets the original height of bitmap
-		//Texture(const Texture&); //!<
 		GLuint m_texture; //!< 2D Texture handle
 
     public:

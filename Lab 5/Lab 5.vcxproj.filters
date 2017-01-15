@@ -224,9 +224,6 @@
     <ClCompile Include="source\BaseGame.cpp">
       <Filter>Source Files\Base Game</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIComponent.cpp">
-      <Filter>Source Files\UI Components</Filter>
-    </ClCompile>
     <ClCompile Include="source\Button.cpp">
       <Filter>Source Files\UI Components</Filter>
     </ClCompile>
@@ -259,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="source\tinyxmlparser.cpp">
       <Filter>Source Files\Parser Components</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIComponent.cpp">
+      <Filter>Source Files\UI Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

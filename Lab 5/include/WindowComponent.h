@@ -34,10 +34,7 @@ class WindowComponent: public Entity
 		std::vector<CameraComponent*> m_Cameras;//!< The multiple cameras
 		int m_cameraChangeState; //!< Changes the active camera
 		BaseGame* m_baseGame; //!< The scene
-		//May not keep in due to opengl and sfml conflicts
-		sf::Text* m_textReport;
-		sf::Clock m_clock;
-		sf::Time m_time;
+
 	public:
 		WindowComponent(); //!< Default constructor
 		~WindowComponent(); //!< Destructor
