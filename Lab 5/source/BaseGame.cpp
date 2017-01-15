@@ -8,8 +8,6 @@
 #include <glm\gtc\type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 
-
-
 //!< Default constructor
 BaseGame::BaseGame() {}
 
