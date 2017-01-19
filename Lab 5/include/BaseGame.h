@@ -100,7 +100,7 @@ public:
 					}
 					m_frotate += 0.5f;
 				}
-
+				//Rotating the objects
 				m_star4->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
 				m_star2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
 				m_star3->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
