@@ -62,7 +62,8 @@ private:
 	ShaderLinkerComponent* m_menuShader; //!< GUI shaders 
 	ShaderLinkerComponent* m_lightingShader; //!< Runs the simulation with lighting
 	LightingComponent* m_generalLight;//!< Spot Light
-	
+	float m_frotate; //!< Animating star
+
 public:
 	BaseGame(); //!< Default constructor	
 	void render(CameraComponent& camera); //!< Render mesh objects
@@ -87,6 +88,28 @@ public:
 
 			//Update the robot movement
 			m_robot->prepare(fTime, m_bKeyPress);
+
+			if (m_objects.size() != 0)
+			{
+				//Animate stars		
+				if (m_frotate >= 0)
+				{
+					if (m_frotate >= 6.28319)
+					{
+						m_frotate = 0;
+					}
+					m_frotate += 0.5f;
+				}
+
+				m_star4->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star3->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_cylinder->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_cylinder2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_sphere->rotateModelMat(m_frotate, glm::vec3(1.0, 1.0, 0.0));
+				m_sphere2->rotateModelMat(m_frotate, glm::vec3(1.0, 0.0, 1.0));
+			}
 
 			if (m_objects.size() == 0)
 			{
@@ -140,6 +163,9 @@ public:
 
 		//Initialize Collision Detection
 		m_collision = new CollisionComponent();
+
+		//Animation 
+		m_frotate = 0;
 
 		//Initialize Game Sounds
 		m_soundComponent = m_soundComponent->Instance();

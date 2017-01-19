@@ -20,3 +20,4 @@ Versions used (Libraries and IDE)
 *GLFW 3.2
 *SFML 2.4.1
 *GLM 0.9.8.3
+*TinyXML 2.6.2

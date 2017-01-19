@@ -1,14 +1,15 @@
 #include "WindowComponent.h"
 
+
 //!< Default constructor
 WindowComponent::WindowComponent()
 {
-	
 }
 
 //!< Main loop of the program
  void WindowComponent::mainLoop(XMLReader* s)
  {
+
 	//Update the gameloop
 	update((float)glfwGetTime());
 

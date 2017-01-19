@@ -83,7 +83,7 @@ void BaseGame::createObjects()
 
 	//Creating box
 	m_box = new Cube(m_lightingShader->getProgramHandle(), "Cube", m_read);
-	m_box->setStartPos(glm::vec3(-25.0, -35.0, 30.0));
+	m_box->setStartPos(glm::vec3(-20.0, -35.0, 25.0));
 	m_box->setTextureUnit(2);
 	m_box->loadTexture("resources/textures/pattern3.png");
 	m_box->translateModelMat(m_box->getStartPos());
