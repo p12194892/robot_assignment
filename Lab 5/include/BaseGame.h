@@ -91,7 +91,7 @@ public:
 
 			if (m_objects.size() != 0)
 			{
-				//Animate stars		
+				//Animate stars	 	
 				if (m_frotate >= 0)
 				{
 					if (m_frotate >= 6.28319)
