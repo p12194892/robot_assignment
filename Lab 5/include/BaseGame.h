@@ -129,12 +129,6 @@ public:
 						m_objects.at(i)->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
 					}
 				}
-
-				//Rotating the objects for animation in different axis
-			/*	m_star4->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star3->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));*/
 			}
 			break;
 		}
