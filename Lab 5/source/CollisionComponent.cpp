@@ -32,3 +32,33 @@ std::vector<MeshComponent*> CollisionComponent::checkVectorDistance(std::vector<
 	}
 	return meshObjects;
 }
+
+std::vector<MeshComponent*> CollisionComponent::checkAnimatingDistance(std::vector<MeshComponent*> objects, glm::vec3 robotPos)
+{
+	std::vector<MeshComponent*> meshObjects = objects;
+
+	for (int i = 0; i < meshObjects.size(); i++)
+	{
+		if (meshObjects.at(i)->isDrawable() == true)
+		{
+			//Works out the distance between the objects and the robot
+			glm::vec3 distance;
+			distance.x = meshObjects.at(i)->getStartPos().x - robotPos.x;
+			distance.z = meshObjects.at(i)->getStartPos().z - robotPos.z;
+
+			float d = sqrt(dot(distance, distance));
+
+			if (d < 20)
+			{
+				meshObjects.at(i)->setAnimating(true);
+
+			}
+
+			else
+			{
+				meshObjects.at(i)->setAnimating(false);
+			}
+		}
+	}
+	return meshObjects;
+}

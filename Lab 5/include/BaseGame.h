@@ -89,28 +89,6 @@ public:
 			//Update the robot movement
 			m_robot->prepare(fTime, m_bKeyPress);
 
-			if (m_objects.size() != 0)
-			{
-				//Animate stars	 	
-				if (m_frotate >= 0)
-				{
-					if (m_frotate >= 6.28319)
-					{
-						m_frotate = 0;
-					}
-					m_frotate += 0.5f;
-				}
-				//Rotating the objects for animation in different axis
-				m_star4->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star3->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_star->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_cylinder->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_cylinder2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
-				m_sphere->rotateModelMat(m_frotate, glm::vec3(1.0, 1.0, 0.0));
-				m_sphere2->rotateModelMat(m_frotate, glm::vec3(1.0, 0.0, 1.0));
-			}
-
 			if (m_objects.size() == 0)
 			{
 				std::cout << "All Objects Picked Up :) " << std::endl;
@@ -131,6 +109,32 @@ public:
 						m_soundComponent->GetSound(0)->play();
 					}
 				}
+
+				//Animate if the robot is near the objects
+				m_objects = m_collision->checkAnimatingDistance(m_objects, m_robot->getStartPos());
+
+				if (m_frotate >= 0)
+				{
+					if (m_frotate >= 6.28319)
+					{
+						m_frotate = 0;
+					}
+					m_frotate += 0.5f;
+				}
+
+				for (int i = 0; i < m_objects.size(); i++)
+				{
+					if (m_objects.at(i)->isAnimating())
+					{
+						m_objects.at(i)->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+					}
+				}
+
+				//Rotating the objects for animation in different axis
+			/*	m_star4->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star2->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star3->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));
+				m_star->rotateModelMat(m_frotate, glm::vec3(0.0, 1.0, 0.0));*/
 			}
 			break;
 		}

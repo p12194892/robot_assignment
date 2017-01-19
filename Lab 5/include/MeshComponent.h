@@ -31,6 +31,7 @@ class MeshComponent: public Entity
 		GLuint m_cubemapTex; //!< Cube Map texture handle
 		int m_iTexUnit; //!< Texture Unit
 		Texture *m_gTexture; //!< Texture Object
+		bool m_banimating; //!<If the object is animating
 
 	public:
 		MeshComponent(); //!< Default Constructor 
@@ -56,4 +57,6 @@ class MeshComponent: public Entity
 		void updateModelMatrix(CameraComponent& camera, GLuint programHandle);//!< Updates the model matrix
 		void setTextureUnit(int i); //!< Sets a texture unit
 		std::string MeshComponent::getID(); //!< Gets the mesh ID
+		void setAnimating(bool b); //!< Sets if the object is animating
+		bool isAnimating(); //!< If the object is animating
 };

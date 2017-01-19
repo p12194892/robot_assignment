@@ -16,6 +16,8 @@ class CollisionComponent: public Entity
 	public:
 		CollisionComponent(); //!< Default Constructor 
 		std::vector<MeshComponent*> checkVectorDistance(std::vector<MeshComponent*> objects, glm::vec3 robotPos);//!< Checks the distance between two starting vectors
+		std::vector<MeshComponent*> checkAnimatingDistance(std::vector<MeshComponent*> objects, glm::vec3 robotPos);//!< Checks the distance between two starting vectors
+
 };
 
 

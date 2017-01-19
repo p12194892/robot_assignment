@@ -156,13 +156,13 @@ void BaseGame::createObjects()
 	m_torus->setIndices(m_read->getIndices());
 	m_torus->setNormals(m_read->getNormals());
 	m_torus->setUVs(m_read->getTexPoints());
-	m_torus->setStartPos(glm::vec3(0.0, -37.0, -30.0));
+	m_torus->setStartPos(glm::vec3(0.0, -31.0, -30.0));
 	m_torus->Load(m_programHandle);
 	m_torus->setTextureUnit(5);
 	m_torus->loadTexture("resources/textures/pattern2.png");
 	m_torus->translateModelMat(m_torus->getStartPos());
 	m_torus->scaleModelMat(glm::vec3(6));
-	m_torus->rotateModelMat(90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+
 
 	//Creating another torus 
 	m_torus2 = new MeshComponent("Torus");

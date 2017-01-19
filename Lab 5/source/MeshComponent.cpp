@@ -8,6 +8,7 @@
 //!< Default Constructor 
 MeshComponent::MeshComponent() {
 	m_bDrawable = true;
+	m_banimating = false;
 }
 
 //!< Constructor 
@@ -15,6 +16,7 @@ MeshComponent::MeshComponent(std::string name)
 {
 	m_bDrawable = true;
 	m_sMeshObjectID = name;
+	m_banimating = false;
 }
 
 //!< Loads the buffers
@@ -203,4 +205,15 @@ Texture* MeshComponent::getTextureObject()
 GLuint MeshComponent::getCubeMapTexture()
 {
 	return m_cubemapTex;
+}
+//!< Sets if the object is animating
+void MeshComponent::setAnimating(bool b)
+{
+	m_banimating = b;
+}
+
+//!< If the object is animating
+bool MeshComponent::isAnimating()
+{
+	return m_banimating;
 }
